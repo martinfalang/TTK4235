@@ -1,10 +1,13 @@
-#include <SFML/Graphics.hpp>
+/*#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
 #include "elev.h"
+*/
+#include "fsm.h"
 
 
 int main() {
+	/*
 	elev_init();
 	while (true)
 	{
@@ -28,4 +31,10 @@ int main() {
 		elev_set_stop_lamp(elev_get_stop_signal());
 		simulator->update();
 	}
+	*/
+
+	test_state_stuff();
+
+	return 0;
+
 }
