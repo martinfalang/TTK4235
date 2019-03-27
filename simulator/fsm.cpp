@@ -1,25 +1,28 @@
 
 #include "fsm.h"
 #include "stdio.h"
+#include "elev.h"
+#include "time.h"
 
+extern "C" {
 /* array and enum state_codes below must be in sync! */
-int (* state[])(void) = {
+return_codes_t (* state[])(void) = {
     initialize_state, 
-    floor_1_state
-    /*, 
+    floor_1_state, 
     floor_2_state, 
-    floor_3_state, 
+    /*floor_3_state, 
     floor_4_state, 
     driving_up_state, 
     driving_down_state,
     stop_floor_state, 
-    stop_between_state, 
-    end_state
-    */
+    stop_between_state,
+    */ 
+    //end_state
 };
 
 transition_t state_transitions[] = {
-    {initialize, go_down, floor_1},
+    {initialize, go_down, initialize},
+    {initialize, hold, floor_1},            //Added this one in testing, better return codes should be implemented
     {initialize, fail, end},
     
     {floor_1, go_up, driving_up},
@@ -69,34 +72,38 @@ state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_cod
             return state_transitions[i].destination_state;
         }
     }
+    return end;
+    
     
 }
-
-void test_state_stuff() 
-{
-    state_codes_t current_state = initialize;
-    return_codes_t rc;
-    int (* state_func)(void);
-    state_func=state[current_state];
-    rc = state_func();
-    printf("This is the current state: %d\n", current_state);
-    current_state = lookup_transitions(current_state,rc);
-
-    state_func=state[current_state];
-    rc = state_func();
-
 }
 
-int initialize_state(void)
+return_codes_t initialize_state(void)
 {
     //Talk with Execution Handler to go to floor 1, dont return until finished
+
     printf("We are now in initilize_state\n");
-    return_codes_t return_value = floor_1;
-    return return_value; 
+    elev_set_motor_direction(DIRN_DOWN);
+    if(elev_get_floor_sensor_signal()!=0)
+    {
+        return go_down;
+    }
+    else
+    {
+        return hold;
+    }
 }   
 
-int floor_1_state(void) 
+return_codes_t floor_1_state(void) 
 {
     printf("We are now in floor_1_state\n");
-    return 0;
+    elev_set_motor_direction(DIRN_STOP);
+    return hold;
+}
+
+return_codes_t floor_2_state(void) 
+{
+    printf("We are now in floor_2_state\n");
+    elev_set_motor_direction(DIRN_STOP);
+    return hold;
 }

@@ -2,7 +2,7 @@
 
 
 //New elevator, floor 1
-Elevator::Elevator(): Elevator(FIRST)
+Elevator::Elevator(): Elevator(THIRD)
 {
 }
 

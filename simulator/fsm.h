@@ -1,11 +1,7 @@
 #ifndef FSM_H
 #define FSM_H
 
-
-int initialize_state(void);
-int floor_1_state(void);
-
-
+extern "C"{
 /*
 int floor_2_state(void);
 int floor_3_state(void);
@@ -14,7 +10,6 @@ int driving_up_state(void);
 int driving_down_state(void);
 int stop_floor_state(void);
 int stop_between_state(void);
-int end_state(void);
 */
 
 
@@ -51,10 +46,20 @@ typedef struct transition {
 } transition_t;
 
 
+return_codes_t initialize_state(void);
+return_codes_t floor_1_state(void);
+return_codes_t floor_2_state(void);
+void end_state(void);
+
+/* array and enum state_codes below must be in sync! */
+extern return_codes_t (* state[])(void);
+
+extern transition_t state_transitions[];
+
 
 
 
 state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_code);
-void test_state_stuff();
+}
 
 #endif
