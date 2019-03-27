@@ -2,7 +2,7 @@
 CC:=g++
 LIBS:=-lsfml-graphics -lsfml-window -lsfml-system
 
-SFML_OBJ := Elevator.o ElevatorGraphics.o Simulator.o elev.o main.o fsm.o
+SFML_OBJ := Elevator.o ElevatorGraphics.o Simulator.o elev.o fsm.o main.o 
 
 .PHONY: clean
 clean:
@@ -22,6 +22,7 @@ Simulator.o: Simulator.cpp
 elev.o: elev.cpp
 	g++ -c "elev.cpp" -o elev.o
 
+#Note how we underneath use the gcc compiler to get the .o file as this is a C-file.
 fsm.o: fsm.c
 	gcc -c "fsm.c" -o fsm.o
 

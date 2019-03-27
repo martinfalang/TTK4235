@@ -3,8 +3,13 @@
 #include <string>
 #include "elev.h"
 */
-#include "fsm.h"
+#include <iostream>
 
+
+//Must use the following extern to notify that this is C-code
+extern "C" {
+#include "fsm.h"
+}
 
 int main() {
 	/*
@@ -34,6 +39,7 @@ int main() {
 	*/
 
 	test_state_stuff();
+	//testprint();
 
 	return 0;
 
