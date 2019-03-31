@@ -37,7 +37,13 @@ typedef struct transition {
 return_codes_t initialize_state(void);
 return_codes_t floor_1_state(void);
 return_codes_t floor_2_state(void);
-void end_state(void);
+return_codes_t floor_3_state(void);
+return_codes_t floor_4_state(void);
+return_codes_t driving_up_state(void);
+return_codes_t driving_down_state(void);
+return_codes_t stop_floor_state(void);
+return_codes_t stop_between_state(void);
+return_codes_t end_state(void);
 
 /* array and enum state_codes below must be in sync! */
 extern return_codes_t (* state[])(void);

@@ -4,6 +4,8 @@
 //Array of orders, 1 means order of type on, 0 means no order of given type.
 static int order_array[10] = {0,0,0,0,0,0,0,0,0,0};
 
+
+
 int order_init(void) {
     for (int i = 0; i < sizeof(order_array)/sizeof(int); i++) {
         order_array[i] = 0;
@@ -95,4 +97,8 @@ int order_update_floor_lights(int type, int value) {
             return -1;
     }
     return 0;
+}
+
+int order_check_inside_orders() {
+    
 }

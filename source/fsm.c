@@ -3,11 +3,22 @@
 #include "stdio.h"
 #include "elev.h"
 #include "time.h"
+#include "order.h"
+#include "exec.h"
+
+static int current_destination;
 
 return_codes_t (*state[])(void) = {
     initialize_state,
     floor_1_state,
-    floor_1_state
+    floor_2_state,
+    floor_3_state,
+    floor_4_state,
+    driving_up_state,
+    driving_down_state,
+    stop_floor_state,
+    stop_between_state,
+    end_state
 };
 
 transition_t state_transitions[] = {
@@ -70,7 +81,7 @@ state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_cod
 
 return_codes_t initialize_state(void)
 {
-    //Talk with Execution Handler to go to floor 1, dont return until finished
+    //Go to floor 1, reject any orders until finished
 
     printf("We are now in initilize_state\n");
     elev_set_motor_direction(DIRN_DOWN);
@@ -86,8 +97,34 @@ return_codes_t initialize_state(void)
 
 return_codes_t floor_1_state(void) 
 {
+    //Declare, stop and indicate
     printf("We are now in floor_1_state\n");
     elev_set_motor_direction(DIRN_STOP);
+    elev_set_floor_indicator(0);
+    
+    //Open door, wait and close if any order
+    int *order_array = order_get_orders();
+
+    if (order_array[outside_1_up] || order_array[inside_1]) {
+        elev_set_door_open_lamp(1);
+
+        order_remove(outside_1_up);
+        order_remove(inside_1);
+
+        exec_timer(3000);
+        
+        elev_set_door_open_lamp(0);
+    }
+
+    //Decide return code
+    //Check for stop-button
+    
+
+    //Check for inside orders
+    
+    //Check for outside orders
+
+    //Hold on floor
     return hold;
 }
 
