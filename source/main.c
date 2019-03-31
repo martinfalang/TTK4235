@@ -21,9 +21,6 @@ int main() {
 
     elev_set_motor_direction(DIRN_UP);
 
-    //Testing
-    testorder();
-
     while (1) {
         exec_check_order_buttons();
         /*
