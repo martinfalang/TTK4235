@@ -1,6 +1,7 @@
 #include "elev.h"
 #include <stdio.h>
 #include "fsm.h"
+#include "order.h"
 
 int main() {
     // Initialize hardware
@@ -19,6 +20,9 @@ int main() {
 
     elev_set_motor_direction(DIRN_UP);
 
+    //Testing
+    testorder();
+
     while (1) {
         /*
         // Change direction when we reach top/bottom floor
@@ -34,9 +38,12 @@ int main() {
             break;
         }
         */
+
+       /*
         current_state = lookup_transitions(current_state,rc);
     	state_func=state[current_state];
     	rc = state_func();
+        */
     }
 
     return 0;
