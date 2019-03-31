@@ -110,7 +110,7 @@ int elev_get_button_signal(elev_button_type_t button, int floor) {
 	case BUTTON_CALL_UP:
 		return simulator->buttonsUp[floor];
 	case BUTTON_CALL_DOWN:
-		return simulator->buttonsDown[floor - 1];
+		return simulator->buttonsDown[floor-1];
 	case BUTTON_COMMAND:
 		return simulator->buttonsInElevator[floor];
 
@@ -141,4 +141,17 @@ BUTTON buttonConverter(elev_button_type_t button, int floor) {
 	else {
 		return static_cast<BUTTON>(floor + 6);
 	}
+}
+
+int elev_set_door_open_lamp(int value)
+{
+	if(value==1)
+	{
+		printf("Door open\n");
+	}
+	else
+	{
+		printf("Door closed\n");
+	}
+	return 0;
 }

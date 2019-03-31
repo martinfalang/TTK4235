@@ -84,24 +84,24 @@ void Simulator::setHardwareBitsFromButtonPress(sf::Keyboard::Key key, bool value
 	switch (key)
 	{
 	//Buttons down
-	case sf::Keyboard::Num8:
+	case sf::Keyboard::F1:
 		buttonsUp[2] = value;
 		break;
-	case sf::Keyboard::I:
+	case sf::Keyboard::F2:
 		buttonsUp[1] = value;
 		break;
-	case sf::Keyboard::K:
+	case sf::Keyboard::F3:
 		buttonsUp[0] = value;
 		break;
 
 	//Buttons up
-	case sf::Keyboard::N: //1st
+	case sf::Keyboard::F4: //1st
 		buttonsDown[0] = value;
 		break;
-	case sf::Keyboard::J: //2nd
+	case sf::Keyboard::F5: //2nd
 		buttonsDown[1] = value;
 		break;
-	case sf::Keyboard::U: //3rd
+	case sf::Keyboard::F6: //3rd
 		buttonsDown[2] = value;
 		break;
 

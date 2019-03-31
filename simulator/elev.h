@@ -117,3 +117,6 @@ void elev_set_button_lamp(elev_button_type_t button, int floor, int value);
 //Hack to reduce work
 BUTTON buttonConverter(elev_button_type_t button, int floor);
 
+//Door signal
+int elev_set_door_open_lamp(int value);
+

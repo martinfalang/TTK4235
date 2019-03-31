@@ -98,10 +98,9 @@ return_codes_t initialize_state(void)
 return_codes_t floor_1_state(void) 
 {
     //Declare, stop and indicate
-    //printf("We are now in floor_1_state\n");
+    printf("We are now in floor_1_state\n");
     elev_set_motor_direction(DIRN_STOP);
     elev_set_floor_indicator(0);
-    exec_check_order_buttons();
     
     //Open door, wait and close if any order
     int *order_array = order_get_orders();
@@ -133,39 +132,5 @@ return_codes_t floor_2_state(void)
 {
     printf("We are now in floor_2_state\n");
     elev_set_motor_direction(DIRN_STOP);
-    return hold;
-}
-
-
-return_codes_t floor_3_state(void){
-    return hold;
-}
-
-return_codes_t floor_4_state(void){
-    return hold;
-}
-
-return_codes_t driving_up_state(void)
-{
-    return hold;
-}
-
-return_codes_t driving_down_state(void)
-{
-    return hold;
-}
-
-return_codes_t stop_floor_state(void)
-{
-    return hold;
-}
-
-return_codes_t stop_between_state(void)
-{
-    return hold;
-}
-
-return_codes_t end_state(void)
-{
     return hold;
 }
