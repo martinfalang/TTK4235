@@ -96,10 +96,3 @@ int order_update_floor_lights(int type, int value) {
     }
     return 0;
 }
-
-void testorder(void){
-    //Add order command floor 3 and floor 2 up
-    order_add(inside_3);
-    order_add(outside_2_up); 
-    
-}

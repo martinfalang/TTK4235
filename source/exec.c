@@ -3,10 +3,14 @@
 #include "order.h"
 #include "time.h"
 
+
 int exec_check_order_buttons(void) {
     for (int floor = 0; floor < 4; floor++) {
         for (int type = 0; type < 3; type++) {
-            if (elev_get_button_signal(type, floor)) {
+            if ((type == 1 && floor == 0) || (type == 0 && floor == 3)) {
+                continue;
+            }
+            else if (elev_get_button_signal(type, floor)) {
                 if (floor == 0 && type == 0) {
                     order_add(outside_1_up);
                 }
@@ -62,7 +66,7 @@ int exec_scan_orders(int destination_floor, state_codes_t current_state) {
     return 0;
 }
 
-int exec_timer(int ms) {
+void exec_timer(int ms) {
     struct timespec req;
 
 	req.tv_sec = ms / 1000;
