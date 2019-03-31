@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "fsm.h"
 #include "order.h"
+#include "exec.h"
 
 int main() {
     // Initialize hardware
@@ -18,11 +19,13 @@ int main() {
 
     printf("Press STOP button to stop elevator and exit program.\n");
 
+    elev_set_motor_direction(DIRN_UP);
 
     //Testing
     testorder();
 
     while (1) {
+        exec_check_order_buttons();
         /*
         // Change direction when we reach top/bottom floor
         if (elev_get_floor_sensor_signal() == N_FLOORS - 1) {

@@ -3,16 +3,17 @@
 
 #define ORDER_ARRAY_LENGTH 10
 
-#define inside_1 0
-#define inside_2 1
-#define inside_3 2
-#define inside_4 3
-#define outside_1_up 4
-#define outside_2_down 5
-#define outside_2_up 6
-#define outside_3_down 7
-#define outside_3_up 8
-#define outside_4_down 9
+
+#define outside_1_up 0
+#define inside_1 1
+#define outside_2_up 2
+#define outside_2_down 3
+#define inside_2 4
+#define outside_3_up 5
+#define outside_3_down 6
+#define inside_3 7
+#define outside_4_down 8
+#define inside_4 9
 
 int order_init(void);
 
