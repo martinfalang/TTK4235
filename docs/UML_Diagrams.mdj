@@ -610,7 +610,7 @@
 											"top": 655,
 											"width": 173.7861328125,
 											"height": 13,
-											"text": "+order_validate_order()",
+											"text": "+order_validate()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5120,7 +5120,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFplXEv7hy0kd0="
 							},
-							"name": "order_validate_order"
+							"name": "order_validate"
 						},
 						{
 							"_type": "UMLOperation",
@@ -5774,7 +5774,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "STOP_FLOOR"
+							"name": "STOP_FLOOR",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5782,7 +5783,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "STOP_BETWEEN"
+							"name": "STOP_BETWEEN",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5790,7 +5792,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "DRIVING_UP"
+							"name": "DRIVING_UP",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5798,7 +5801,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "DRIVING_DOWN"
+							"name": "DRIVING_DOWN",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5806,7 +5810,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "FLOOR_1"
+							"name": "FLOOR_1",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5814,7 +5819,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "FLOOR_2"
+							"name": "FLOOR_2",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5822,7 +5828,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "FLOOR_3"
+							"name": "FLOOR_3",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -5830,7 +5837,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFpuPk/WjlORSo="
 							},
-							"name": "FLOOR_4"
+							"name": "FLOOR_4",
+							"type": ""
 						}
 					]
 				},

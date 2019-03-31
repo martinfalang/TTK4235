@@ -24,8 +24,6 @@ int order_update_floor_lights(int type, int value);
 
 int *order_get_orders();
 
-void testorder(void);
-
 
 
 

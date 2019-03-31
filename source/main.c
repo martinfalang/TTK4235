@@ -18,7 +18,6 @@ int main() {
 
     printf("Press STOP button to stop elevator and exit program.\n");
 
-    elev_set_motor_direction(DIRN_UP);
 
     //Testing
     testorder();
