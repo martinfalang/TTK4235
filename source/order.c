@@ -1,6 +1,8 @@
 #include "order.h"
 #include "elev.h"
 
+#include <stdio.h>
+
 //Array of orders, 1 means order of type on, 0 means no order of given type.
 static int order_array[10] = {0,0,0,0,0,0,0,0,0,0};
 
@@ -35,8 +37,22 @@ int order_remove(int type) {
     }
 }
 
-int *order_get_orders() {
+int *order_get_orders(void) {
     return order_array;
+}
+
+int order_clear_all(void) {
+    for (int i = 0; i < ORDER_ARRAY_LENGTH; i++) {
+        order_array[i] = 0;
+    }
+    return 0;
+}
+
+void order_print_orders(void) {
+    for (int i = 0; i < ORDER_ARRAY_LENGTH; i++) {
+        printf("%i ", order_array[i]);
+    }
+    printf("\n");
 }
 
 int order_update_floor_lights(int type, int value) {
@@ -100,5 +116,5 @@ int order_update_floor_lights(int type, int value) {
 }
 
 int order_check_inside_orders() {
-    
+    return 0;
 }

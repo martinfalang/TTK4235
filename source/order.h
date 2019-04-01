@@ -23,7 +23,11 @@ int order_remove(int type);
 
 int order_update_floor_lights(int type, int value);
 
-int *order_get_orders();
+int *order_get_orders(void);
+
+int order_clear_all(void);
+
+void order_print_orders(void);
 
 int order_check_inside_orders();
 

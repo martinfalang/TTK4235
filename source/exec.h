@@ -9,5 +9,10 @@ int exec_scan_orders(int destination_floor, state_codes_t current_state);
 
 void exec_timer(int ms);
 
+void exec_set_floor_light();
+
+int exec_update_position(state_codes_t prev_state);
+
+return_codes_t get_last_floor();
 
 #endif

@@ -11,17 +11,16 @@ int main() {
         return 1;
     }
     elev_set_motor_direction(DIRN_STOP);
-    /*
+    
     state_codes_t current_state = initialize;
     return_codes_t rc;
     return_codes_t (* state_func)(void);
     state_func=state[current_state];
     rc = state_func();
-    */
+    
     printf("Press STOP button to stop elevator and exit program.\n");
 
     while (1) {
-        exec_check_order_buttons();
         /*
         // Change direction when we reach top/bottom floor
         if (elev_get_floor_sensor_signal() == N_FLOORS - 1) {
@@ -33,15 +32,14 @@ int main() {
         // Stop elevator and exit program if the stop button is pressed
         if (elev_get_stop_signal()) {
             elev_set_motor_direction(DIRN_STOP);
-            break;
         }
         
 
-       /*
+       
         current_state = lookup_transitions(current_state,rc);
     	state_func=state[current_state];
     	rc = state_func();
-        */
+        
     }
 
     return 0;
