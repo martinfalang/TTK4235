@@ -3,7 +3,44 @@
 #include "order.h"
 #include "time.h"
 
+#include <stdio.h>
 
+//[0, 0, 0, 0] = undefined, exec_get_position returns 0
+//[1, 0, 0, 0] = floor 1, exec_get_position returns 1
+//[1, 1, 0, 0] = between floor 1 and 2, exec_get_position returns 2
+//[0, 1, 0, 0] = floor 2, exec_get_position returns 3
+//[0, 1, 1, 0] = between floor 2 and 3, exec_get_position returns 4
+//[0, 0, 1, 0] = floor 3, exec_get_position returns 5
+//[0, 0, 1, 1] = between floor 3 and 4, exec_get_position returns 6
+//[0, 0, 0, 1] = floor 4, exec_get_position returns 7
+//static int current_position[4] = {0, 0, 0, 0};
+
+static state_codes_t last_floor;
+static state_codes_t last_direction;
+static state_codes_t destination_floor;
+
+
+//Function purpose: Get return code when stop on floor to push fsm back to that floor.
+return_codes_t get_last_floor() {
+    if (last_floor == floor_1) {
+        return arrived_1;
+    }
+    else if (last_floor == floor_2) {
+        return arrived_2;
+    }
+    else if (last_floor == floor_3) {
+        return arrived_3;
+    }
+    else if (last_floor == floor_4) {
+        return arrived_4;
+    }
+    else {
+        printf("Error: get_last_floor(): argument not a floor");
+        return fail;
+    }
+}
+
+//Function purpose: Check if any buttons pressed and update order_array accordingly
 int exec_check_order_buttons(void) {
     for (int floor = 0; floor < 4; floor++) {
         for (int type = 0; type < 3; type++) {
@@ -47,8 +84,25 @@ int exec_check_order_buttons(void) {
     return 0;
 }
 
+//Function purpose: Update last_direction or last_floor
+int exec_update_position(state_codes_t prev_state) {
+    if (prev_state == driving_up || prev_state == driving_down) {
+        last_direction = prev_state;
+        return 0;
+    }
+    else if (prev_state == floor_1 || prev_state == floor_2
+        || prev_state == floor_3 || prev_state == floor_4) {
+            last_floor = prev_state;
+            return 0;
+    }
+    else {
+        printf("Error: exec_update_position: prev_state not a floor or direction\n");
+        return -1;
+    }
+}
 
-//return 1 if elevator should stop on the way
+
+//Function purpose: Return 1 if should stop on floor while going to other floor.
 int exec_scan_orders(int destination_floor, state_codes_t current_state) {
     int *order_array = order_get_orders();
     int current_floor = elev_get_floor_sensor_signal();
@@ -66,6 +120,7 @@ int exec_scan_orders(int destination_floor, state_codes_t current_state) {
     return 0;
 }
 
+//Function purpose: Make program wait for ms milliseconds
 void exec_timer(int ms) {
     struct timespec req;
 
@@ -74,3 +129,23 @@ void exec_timer(int ms) {
 
 	nanosleep(&req, 0);
 }
+
+//Function purpose: Update floor lights
+void exec_set_floor_light() {
+    int floor = elev_get_floor_sensor_signal();
+    if (floor >= 0) {
+        elev_set_floor_indicator(floor);
+    }
+}
+
+//Function purpose: Update destination when the state arrived in, current_state, was the last destination.
+state_codes_t exec_update_destination_floor(state_codes_t current_state, int *orderArray)
+{
+    //Logic based on current state and order array to decide destination floor.
+    switch()
+
+
+}
+
+
+

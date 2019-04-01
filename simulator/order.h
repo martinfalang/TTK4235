@@ -3,7 +3,6 @@
 
 #define ORDER_ARRAY_LENGTH 10
 
-
 #define outside_1_up 0
 #define inside_1 1
 #define outside_2_up 2
@@ -23,7 +22,11 @@ int order_remove(int type);
 
 int order_update_floor_lights(int type, int value);
 
-int *order_get_orders();
+int *order_get_orders(void);
+
+int order_clear_all(void);
+
+void order_print_orders(void);
 
 int order_check_inside_orders();
 

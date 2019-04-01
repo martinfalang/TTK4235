@@ -11,6 +11,7 @@ typedef enum state_codes {
     driving_down,
     stop_floor,
     stop_between,
+    idle_state,
     end
 } state_codes_t;
 
@@ -18,13 +19,14 @@ typedef enum return_codes {
     go_up,
     go_down,
     hold,
-    stop,
+    stop_btw,
+    stop_flr,
     fail,
     arrived_1,
     arrived_2,
     arrived_3,
     arrived_4,
-    repeat
+    idle
 } return_codes_t;
 
 typedef struct transition {
@@ -34,16 +36,17 @@ typedef struct transition {
 } transition_t;
 
 
-return_codes_t initialize_state(void);
-return_codes_t floor_1_state(void);
-return_codes_t floor_2_state(void);
-return_codes_t floor_3_state(void);
-return_codes_t floor_4_state(void);
-return_codes_t driving_up_state(void);
-return_codes_t driving_down_state(void);
-return_codes_t stop_floor_state(void);
-return_codes_t stop_between_state(void);
-return_codes_t end_state(void);
+return_codes_t fsm_initialize_state(void);
+return_codes_t fsm_floor_1_state(void);
+return_codes_t fsm_floor_2_state(void);
+return_codes_t fsm_floor_3_state(void);
+return_codes_t fsm_floor_4_state(void);
+return_codes_t fsm_driving_up_state(void);
+return_codes_t fsm_driving_down_state(void);
+return_codes_t fsm_stop_floor_state(void);
+return_codes_t fsm_stop_between_state(void);
+return_codes_t fsm_idle_state(void);
+return_codes_t fsm_end_state(void);
 
 /* array and enum state_codes below must be in sync! */
 extern return_codes_t (* state[])(void);
