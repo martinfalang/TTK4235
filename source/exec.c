@@ -6,10 +6,10 @@
 
 #include <stdio.h>
 
-static state_codes_t last_floor;
-static state_codes_t last_direction;
+static floor_codes_t last_floor;
+static direction_codes_t last_direction;
 
-static state_codes_t destination_floor;
+static floor_codes_t destination_floor;
 
 int exec_last_direction_to_int();
 
@@ -96,7 +96,7 @@ int exec_update_state_log(state_codes_t prev_state) {
 
 //return 1 if elevator should stop on the way
 //is only run when at a floor. Checks if any orders are at this floor and returns 1 if elevator should stop
-int exec_scan_orders(state_codes_t current_state) {
+int exec_scan_orders() {
     inside_queue_t  *inside_queue_ptr = order_get_inside_queue();
     outside_queue_t *outside_queue_ptr = order_get_outside_queue();
 
@@ -164,22 +164,21 @@ int exec_last_direction_to_int()
 
 //Checks inside queue for orders first. If any orders, choose the first. If not check outside orders. 
 //If outside_orders exists, choose the first. If not any outside_orders, don't change destination floor
-void exec_update_destination_floor(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue)
+void exec_update_destination_floor(inside_queue_t* inside_queue, outside_queue_t* outside_queue)
 {
     if (inside_queue->length) destination_floor = inside_queue->queue[0].floor;
     else if (outside_queue->length) destination_floor = outside_queue->queue[0].floor;
     else return;
 }
 
-return_codes_t exec_get_return_code(state_codes_t current_state)
+return_codes_t exec_get_return_code(floor_codes_t current_floor)
 {
-    if(current_state!=destination_floor)
+    if(current_floor != destination_floor)
     {
-        if(current_state<destination_floor)
-        {
+        if(current_floor < destination_floor) {
             return drive_up;
         }
-        else{
+        else {
             return drive_down;
         }
     }
@@ -193,20 +192,28 @@ state_codes_t exec_get_destination_floor()
     return destination_floor;
 }
 
-void exec_intialize_destination_floor()
+void exec_set_destination_floor(floor_codes_t floor)
 {
-    destination_floor=floor_1;
+    destination_floor = floor;
 }
 
-return_codes_t exec_get_last_direction()
+void exec_set_last_floor(floor_codes_t floor) {
+    last_floor = floor;
+}
+
+void exec_set_last_direction(direction_codes_t direction) {
+    last_direction = direction;
+}
+
+direction_codes_t exec_get_last_direction()
 {
     if(last_direction == driving_up)
     {
-        return drive_up;
+        return UP;
     }
     else if (last_direction == driving_down)
     {
-        return drive_down;
+        return DOWN;
     }
     else {
         return fail;

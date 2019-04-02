@@ -16,15 +16,19 @@ int exec_update_state_log(state_codes_t prev_state);
 
 return_codes_t get_last_floor();
 
-void exec_update_destination_floor(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue);
+void exec_update_destination_floor(inside_queue_t* inside_queue, outside_queue_t* outside_queue);
 
-return_codes_t exec_get_return_code(state_codes_t current_state);
+return_codes_t exec_get_return_code(floor_codes_t current_floor);
 
 state_codes_t exec_get_destination_floor();
 
-void exec_intialize_destination_floor();
+void exec_set_destination_floor(floor_codes_t floor);
 
-return_codes_t exec_get_last_direction();
+void exec_set_last_floor(floor_codes_t floor);
+
+direction_codes_t exec_get_last_direction();
+
+void exec_set_last_direction(direction_codes_t direction);
 
 
 #endif

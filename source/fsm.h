@@ -1,11 +1,21 @@
 #ifndef FSM_H
 #define FSM_H
 
-typedef enum state_codes {
+typedef enum floor_codes {
     floor_1,
     floor_2,
     floor_3,
     floor_4,
+    between_floors = -1
+} floor_codes_t;
+
+typedef enum direction_codes {
+    UP = 1,
+    DOWN = -1
+} direction_codes_t;
+
+typedef enum state_codes {
+    floor_stationary,
     initialize,
     driving_up,
     driving_down,
@@ -19,6 +29,7 @@ typedef enum return_codes {
     drive_up,
     drive_down,
     hold,
+    stay,
     stop_btw,
     stop_flr,
     fail,
@@ -35,12 +46,8 @@ typedef struct transition {
     state_codes_t destination_state;
 } transition_t;
 
-
+return_codes_t fsm_floor_stationary_state(void);
 return_codes_t fsm_initialize_state(void);
-return_codes_t fsm_floor_1_state(void);
-return_codes_t fsm_floor_2_state(void);
-return_codes_t fsm_floor_3_state(void);
-return_codes_t fsm_floor_4_state(void);
 return_codes_t fsm_driving_up_state(void);
 return_codes_t fsm_driving_down_state(void);
 return_codes_t fsm_stop_floor_state(void);
