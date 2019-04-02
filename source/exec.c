@@ -123,6 +123,9 @@ int exec_scan_orders(state_codes_t current_state) {
                     return 1;
                 }
             }
+            else if (last_floor == current_floor && outside_queue_ptr->queue[i].floor == current_floor) {
+                return 1;
+            }
             else if(outside_queue_ptr->queue[i].floor == current_floor && outside_queue_ptr->queue[i].direction == dir)
             {
                 return 1;
@@ -163,14 +166,26 @@ int exec_last_direction_to_int()
 //If outside_orders exists, choose the first. If not any outside_orders, don't change destination floor
 void exec_update_destination_floor(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue)
 {
-    if (inside_queue->length) destination_floor = inside_queue->queue[0].floor+1; //Offset,this must be fixed!!!
+    if (inside_queue->length) destination_floor = inside_queue->queue[0].floor;
     else if (outside_queue->length) destination_floor = outside_queue->queue[0].floor;
     else return;
 }
 
-return_codes_t exec_get_return_code(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue)
+return_codes_t exec_get_return_code(state_codes_t current_state)
 {
-    return hold;
+    if(current_state!=destination_floor)
+    {
+        if(current_state<destination_floor)
+        {
+            return drive_up;
+        }
+        else{
+            return drive_down;
+        }
+    }
+    else{
+        return hold;
+    }
 }
 
 state_codes_t exec_get_destination_floor()

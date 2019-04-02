@@ -2,11 +2,11 @@
 #define FSM_H
 
 typedef enum state_codes {
-    initialize,
     floor_1,
     floor_2,
     floor_3,
     floor_4,
+    initialize,
     driving_up,
     driving_down,
     stop_floor,
