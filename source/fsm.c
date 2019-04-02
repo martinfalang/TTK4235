@@ -130,6 +130,7 @@ return_codes_t fsm_initialize_state(void)
 
 return_codes_t fsm_floor_1_state(void) 
 {
+
     //Declare, stop and indicate
     printf("State: floor_1\n");
 
@@ -146,13 +147,12 @@ return_codes_t fsm_floor_1_state(void)
     exec_check_order_buttons();
     //Debug purposes
     order_print_orders();
-
+    exec_timer(1000);
 
     //Fetch queue-ptrs
-    //inside_queue_t *inside_queue = order_get_inside_queue();
-    //outside_queue_t *outside_queue = order_get_outside_queue();
-    return hold;
-    /*
+    inside_queue_t *inside_queue = order_get_inside_queue();
+    outside_queue_t *outside_queue = order_get_outside_queue();
+    
 
     //This code opens the door for 3 sec if there was an order to 1
     if (exec_scan_orders(floor_1)) {
@@ -187,7 +187,7 @@ return_codes_t fsm_floor_1_state(void)
         exec_update_state_log(floor_1);
         return drive_up;
     }
-    */
+    
 
 }
 

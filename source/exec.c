@@ -103,24 +103,32 @@ int exec_scan_orders(state_codes_t current_state) {
     int current_floor = elev_get_floor_sensor_signal();
 
     //Check inside orders
-    for(int i=0;i<MAX_INSIDE_ORDERS; i++)
-    {
-        if(inside_queue_ptr->queue[i].floor==current_floor)
-        {
-            return 1;
+    if (inside_queue_ptr->length) {
+        for(int i = 0; i < inside_queue_ptr->length; i++) {
+            if(inside_queue_ptr->queue[i].floor == current_floor)
+            {
+                return 1;
+            }
         }
     }
-
+    
+    if (outside_queue_ptr->length) {
     //Check outside orders
-    for(int i=0;i<MAX_OUTSIDE_ORDERS;i++)
-    {
-        int dir = exec_last_direction_to_int();
-        if(outside_queue_ptr->queue[i].floor==current_floor && outside_queue_ptr->queue[i].direction == dir)
+        for(int i = 0; i < outside_queue_ptr->length; i++)
         {
-            return 1;
+            int dir = exec_last_direction_to_int();
+            if (current_floor == 0 || current_floor == 3) {
+                if(outside_queue_ptr->queue[i].floor == current_floor)
+                {
+                    return 1;
+                }
+            }
+            else if(outside_queue_ptr->queue[i].floor == current_floor && outside_queue_ptr->queue[i].direction == dir)
+            {
+                return 1;
+            }
         }
     }
-
     //If nothing found, return 0
     return 0;
 

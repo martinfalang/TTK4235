@@ -36,7 +36,7 @@ void scheduler_delete_inside_order(inside_queue_t *queue, int floor) {
         return;
     }
     else if (queue->length == 0) {
-        printf("Error: delete_inside_at_index(): Queue is empty");
+        printf("Error: delete_inside_at_index(): Queue is empty\n");
         return;
     }
     else {
@@ -48,7 +48,7 @@ void scheduler_delete_inside_order(inside_queue_t *queue, int floor) {
             }
         }
         if (index == -1) {
-            printf("Error: scheduler_delete_inside_floor(): Element does not exist\n");
+            printf("Error: scheduler_delete_inside_order(): Element does not exist\n");
             return;
         }
         for (i = index; i < MAX_INSIDE_ORDERS; i++) {
