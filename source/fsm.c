@@ -35,18 +35,12 @@ transition_t state_transitions[] = {
     {floor_stationary, fail, end},
 
     {driving_up, stay, floor_stationary},
-    {driving_up, arrived_2, floor_2},
-    {driving_up, arrived_3, floor_3},
-    {driving_up, arrived_4, floor_4},
     {driving_up, hold, driving_up},
     {driving_up, stop_btw, stop_between},
     {driving_up, stop_flr, stop_floor},
     {driving_up, fail, end},
 
     {driving_down, stay, floor_stationary},
-    {driving_down, arrived_3, floor_3},
-    {driving_down, arrived_2, floor_2},
-    {driving_down, arrived_1, floor_1},
     {driving_down, hold, driving_down},
     {driving_down, stop_btw, stop_between},
     {driving_down, stop_flr, stop_floor},
@@ -58,10 +52,6 @@ transition_t state_transitions[] = {
 
     {stop_floor, hold, stop_floor},
     {stop_floor, idle, idle_state},
-    {stop_floor, arrived_1, floor_1},
-    {stop_floor, arrived_2, floor_2},
-    {stop_floor, arrived_3, floor_3},
-    {stop_floor, arrived_4, floor_4},
     {stop_floor, fail, end},
 
     {idle_state, hold, idle_state},
@@ -132,10 +122,10 @@ return_codes_t fsm_floor_stationary_state(void) {
     if (exec_scan_orders(!current_floor)) {
         direction_codes_t last_direction = exec_get_last_direction();
         if (last_direction == UP) {
-            return driving_up;
+            return drive_up;
         }
         else if (last_direction == DOWN) {
-            return driving_down;
+            return drive_down;
         }
         else {
             printf("fsm_floor_stationary_state was last state\n");
@@ -150,16 +140,16 @@ return_codes_t fsm_floor_stationary_state(void) {
 
     //Fetch current queues
     inside_queue_t *inside_queue = order_get_inside_queue();
-    outside_queue_t *outside_queue = order_get_inside_queue();
+    outside_queue_t *outside_queue = order_get_outside_queue();
 
     //Update current destination_floor
-    exec_update_destination_floor(&inside_queue, &outside_queue);
+    exec_update_destination_floor(inside_queue, outside_queue);
 
     //Get return code and return this
     return_codes_t return_code = exec_get_return_code(current_floor);
     return return_code;
 }
-
+/*
 return_codes_t fsm_floor_1_state(void) 
 {
 
@@ -344,7 +334,7 @@ return_codes_t fsm_floor_4_state(void)
     exec_update_state_log(floor_4);
     return exec_get_return_code(floor_4);
 }
-
+*/
 return_codes_t fsm_driving_up_state(void) 
 {
     printf("State: Driving up\n");

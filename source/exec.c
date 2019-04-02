@@ -75,7 +75,7 @@ int exec_check_order_buttons(void) {
     }
     return 0;
 }
-
+/*
 //Function purpose: Update last_direction or last_floor
 int exec_update_state_log(state_codes_t prev_state) {
     if (prev_state == driving_up || prev_state == driving_down) {
@@ -92,7 +92,7 @@ int exec_update_state_log(state_codes_t prev_state) {
         return -1;
     }
 }
-
+*/
 
 //return 1 if elevator should stop on the way
 //is only run when at a floor. Checks if any orders are at this floor and returns 1 if elevator should stop
@@ -116,7 +116,7 @@ int exec_scan_orders() {
     //Check outside orders
         for(int i = 0; i < outside_queue_ptr->length; i++)
         {
-            int dir = exec_last_direction_to_int();
+            int dir = last_direction;
             if (current_floor == 0 || current_floor == 3) {
                 if(outside_queue_ptr->queue[i].floor == current_floor)
                 {
@@ -153,14 +153,14 @@ void exec_set_floor_light() {
         elev_set_floor_indicator(floor);
     }
 }
-
+/*
 int exec_last_direction_to_int()
 {
-    if (last_direction==driving_up) return 1;
-    else if (last_direction==driving_down) return -1;
+    if (last_direction == driving_up) return 1;
+    else if (last_direction == driving_down) return -1;
     else return 0;
 }
-
+*/
 
 //Checks inside queue for orders first. If any orders, choose the first. If not check outside orders. 
 //If outside_orders exists, choose the first. If not any outside_orders, don't change destination floor
@@ -207,15 +207,12 @@ void exec_set_last_direction(direction_codes_t direction) {
 
 direction_codes_t exec_get_last_direction()
 {
-    if(last_direction == driving_up)
+    if(last_direction == UP)
     {
         return UP;
     }
-    else if (last_direction == driving_down)
+    else
     {
         return DOWN;
-    }
-    else {
-        return fail;
     }
 }

@@ -6,7 +6,7 @@
 
 int exec_check_order_buttons(void);
 
-int exec_scan_orders(state_codes_t current_state);
+int exec_scan_orders();
 
 void exec_timer(int ms);
 

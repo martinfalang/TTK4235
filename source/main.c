@@ -17,7 +17,7 @@ int main() {
     return_codes_t (* state_func)(void);
     state_func=state[current_state];
     rc = state_func();
-    
+    printf("Current state: %d", current_state);
     printf("Press STOP button to stop elevator and exit program.\n");
 
     while (1) {
