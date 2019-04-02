@@ -149,10 +149,10 @@ return_codes_t fsm_floor_1_state(void)
 
 
     //Fetch queue-ptrs
-    inside_order_t *inside_queue = order_get_inside_queue();
-    outside_order_t *outside_queue = order_get_outside_queue();
-
-    
+    //inside_queue_t *inside_queue = order_get_inside_queue();
+    //outside_queue_t *outside_queue = order_get_outside_queue();
+    return hold;
+    /*
 
     //This code opens the door for 3 sec if there was an order to 1
     if (exec_scan_orders(floor_1)) {
@@ -187,7 +187,7 @@ return_codes_t fsm_floor_1_state(void)
         exec_update_state_log(floor_1);
         return drive_up;
     }
-    
+    */
 
 }
 

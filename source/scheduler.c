@@ -1,6 +1,8 @@
 
 #include "scheduler.h"
+#include "elev.h"
 
+#include <stdio.h> //for printf()
 
 //Purpose: This function inserts arg floor at the end of queue of arg queue
 void scheduler_insert_inside_order(inside_queue_t *queue, int floor) {
@@ -15,14 +17,14 @@ void scheduler_insert_inside_order(inside_queue_t *queue, int floor) {
         printf("Error: scheduler_insert_inside(): queue full\n");
         return;
     }
-    else if (floor < 0 || floor > MAX_INSIDE_ORDERS -1) { //change MAX_INSIDE_ORDERS to NFLOORS or something
+    else if (floor < 0 || floor > N_FLOORS -1) {
         printf("Error: scheduler_insert_inside(): floor out of range\n");
         return;
     }
     else {
         order.floor = floor;
-        queue->rear++;
         queue->queue[queue->rear] = order;
+        queue->rear++;
         queue->length++;
     }
 }
@@ -86,11 +88,11 @@ void scheduler_insert_outside_order(outside_queue_t *queue, int floor, int direc
         } 
     }
 
-    if (queue->rear == MAX_OUTSIDE_ORDERS - 1) {
+    if (queue->rear == MAX_OUTSIDE_ORDERS) {
         printf("Error: scheduler_insert_outside_order(): Queue full\n");
         return;
     }
-    else if (floor < 0 || floor > 4 -1) { //change 4 to NFLOORS
+    else if (floor < 0 || floor > N_FLOORS -1) {
         printf("Error: scheduler_insert_outside_order(): floor out of range\n");
         return;
     }
@@ -105,8 +107,8 @@ void scheduler_insert_outside_order(outside_queue_t *queue, int floor, int direc
     else {
         order.floor = floor;
         order.direction = direction;
-        queue->rear++;
         queue->queue[queue->rear] = order;
+        queue->rear++;
         queue->length++;
     }
 }

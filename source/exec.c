@@ -11,6 +11,8 @@ static state_codes_t last_direction;
 
 static state_codes_t destination_floor;
 
+int exec_last_direction_to_int();
+
 return_codes_t get_last_floor() {
     if (last_floor == floor_1) {
         return arrived_1;
@@ -68,6 +70,7 @@ int exec_check_order_buttons(void) {
                     order_add(inside_4);
                 }
             }
+
         }
     }
     return 0;
@@ -111,7 +114,8 @@ int exec_scan_orders(state_codes_t current_state) {
     //Check outside orders
     for(int i=0;i<MAX_OUTSIDE_ORDERS;i++)
     {
-        if(outside_queue_ptr->queue[i].floor==current_floor && outside_queue_ptr->queue[i].direction==exec_last_direction_to_int())
+        int dir = exec_last_direction_to_int();
+        if(outside_queue_ptr->queue[i].floor==current_floor && outside_queue_ptr->queue[i].direction == dir)
         {
             return 1;
         }
@@ -143,6 +147,7 @@ int exec_last_direction_to_int()
 {
     if (last_direction==driving_up) return 1;
     else if (last_direction==driving_down) return -1;
+    else return 0;
 }
 
 
@@ -157,7 +162,7 @@ void exec_update_destination_floor(state_codes_t current_state, inside_queue_t* 
 
 return_codes_t exec_get_return_code(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue)
 {
-
+    return hold;
 }
 
 state_codes_t exec_get_destination_floor()
@@ -172,12 +177,15 @@ void exec_intialize_destination_floor()
 
 return_codes_t exec_get_last_direction()
 {
-    if(last_direction=driving_up)
+    if(last_direction == driving_up)
     {
         return drive_up;
     }
-    else if (last_direction=driving_down)
+    else if (last_direction == driving_down)
     {
         return drive_down;
+    }
+    else {
+        return fail;
     }
 }

@@ -1,6 +1,8 @@
 #ifndef ORDER_H
 #define ORDER_H
 
+#include "scheduler.h"
+
 #define ORDER_ARRAY_LENGTH 10
 
 

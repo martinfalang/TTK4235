@@ -1,6 +1,5 @@
 #include "order.h"
 #include "elev.h"
-#include "scheduler.h"
 
 #include <stdio.h>
 
@@ -19,76 +18,77 @@ int order_init(void) {
 int order_add(int type){
     int floor=0;
     int direction=0;
+    order_update_floor_lights(type, 1);
     switch(type)
     {
         case inside_1:
         {
             floor=0;
             direction=0;
-            scheduler_insert_inside(&inside_queue,floor);
+            scheduler_insert_inside_order(&inside_queue,floor);
             return 0;
         }
         case inside_2:
         {
             floor=1;
             direction=0;
-            scheduler_insert_inside(&inside_queue,floor);
+            scheduler_insert_inside_order(&inside_queue,floor);
             return 0;
         }
         case inside_3:
         {
             floor=2;
             direction=0;
-            scheduler_insert_inside(&inside_queue,floor);
+            scheduler_insert_inside_order(&inside_queue,floor);
             return 0;
         }
         case inside_4:
         {
             floor=3;
             direction=0;
-            scheduler_insert_inside(&inside_queue,floor);
+            scheduler_insert_inside_order(&inside_queue,floor);
             return 0;
         }
         case outside_1_up:
         {
             floor=0;
             direction=1;
-            scheduler_insert_outside(&outside_queue,floor,direction);
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
             return 0;
         }
         case outside_2_up:
         {
             floor=1;
             direction=1;
-            scheduler_insert_outside(&outside_queue,floor,direction);
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
             return 0;
         }
         case outside_3_up:
         {
             floor=2;
             direction=1;
-            scheduler_insert_outside(&outside_queue,floor,direction);
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
             return 0;
         }
         case outside_2_down:
         {
             floor=1;
             direction=-1;
-            scheduler_insert_outside(&outside_queue,floor,direction);
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
             return 0;
         }
         case outside_3_down:
         {
             floor=2;
             direction=-1;
-            scheduler_insert_outside(&outside_queue,floor,direction);
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
             return 0;
         }
         case outside_4_down:
         {
             floor=3;
             direction=-1;
-            scheduler_insert_outside(&outside_queue, floor, direction);
+            scheduler_insert_outside_order(&outside_queue, floor, direction);
             return 0;
         }
         default:
@@ -102,6 +102,7 @@ int order_add(int type){
 int order_remove(int type) {
     int floor=0;
     int direction=0;
+    order_update_floor_lights(type, 0);
     switch(type)
     {
         case inside_1:
@@ -196,6 +197,7 @@ outside_queue_t* order_get_outside_queue(void)
 
 int order_clear_all(void) {
     /*Insert clear_all function from scheduler when ready*/
+    return 0;
 }
 
 void order_print_orders(void) {
@@ -264,5 +266,5 @@ int order_update_floor_lights(int type, int value) {
 }
 
 int order_find_inside(int floor) {
-    
+    return 0;
 }

@@ -12,7 +12,7 @@ void exec_timer(int ms);
 
 void exec_set_floor_light();
 
-int exec_update_position(state_codes_t prev_state);
+int exec_update_state_log(state_codes_t prev_state);
 
 return_codes_t get_last_floor();
 
