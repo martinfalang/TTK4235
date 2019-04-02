@@ -163,7 +163,7 @@ int exec_last_direction_to_int()
 //If outside_orders exists, choose the first. If not any outside_orders, don't change destination floor
 void exec_update_destination_floor(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue)
 {
-    if (inside_queue->length) destination_floor = inside_queue->queue[0].floor;
+    if (inside_queue->length) destination_floor = inside_queue->queue[0].floor+1; //Offset,this must be fixed!!!
     else if (outside_queue->length) destination_floor = outside_queue->queue[0].floor;
     else return;
 }
