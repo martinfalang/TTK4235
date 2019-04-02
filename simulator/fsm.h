@@ -16,8 +16,8 @@ typedef enum state_codes {
 } state_codes_t;
 
 typedef enum return_codes {
-    go_up,
-    go_down,
+    drive_up,
+    drive_down,
     hold,
     stop_btw,
     stop_flr,

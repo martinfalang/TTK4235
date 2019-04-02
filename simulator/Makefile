@@ -2,7 +2,7 @@
 CC:=g++
 LIBS:=-lsfml-graphics -lsfml-window -lsfml-system
 
-SFML_OBJ := Elevator.o ElevatorGraphics.o Simulator.o elev.o fsm.o order.o exec.o main.o 
+SFML_OBJ := Elevator.o ElevatorGraphics.o Simulator.o elev.o fsm.o order.o exec.o scheduler.o main.o 
 
 .PHONY: clean
 clean:
@@ -32,6 +32,8 @@ order.o: order.cpp
 exec.o: exec.cpp
 	g++ -g3 -c "exec.cpp" -o exec.o
 
+scheduler.o: scheduler.cpp
+	g++ -g3 -c "scheduler.cpp" -o scheduler.o
 
 sfml-app: $(SFML_OBJ)
 	$(CC) -g3 -o $@ $(SFML_OBJ) $(LIBS)

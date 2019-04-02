@@ -4,55 +4,205 @@
 #include <stdio.h>
 
 //Array of orders, 1 means order of type on, 0 means no order of given type.
-static int order_array[10] = {0,0,0,0,0,0,0,0,0,0};
 
 
-
+/*
 int order_init(void) {
     for (int i = 0; i < sizeof(order_array)/sizeof(int); i++) {
         order_array[i] = 0;
     }
     return 0;
 }
+*/
 
 int order_add(int type){
-    if (type <= ORDER_ARRAY_LENGTH && type >= 0) {
-        order_array[type] = 1;
-        order_update_floor_lights(type, 1);
-        return 0;
-    }
-    else {
-        return -1;
+    int floor=0;
+    int direction=0;
+    order_update_floor_lights(type, 1);
+    switch(type)
+    {
+        case inside_1:
+        {
+            floor=0;
+            direction=0;
+            scheduler_insert_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case inside_2:
+        {
+            floor=1;
+            direction=0;
+            scheduler_insert_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case inside_3:
+        {
+            floor=2;
+            direction=0;
+            scheduler_insert_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case inside_4:
+        {
+            floor=3;
+            direction=0;
+            scheduler_insert_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case outside_1_up:
+        {
+            floor=0;
+            direction=1;
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_2_up:
+        {
+            floor=1;
+            direction=1;
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_3_up:
+        {
+            floor=2;
+            direction=1;
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_2_down:
+        {
+            floor=1;
+            direction=-1;
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_3_down:
+        {
+            floor=2;
+            direction=-1;
+            scheduler_insert_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_4_down:
+        {
+            floor=3;
+            direction=-1;
+            scheduler_insert_outside_order(&outside_queue, floor, direction);
+            return 0;
+        }
+        default:
+        {
+            return -1;
+        }
+
     }
 }
 
 int order_remove(int type) {
-    if (type <= ORDER_ARRAY_LENGTH && type >= 0) {
-        order_array[type] = 0;
-        order_update_floor_lights(type, 0);
-        return 0;
-    }
-    else {
-        return -1;
+    int floor=0;
+    int direction=0;
+    order_update_floor_lights(type, 0);
+    switch(type)
+    {
+        case inside_1:
+        {
+            floor=0;
+            direction=0;
+            scheduler_delete_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case inside_2:
+        {
+            floor=1;
+            direction=0;
+            scheduler_delete_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case inside_3:
+        {
+            floor=2;
+            direction=0;
+            scheduler_delete_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case inside_4:
+        {
+            floor=3;
+            direction=0;
+            scheduler_delete_inside_order(&inside_queue,floor);
+            return 0;
+        }
+        case outside_1_up:
+        {
+            floor=0;
+            direction=1;
+            scheduler_delete_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_2_up:
+        {
+            floor=1;
+            direction=1;
+            scheduler_delete_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_3_up:
+        {
+            floor=2;
+            direction=1;
+            scheduler_delete_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_2_down:
+        {
+            floor=1;
+            direction=-1;
+            scheduler_delete_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_3_down:
+        {
+            floor=2;
+            direction=-1;
+            scheduler_delete_outside_order(&outside_queue,floor,direction);
+            return 0;
+        }
+        case outside_4_down:
+        {
+            floor=3;
+            direction=-1;
+            scheduler_delete_outside_order(&outside_queue, floor, direction);
+            return 0;
+        }
+        default:
+        {
+            return -1;
+        }
+
     }
 }
 
-int *order_get_orders(void) {
-    return order_array;
+inside_queue_t* order_get_inside_queue(void)
+{
+    return &inside_queue;
 }
+
+outside_queue_t* order_get_outside_queue(void)
+{
+    return &outside_queue;
+}
+
+
 
 int order_clear_all(void) {
-    for (int i = 0; i < ORDER_ARRAY_LENGTH; i++) {
-        order_array[i] = 0;
-    }
+    /*Insert clear_all function from scheduler when ready*/
     return 0;
 }
 
 void order_print_orders(void) {
-    for (int i = 0; i < ORDER_ARRAY_LENGTH; i++) {
-        printf("%i ", order_array[i]);
-    }
-    printf("\n");
+    scheduler_display_inside_queue(&inside_queue);
+    scheduler_display_outside_queue(&outside_queue);
 }
 
 int order_update_floor_lights(int type, int value) {
@@ -115,6 +265,6 @@ int order_update_floor_lights(int type, int value) {
     return 0;
 }
 
-int order_check_inside_orders() {
+int order_find_inside(int floor) {
     return 0;
 }
