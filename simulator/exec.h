@@ -18,7 +18,7 @@ return_codes_t get_last_floor();
 
 void exec_update_destination_floor(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue);
 
-return_codes_t exec_get_return_code(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue);
+return_codes_t exec_get_return_code(state_codes_t current_state);
 
 state_codes_t exec_get_destination_floor();
 

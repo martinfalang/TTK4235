@@ -147,7 +147,7 @@ return_codes_t fsm_floor_1_state(void)
     exec_check_order_buttons();
     //Debug purposes
     order_print_orders();
-    exec_timer(1000);
+    //exec_timer(1000);
 
     //Fetch queue-ptrs
     inside_queue_t *inside_queue = order_get_inside_queue();
@@ -167,26 +167,16 @@ return_codes_t fsm_floor_1_state(void)
     }
     
 
-    //Decide destination floor
+    //Decide destination floor if floor was destination
     if (exec_get_destination_floor()==floor_1)
     {
         //Arrived at destination floor, get new destination based on queues
         exec_update_destination_floor(floor_1,inside_queue,outside_queue);
     }
 
-    //Decide return code
-    if(exec_get_destination_floor()==floor_1)
-    {
-        //No new destination, stay on floor!
-        exec_update_state_log(floor_1);
-        return hold;
-    }
-    else
-    {
-        //New destination order, follow it!
-        exec_update_state_log(floor_1);
-        return drive_up;
-    }
+    //Update state log and possibly leave the state.
+    exec_update_state_log(floor_1);
+    return exec_get_return_code(floor_1);
     
 
 }
@@ -194,13 +184,46 @@ return_codes_t fsm_floor_1_state(void)
 return_codes_t fsm_floor_2_state(void) 
 {
     printf("State: floor_2\n");
+
+    //Check STOP-button
+    if (elev_get_stop_signal()) {
+        exec_update_state_log(floor_1);
+        return stop_flr;
+    }
     if(exec_scan_orders(floor_2) || exec_get_destination_floor()==floor_2)
     {
         elev_set_motor_direction(DIRN_STOP);
-        return hold;
+        if(exec_scan_orders(floor_2))
+        {
+            elev_set_door_open_lamp(1);
+
+            order_remove(outside_2_up);
+            order_remove(outside_2_down);
+            order_remove(inside_2);
+
+            exec_timer(3000);
         
+            elev_set_door_open_lamp(0);
+        }
+
+        //Check if was destination floor:
+        if (exec_get_destination_floor()==floor_2)
+        {
+            //Fetch queues
+            inside_queue_t *inside_queue = order_get_inside_queue();
+            outside_queue_t *outside_queue = order_get_outside_queue();
+
+            //Arrived at destination floor, get new destination based on queues
+            exec_update_destination_floor(floor_1,inside_queue,outside_queue);
+        }
+
     }
-    return exec_get_last_direction();
+
+    //Check for orders and update queues.
+    exec_check_order_buttons();
+
+    exec_update_state_log(floor_2);
+    return exec_get_return_code(floor_2);
 }
 
 return_codes_t fsm_floor_3_state(void) 
@@ -209,10 +232,18 @@ return_codes_t fsm_floor_3_state(void)
     if(exec_scan_orders(floor_3) || exec_get_destination_floor()==floor_3)
     {
         elev_set_motor_direction(DIRN_STOP);
-        return hold;
+        elev_set_door_open_lamp(1);
+
+        order_remove(outside_3_up);
+        order_remove(outside_3_down);
+        order_remove(inside_3);
+
+        exec_timer(3000);
+        
+        elev_set_door_open_lamp(0);
         
     }
-    return exec_get_last_direction();
+    return exec_get_return_code(floor_3);
 }
 
 return_codes_t fsm_floor_4_state(void) 
@@ -270,7 +301,7 @@ return_codes_t fsm_driving_down_state(void)
     elev_set_motor_direction(DIRN_DOWN);
     return_codes_t return_code=hold;
     switch(elev_get_floor_sensor_signal()){
-        case 0: return_code = hold; break;
+        case 0: return_code = arrived_1; break;
         case 1: return_code= arrived_2; break;
         case 2: return_code= arrived_3; break;
         case 3: return_code= arrived_4; break;

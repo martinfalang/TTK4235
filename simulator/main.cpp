@@ -17,7 +17,7 @@ int main() {
 	//Randomize position
 	bool finished=false;
 	printf("Randomising starting position");
-	int randnum1=10000; //Not very random yet
+	int randnum1=100; //Not very random yet
 	while(!finished)
 	{
 		if((randnum1)==0)
