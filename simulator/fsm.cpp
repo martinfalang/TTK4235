@@ -190,6 +190,11 @@ return_codes_t fsm_floor_2_state(void)
         exec_update_state_log(floor_1);
         return stop_flr;
     }
+
+    //Check for orders and update queues.
+    exec_check_order_buttons();
+
+
     if(exec_scan_orders(floor_2) || exec_get_destination_floor()==floor_2)
     {
         elev_set_motor_direction(DIRN_STOP);
@@ -214,13 +219,10 @@ return_codes_t fsm_floor_2_state(void)
             outside_queue_t *outside_queue = order_get_outside_queue();
 
             //Arrived at destination floor, get new destination based on queues
-            exec_update_destination_floor(floor_1,inside_queue,outside_queue);
+            exec_update_destination_floor(floor_2,inside_queue,outside_queue);
         }
 
     }
-
-    //Check for orders and update queues.
-    exec_check_order_buttons();
 
     exec_update_state_log(floor_2);
     return exec_get_return_code(floor_2);
@@ -229,20 +231,44 @@ return_codes_t fsm_floor_2_state(void)
 return_codes_t fsm_floor_3_state(void) 
 {
     printf("State: floor_3\n");
+
+    //Check STOP-button
+    if (elev_get_stop_signal()) {
+        exec_update_state_log(floor_1);
+        return stop_flr;
+    }
+
+    //Check for orders and update queues.
+    exec_check_order_buttons();
+
     if(exec_scan_orders(floor_3) || exec_get_destination_floor()==floor_3)
     {
-        elev_set_motor_direction(DIRN_STOP);
-        elev_set_door_open_lamp(1);
+        if(exec_scan_orders(floor_3))
+        {
+            elev_set_motor_direction(DIRN_STOP);
+            elev_set_door_open_lamp(1);
 
-        order_remove(outside_3_up);
-        order_remove(outside_3_down);
-        order_remove(inside_3);
+            order_remove(outside_3_up);
+            order_remove(outside_3_down);
+            order_remove(inside_3);
 
-        exec_timer(3000);
-        
-        elev_set_door_open_lamp(0);
-        
+            exec_timer(3000);
+            
+            elev_set_door_open_lamp(0);
+        }
+        if (exec_get_destination_floor()==floor_3)
+        {
+            //Fetch queues
+            inside_queue_t *inside_queue = order_get_inside_queue();
+            outside_queue_t *outside_queue = order_get_outside_queue();
+
+            //Arrived at destination floor, get new destination based on queues
+            exec_update_destination_floor(floor_3,inside_queue,outside_queue);
+        }
+
     }
+    //Check if was destination floor:
+    exec_update_state_log(floor_3);
     return exec_get_return_code(floor_3);
 }
 
