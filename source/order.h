@@ -23,13 +23,17 @@ int order_remove(int type);
 
 int order_update_floor_lights(int type, int value);
 
-int *order_get_orders(void);
+inside_queue_t* order_get_inside_queue(void);
+outside_queue_t* order_get_outside_queue(void);
 
 int order_clear_all(void);
 
 void order_print_orders(void);
 
 int order_check_inside_orders();
+
+//Purpose: Returns 1 if any order in inside_queue for floor
+int order_find_inside(int floor);
 
 
 

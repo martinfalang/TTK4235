@@ -2,21 +2,14 @@
 #include "elev.h"
 #include "order.h"
 #include "time.h"
+#include "scheduler.h"
 
 #include <stdio.h>
 
-//[0, 0, 0, 0] = undefined, exec_get_position returns 0
-//[1, 0, 0, 0] = floor 1, exec_get_position returns 1
-//[1, 1, 0, 0] = between floor 1 and 2, exec_get_position returns 2
-//[0, 1, 0, 0] = floor 2, exec_get_position returns 3
-//[0, 1, 1, 0] = between floor 2 and 3, exec_get_position returns 4
-//[0, 0, 1, 0] = floor 3, exec_get_position returns 5
-//[0, 0, 1, 1] = between floor 3 and 4, exec_get_position returns 6
-//[0, 0, 0, 1] = floor 4, exec_get_position returns 7
-//static int current_position[4] = {0, 0, 0, 0};
-
 static state_codes_t last_floor;
 static state_codes_t last_direction;
+
+static state_codes_t destination_floor;
 
 return_codes_t get_last_floor() {
     if (last_floor == floor_1) {
@@ -80,7 +73,8 @@ int exec_check_order_buttons(void) {
     return 0;
 }
 
-int exec_update_position(state_codes_t prev_state) {
+//Function purpose: Update last_direction or last_floor
+int exec_update_state_log(state_codes_t prev_state) {
     if (prev_state == driving_up || prev_state == driving_down) {
         last_direction = prev_state;
         return 0;
@@ -91,28 +85,42 @@ int exec_update_position(state_codes_t prev_state) {
             return 0;
     }
     else {
-        printf("Error: prev_state not a floor or direction\n");
+        printf("Error: exec_update_position: prev_state not a floor or direction\n");
         return -1;
     }
 }
 
 
 //return 1 if elevator should stop on the way
-int exec_scan_orders(int destination_floor, state_codes_t current_state) {
-    int *order_array = order_get_orders();
+//is only run when at a floor. Checks if any orders are at this floor and returns 1 if elevator should stop
+int exec_scan_orders(state_codes_t current_state) {
+    inside_queue_t  *inside_queue_ptr = order_get_inside_queue();
+    outside_queue_t *outside_queue_ptr = order_get_outside_queue();
+
     int current_floor = elev_get_floor_sensor_signal();
 
-    if (current_state == driving_up && destination_floor - current_floor > 0) {
-        if (order_array[outside_2_up] || order_array[outside_3_up]) {
+    //Check inside orders
+    for(int i=0;i<MAX_INSIDE_ORDERS; i++)
+    {
+        if(inside_queue_ptr->queue[i].floor==current_floor)
+        {
             return 1;
         }
     }
-    else if (current_state == driving_down && destination_floor - current_floor < 0) {
-        if (order_array[outside_2_down] || order_array[outside_3_down]) {
+
+    //Check outside orders
+    for(int i=0;i<MAX_OUTSIDE_ORDERS;i++)
+    {
+        if(outside_queue_ptr->queue[i].floor==current_floor && outside_queue_ptr->queue[i].direction==exec_last_direction_to_int())
+        {
             return 1;
         }
     }
+
+    //If nothing found, return 0
     return 0;
+
+
 }
 
 void exec_timer(int ms) {
@@ -128,5 +136,48 @@ void exec_set_floor_light() {
     int floor = elev_get_floor_sensor_signal();
     if (floor >= 0) {
         elev_set_floor_indicator(floor);
+    }
+}
+
+int exec_last_direction_to_int()
+{
+    if (last_direction==driving_up) return 1;
+    else if (last_direction==driving_down) return -1;
+}
+
+
+//Checks inside queue for orders first. If any orders, choose the first. If not check outside orders. 
+//If outside_orders exists, choose the first. If not any outside_orders, don't change destination floor
+void exec_update_destination_floor(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue)
+{
+    if (inside_queue->length) destination_floor = inside_queue->queue[0].floor;
+    else if (outside_queue->length) destination_floor = outside_queue->queue[0].floor;
+    else return;
+}
+
+return_codes_t exec_get_return_code(state_codes_t current_state, inside_queue_t* inside_queue, outside_queue_t* outside_queue)
+{
+
+}
+
+state_codes_t exec_get_destination_floor()
+{
+    return destination_floor;
+}
+
+void exec_intialize_destination_floor()
+{
+    destination_floor=floor_1;
+}
+
+return_codes_t exec_get_last_direction()
+{
+    if(last_direction=driving_up)
+    {
+        return drive_up;
+    }
+    else if (last_direction=driving_down)
+    {
+        return drive_down;
     }
 }

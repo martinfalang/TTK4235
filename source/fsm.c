@@ -25,31 +25,31 @@ return_codes_t (*state[])(void) = {
 };
 
 transition_t state_transitions[] = {
-    {initialize, go_down, initialize},
+    {initialize, drive_down, initialize},
     {initialize, hold, floor_1},            //Added this one in testing, better return codes should be implemented
     {initialize, stop_flr, stop_floor},
     {initialize, stop_btw, stop_between},
     {initialize, fail, end},
 
-    {floor_1, go_up, driving_up},
+    {floor_1, drive_up, driving_up},
     {floor_1, hold, floor_1},
     {floor_1, idle, idle_state},
     {floor_1, stop_flr, stop_floor},
     {floor_1, fail, end},
 
-    {floor_2, go_up, driving_up},
-    {floor_2, go_down, driving_down},
+    {floor_2, drive_up, driving_up},
+    {floor_2, drive_down, driving_down},
     {floor_2, hold, floor_2},
     {floor_2, stop_flr, stop_floor},
     {floor_2, fail, end},
 
-    {floor_3, go_up, driving_up},
-    {floor_3, go_down, driving_down},
+    {floor_3, drive_up, driving_up},
+    {floor_3, drive_down, driving_down},
     {floor_3, hold, floor_3},
     {floor_3, stop_flr, stop_floor},
     {floor_3, fail, end},
 
-    {floor_4, go_down, driving_down},
+    {floor_4, drive_down, driving_down},
     {floor_4, hold, floor_4},
     {floor_4, stop_flr, stop_floor},
     {floor_4, fail,end},
@@ -109,7 +109,7 @@ return_codes_t fsm_initialize_state(void)
 
     printf("State: initilize\n");
     elev_set_motor_direction(DIRN_DOWN);
-    
+    exec_intialize_destination_floor();
     exec_set_floor_light();
 
     if (elev_get_stop_signal() && elev_get_floor_sensor_signal() >= 0) {
@@ -120,7 +120,7 @@ return_codes_t fsm_initialize_state(void)
     }
     else if(elev_get_floor_sensor_signal() != 0)
     {
-        return go_down;
+        return drive_down;
     }
     else
     {
@@ -138,15 +138,24 @@ return_codes_t fsm_floor_1_state(void)
     
     //Check if stop button is pressed, if so open door
     if (elev_get_stop_signal()) {
-        exec_update_position(floor_1);
+        exec_update_state_log(floor_1);
         return stop_flr;
     }
 
-    //Open door, wait and close if any order
-    int *order_array = order_get_orders();
+    //Check for orders and update queue
+    exec_check_order_buttons();
+    //Debug purposes
+    order_print_orders();
+
+
+    //Fetch queue-ptrs
+    inside_order_t *inside_queue = order_get_inside_queue();
+    outside_order_t *outside_queue = order_get_outside_queue();
+
+    
 
     //This code opens the door for 3 sec if there was an order to 1
-    if (order_array[outside_1_up] || order_array[inside_1]) {
+    if (exec_scan_orders(floor_1)) {
         elev_set_door_open_lamp(1);
 
         order_remove(outside_1_up);
@@ -158,53 +167,123 @@ return_codes_t fsm_floor_1_state(void)
     }
     
 
+    //Decide destination floor
+    if (exec_get_destination_floor()==floor_1)
+    {
+        //Arrived at destination floor, get new destination based on queues
+        exec_update_destination_floor(floor_1,inside_queue,outside_queue);
+    }
+
     //Decide return code
+    if(exec_get_destination_floor()==floor_1)
+    {
+        //No new destination, stay on floor!
+        exec_update_state_log(floor_1);
+        return hold;
+    }
+    else
+    {
+        //New destination order, follow it!
+        exec_update_state_log(floor_1);
+        return drive_up;
+    }
     
 
-    exec_check_order_buttons();
-
-    //Hold on floor
-    return hold;
 }
 
 return_codes_t fsm_floor_2_state(void) 
 {
-    printf("We are now in floor_2_state\n");
-    elev_set_motor_direction(DIRN_STOP);
-    return hold;
+    printf("State: floor_2\n");
+    if(exec_scan_orders(floor_2) || exec_get_destination_floor()==floor_2)
+    {
+        elev_set_motor_direction(DIRN_STOP);
+        return hold;
+        
+    }
+    return exec_get_last_direction();
 }
 
 return_codes_t fsm_floor_3_state(void) 
 {
-    printf("We are now in floor_3_state\n");
-    elev_set_motor_direction(DIRN_STOP);
-    return hold;
+    printf("State: floor_3\n");
+    if(exec_scan_orders(floor_3) || exec_get_destination_floor()==floor_3)
+    {
+        elev_set_motor_direction(DIRN_STOP);
+        return hold;
+        
+    }
+    return exec_get_last_direction();
 }
 
 return_codes_t fsm_floor_4_state(void) 
 {
-    printf("We are now in floor_4_state\n");
-    elev_set_motor_direction(DIRN_STOP);
-    return hold;
+    printf("State: floor_4\n");
+    if(exec_scan_orders(floor_4) || exec_get_destination_floor()==floor_4)
+    {
+        elev_set_motor_direction(DIRN_STOP);
+        return hold;
+        
+    }
+    return exec_get_last_direction();
 }
 
 return_codes_t fsm_driving_up_state(void) 
 {
-    printf("We are now in driving_up_state\n");
-    //elev_set_motor_direction(DIRN_STOP);
-    return hold;
+    printf("State: Driving up\n");
+    //Check for stop button
+    if (elev_get_stop_signal()) {
+        exec_update_state_log(floor_1);
+        return stop_btw;
+    }
+
+    //Check for orders
+    exec_check_order_buttons();
+
+    //Debug purposes
+    order_print_orders();
+
+    elev_set_motor_direction(DIRN_UP);
+    return_codes_t return_code=hold;
+    switch(elev_get_floor_sensor_signal()){
+        case 0: return_code = hold; break;
+        case 1: return_code= arrived_2; break;
+        case 2: return_code= arrived_3; break;
+        case 3: return_code= arrived_4; break;
+        default: return_code = hold; break;
+    }
+    exec_update_state_log(driving_up);
+    return return_code;
 }
 
 return_codes_t fsm_driving_down_state(void) 
 {
-    printf("We are now in driving_down_state\n");
-    //elev_set_motor_direction(DIRN_STOP);
-    return hold;
+    printf("State: Driving down\n");
+    //Check for stop button
+    if (elev_get_stop_signal()) {
+        exec_update_state_log(floor_1);
+        return stop_btw;
+    }
+
+    //Check for orders
+    exec_check_order_buttons();
+
+    elev_set_motor_direction(DIRN_DOWN);
+    return_codes_t return_code=hold;
+    switch(elev_get_floor_sensor_signal()){
+        case 0: return_code = hold; break;
+        case 1: return_code= arrived_2; break;
+        case 2: return_code= arrived_3; break;
+        case 3: return_code= arrived_4; break;
+        default: return_code = hold; break;
+    }
+    exec_update_state_log(driving_down);
+    return return_code;
 }
 
 return_codes_t fsm_stop_floor_state(void) {
     printf("State: stop_floor_state\n");
 
+    elev_set_motor_direction(DIRN_STOP);
     elev_set_stop_lamp(1);
     
     elev_set_door_open_lamp(1);
@@ -219,7 +298,8 @@ return_codes_t fsm_stop_floor_state(void) {
 }
 
 return_codes_t fsm_stop_between_state(void) {
-    printf("We are now in stop_between_state\n");
+    printf("State: stop_between_state\n");
+    elev_set_motor_direction(DIRN_STOP);
     elev_set_stop_lamp(1);
     order_clear_all();
     if (!elev_get_stop_signal()) {
