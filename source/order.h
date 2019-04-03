@@ -2,6 +2,7 @@
 #define ORDER_H
 
 #include "scheduler.h"
+#include "fsm.h"
 
 #define ORDER_ARRAY_LENGTH 10
 
@@ -19,9 +20,9 @@
 
 int order_init(void);
 
-int order_add(int type);
+int order_add(floor_codes_t floor, direction_codes_t direction);
 
-int order_remove(int type);
+int order_remove(floor_codes_t floor);
 
 int order_update_floor_lights(int type, int value);
 

@@ -11,7 +11,8 @@ typedef enum floor_codes {
 
 typedef enum direction_codes {
     UP = 1,
-    DOWN = -1
+    DOWN = -1,
+    STOP_DIR = 0,
 } direction_codes_t;
 
 typedef enum state_codes {

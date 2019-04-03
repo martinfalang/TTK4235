@@ -1,5 +1,6 @@
 #include "order.h"
 #include "elev.h"
+#include "fsm.h"
 
 #include <stdio.h>
 
@@ -15,6 +16,21 @@ int order_init(void) {
 }
 */
 
+//type 0 is inside order, type 1 is outside
+int order_add(floor_codes_t floor, direction_codes_t direction) {
+    if (direction == STOP_DIR) {
+        scheduler_insert_inside_order(&inside_queue, floor);
+        return 0;
+    }
+    else if (direction == UP || direction == DOWN) {
+        scheduler_insert_outside_order(&outside_queue, floor, direction);
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+/*
 int order_add(int type){
     int floor=0;
     int direction=0;
@@ -98,7 +114,17 @@ int order_add(int type){
 
     }
 }
+*/
 
+//Since all orders at a floor shall be deleted when the elevator arrives, this function only needs floor as argument
+int order_remove(floor_codes_t floor) {
+    scheduler_delete_outside_order(&outside_queue, floor, UP);
+    scheduler_delete_outside_order(&outside_queue, floor, DOWN);
+    scheduler_delete_inside_order(&inside_queue, floor);
+    return 0;
+}
+
+/*
 int order_remove(int type) {
     int floor=0;
     int direction=0;
@@ -182,7 +208,7 @@ int order_remove(int type) {
 
     }
 }
-
+*/
 inside_queue_t* order_get_inside_queue(void)
 {
     return &inside_queue;

@@ -40,34 +40,34 @@ int exec_check_order_buttons(void) {
             }
             else if (elev_get_button_signal(type, floor)) {
                 if (floor == 0 && type == 0) {
-                    order_add(outside_1_up);
+                    order_add(floor_1, UP);
                 }
                 else if (floor == 0 && type == 2) {
-                    order_add(inside_1);
+                    order_add(floor_1, STOP_DIR);
                 }
                 else if (floor == 1 && type == 0) {
-                    order_add(outside_2_up);
+                    order_add(floor_2, UP);
                 }
                 else if (floor == 1 && type == 1) {
-                    order_add(outside_2_down);
+                    order_add(floor_2, DOWN);
                 }
                 else if (floor == 1 && type == 2) {
-                    order_add(inside_2);
+                    order_add(floor_2, STOP_DIR);
                 }
                 else if (floor == 2 && type == 0) {
-                    order_add(outside_3_up);
+                    order_add(floor_3, UP);
                 }
                 else if (floor == 2 && type == 1) {
-                    order_add(outside_3_down);
+                    order_add(floor_3, DOWN);
                 }
                 else if (floor == 2 && type == 2) {
-                    order_add(inside_3);
+                    order_add(floor_3, STOP_DIR);
                 }
                 else if (floor == 3 && type == 1) {
-                    order_add(outside_4_down);
+                    order_add(floor_4, DOWN);
                 }
                 else if (floor == 3 && type == 2) {
-                    order_add(inside_4);
+                    order_add(floor_4, STOP_DIR);
                 }
             }
 
@@ -187,7 +187,7 @@ return_codes_t exec_get_return_code(floor_codes_t current_floor)
     }
 }
 
-state_codes_t exec_get_destination_floor()
+floor_codes_t exec_get_destination_floor()
 {
     return destination_floor;
 }
