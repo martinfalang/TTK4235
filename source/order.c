@@ -6,7 +6,8 @@
 
 //Array of orders, 1 means order of type on, 0 means no order of given type.
 
-
+static inside_queue_t inside_queue;
+static outside_queue_t outside_queue;
 /*
 int order_init(void) {
     for (int i = 0; i < sizeof(order_array)/sizeof(int); i++) {
@@ -16,7 +17,7 @@ int order_init(void) {
 }
 */
 
-//type 0 is inside order, type 1 is outside
+
 int order_add(floor_codes_t floor, direction_codes_t direction) {
     if (direction == STOP_DIR) {
         scheduler_insert_inside_order(&inside_queue, floor);
@@ -220,12 +221,6 @@ outside_queue_t* order_get_outside_queue(void)
 }
 
 
-
-int order_clear_all(void) {
-    /*Insert clear_all function from scheduler when ready*/
-    return 0;
-}
-
 void order_print_orders(void) {
     scheduler_display_inside_queue(&inside_queue);
     scheduler_display_outside_queue(&outside_queue);
@@ -293,4 +288,13 @@ int order_update_floor_lights(int type, int value) {
 
 int order_find_inside(int floor) {
     return 0;
+}
+
+//removes all orders
+void order_remove_all() {
+    for (floor_codes_t floor = floor_1; floor <= floor_4; floor++) {
+        scheduler_delete_inside_order(&inside_queue, floor);
+        scheduler_delete_outside_order(&outside_queue, floor, UP);
+        scheduler_delete_outside_order(&outside_queue, floor, DOWN);
+    }
 }

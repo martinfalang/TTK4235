@@ -124,7 +124,7 @@ void scheduler_delete_outside_order(outside_queue_t *queue, int floor, int direc
         return;
     }
     else if (queue->length == 0) {
-        printf("Error: delete_outside_order(): Queue is empty");
+        printf("Error: delete_outside_order(): Queue is empty\n");
         return;
     }
     else {

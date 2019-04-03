@@ -40,6 +40,8 @@ int main() {
     	state_func=state[current_state];
     	rc = state_func();
         
+        //exec_timer(100);
+
     }
 
     return 0;

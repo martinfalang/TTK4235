@@ -51,7 +51,7 @@ transition_t state_transitions[] = {
     {stop_between, fail, end},
 
     {stop_floor, hold, stop_floor},
-    {stop_floor, idle, idle_state},
+    {stop_floor, stay, floor_stationary},
     {stop_floor, fail, end},
 
     {idle_state, hold, idle_state},
@@ -92,11 +92,11 @@ return_codes_t fsm_initialize_state(void)
     }
     else if(floor < 0)
     {
-        return drive_down;
+        return drive_down; //should maybe be hold here and stay underneath
     }
     else
     {
-        exec_set_destination_floor(floor);
+        exec_update_destination_floor();
         return hold;
     }
 }   
@@ -104,15 +104,38 @@ return_codes_t fsm_initialize_state(void)
 return_codes_t fsm_floor_stationary_state(void) {
     printf("State: floor_stationary_state\n");
 
+    exec_set_last_direction(STOP_DIR);
+
     floor_codes_t current_floor = elev_get_floor_sensor_signal();
     exec_set_last_floor(current_floor);
-    exec_set_last_direction(STOP_DIR);
+    
     elev_set_floor_indicator(current_floor);
 
-    //Since this state is only reached when the elevator should stop we can remove all orders on this floor
-    order_remove(current_floor);
+    //Stop elevator
+    elev_set_motor_direction(DIRN_STOP);
 
-    //Checks if stop button is pressed
+    //Since this state is only reached when the elevator should stop we can remove all orders on this floor
+    //MAKE THIS A FUNCTION
+    if (exec_scan_orders()) {
+
+        exec_clear_all_order_lights_at_floor(current_floor);
+
+        order_remove(current_floor);
+        elev_set_door_open_lamp(1);
+
+        for (int i = 0; i < 3000; i++) {
+            exec_timer(1);
+            exec_check_order_buttons();
+
+            if (elev_get_stop_signal()) {
+                return stop_flr;
+            }
+        }
+        elev_set_door_open_lamp(0);
+    }
+    
+
+    //Checks if stop button is pressed MAKE THIS A FUNCTION
     if (elev_get_stop_signal()) {
         return stop_flr;
     }
@@ -120,218 +143,28 @@ return_codes_t fsm_floor_stationary_state(void) {
     //Update queue
     exec_check_order_buttons();
     
-    //Stop elevator
-    elev_set_motor_direction(DIRN_STOP);
 
     //Debug purposes
     order_print_orders();
 
-    //Fetch current queues
-    inside_queue_t *inside_queue = order_get_inside_queue();
-    outside_queue_t *outside_queue = order_get_outside_queue();
-
     //Update current destination_floor
-    exec_update_destination_floor(inside_queue, outside_queue);
+    exec_update_destination_floor();
 
     
 
     //printf("Dest. floor: %i\n", exec_get_destination_floor());
     //Get return code and return this
-    return_codes_t return_code = exec_get_return_code(current_floor);
+    return_codes_t return_code = exec_get_return_code();
     return return_code;
 }
-/*
-return_codes_t fsm_floor_1_state(void) 
-{
 
-    //Declare, stop and indicate
-    printf("State: floor_1\n");
-
-    elev_set_motor_direction(DIRN_STOP);
-    elev_set_floor_indicator(0);
-    
-    //Check if stop button is pressed, if so open door
-    if (elev_get_stop_signal()) {
-        exec_update_state_log(floor_1);
-        return stop_flr;
-    }
-
-    //Check for orders and update queue
-    exec_check_order_buttons();
-    //Debug purposes
-    order_print_orders();
-    //exec_timer(1000);
-
-    //Fetch queue-ptrs
-    inside_queue_t *inside_queue = order_get_inside_queue();
-    outside_queue_t *outside_queue = order_get_outside_queue();
-    
-
-    //This code opens the door for 3 sec if there was an order to 1
-    if (exec_scan_orders(floor_1)) {
-        elev_set_door_open_lamp(1);
-
-        order_remove(outside_1_up);
-        order_remove(inside_1);
-
-        exec_timer(3000);
-        
-        elev_set_door_open_lamp(0);
-    }
-    
-
-    //Decide destination floor if floor was destination
-    if (exec_get_destination_floor()==floor_1)
-    {
-        //Arrived at destination floor, get new destination based on queues
-        exec_update_destination_floor(floor_1,inside_queue,outside_queue);
-    }
-
-    //Update state log and possibly leave the state.
-    exec_update_state_log(floor_1);
-    return exec_get_return_code(floor_1);
-    
-
-}
-
-return_codes_t fsm_floor_2_state(void) 
-{
-    printf("State: floor_2\n");
-
-    //Check STOP-button
-    if (elev_get_stop_signal()) {
-        exec_update_state_log(floor_2);
-        return stop_flr;
-    }
-    if(exec_scan_orders(floor_2) || exec_get_destination_floor()==floor_2)
-    {
-        elev_set_motor_direction(DIRN_STOP);
-        if(exec_scan_orders(floor_2))
-        {
-            elev_set_door_open_lamp(1);
-
-            order_remove(outside_2_up);
-            order_remove(outside_2_down);
-            order_remove(inside_2);
-
-            exec_timer(3000);
-        
-            elev_set_door_open_lamp(0);
-        }
-
-        //Check if was destination floor:
-        if (exec_get_destination_floor()==floor_2)
-        {
-            //Fetch queues
-            inside_queue_t *inside_queue = order_get_inside_queue();
-            outside_queue_t *outside_queue = order_get_outside_queue();
-
-            //Arrived at destination floor, get new destination based on queues
-            exec_update_destination_floor(floor_1,inside_queue,outside_queue);
-        }
-
-    }
-
-    //Check for orders and update queues.
-    exec_check_order_buttons();
-
-    exec_update_state_log(floor_2);
-    return exec_get_return_code(floor_2);
-}
-
-return_codes_t fsm_floor_3_state(void) 
-{
-    printf("State: floor_3\n");
-
-    //Check STOP-button
-    if (elev_get_stop_signal()) {
-        exec_update_state_log(floor_3);
-        return stop_flr;
-    }
-
-    //Check for orders and update queues.
-    exec_check_order_buttons();
-
-    if(exec_scan_orders(floor_3) || exec_get_destination_floor()==floor_3)
-    {
-        if(exec_scan_orders(floor_3))
-        {
-            elev_set_motor_direction(DIRN_STOP);
-            elev_set_door_open_lamp(1);
-
-            order_remove(outside_3_up);
-            order_remove(outside_3_down);
-            order_remove(inside_3);
-
-            exec_timer(3000);
-            
-            elev_set_door_open_lamp(0);
-        }
-        if (exec_get_destination_floor()==floor_3)
-        {
-            //Fetch queues
-            inside_queue_t *inside_queue = order_get_inside_queue();
-            outside_queue_t *outside_queue = order_get_outside_queue();
-
-            //Arrived at destination floor, get new destination based on queues
-            exec_update_destination_floor(floor_3,inside_queue,outside_queue);
-        }
-
-    }
-    //Check if was destination floor:
-    exec_update_state_log(floor_3);
-    return exec_get_return_code(floor_3);
-}
-
-return_codes_t fsm_floor_4_state(void) 
-{
-    printf("State: floor_4\n");
-
-    //Check STOP-button
-    if (elev_get_stop_signal()) {
-        exec_update_state_log(floor_4);
-        return stop_flr;
-    }
-
-    //Check for orders and update queues.
-    exec_check_order_buttons();
-
-    if(exec_scan_orders(floor_4) || exec_get_destination_floor()==floor_4)
-    {
-        if(exec_scan_orders(floor_4))
-        {
-            elev_set_motor_direction(DIRN_STOP);
-            elev_set_door_open_lamp(1);
-
-            order_remove(outside_4_down);
-            order_remove(inside_4);
-
-            exec_timer(3000);
-            
-            elev_set_door_open_lamp(0);
-        }
-        if (exec_get_destination_floor()==floor_4)
-        {
-            //Fetch queues
-            inside_queue_t *inside_queue = order_get_inside_queue();
-            outside_queue_t *outside_queue = order_get_outside_queue();
-
-            //Arrived at destination floor, get new destination based on queues
-            exec_update_destination_floor(floor_4, inside_queue,outside_queue);
-        }
-
-    }
-    //Check if was destination floor:
-    exec_update_state_log(floor_4);
-    return exec_get_return_code(floor_4);
-}
-*/
 return_codes_t fsm_driving_up_state(void) 
 {
     printf("State: Driving up\n");
 
     //Set last_direction to UP
-    //exec_set_last_direction(UP);
+    exec_set_last_direction(UP);
+
 
     //Check if elevator is at a floor
     floor_codes_t current_floor = elev_get_floor_sensor_signal();
@@ -373,7 +206,7 @@ return_codes_t fsm_driving_up_state(void)
 return_codes_t fsm_driving_down_state(void) 
 {
     printf("State: Driving down\n");
-
+    
     //Set last_direction to DOWN
     exec_set_last_direction(DOWN);
 
@@ -420,25 +253,42 @@ return_codes_t fsm_stop_floor_state(void) {
 
     elev_set_motor_direction(DIRN_STOP);
     elev_set_stop_lamp(1);
-    
+
     elev_set_door_open_lamp(1);
-    order_clear_all();
+    order_remove_all();
     
+    for (floor_codes_t floor = floor_1; floor <= floor_4; floor++) {
+        exec_clear_all_order_lights_at_floor(floor);
+    }
+
     if (!elev_get_stop_signal()) {
         elev_set_stop_lamp(0);
         elev_set_door_open_lamp(0);
-        return get_last_floor();
+        
+        exec_update_destination_floor();
+        return stay;
     }
     return hold;
 }
 
 return_codes_t fsm_stop_between_state(void) {
+    //THIS HAS TO BE FIXED, LOGIC NOT WORKING, REACHES END STATE WHEN NEW ORDER
+
     printf("State: stop_between_state\n");
+
     elev_set_motor_direction(DIRN_STOP);
     elev_set_stop_lamp(1);
-    order_clear_all();
+
+    order_remove_all();
+
+    for (floor_codes_t floor = floor_1; floor <= floor_4; floor++) {
+        exec_clear_all_order_lights_at_floor(floor);
+    }
+
     if (!elev_get_stop_signal()) {
         elev_set_stop_lamp(0);
+
+        exec_update_destination_floor();
         return idle;
     }
     order_print_orders();
@@ -456,7 +306,9 @@ return_codes_t fsm_idle_state(void) {
     }
     exec_check_order_buttons();
 
-    return hold;
+    exec_update_destination_floor();
+
+    return exec_get_return_code();
 }
 
 return_codes_t fsm_end_state(void) {
