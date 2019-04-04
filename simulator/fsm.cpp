@@ -56,7 +56,9 @@ transition_t state_transitions[] = {
 
     {idle_state, hold, idle_state},
     {idle_state, stop_btw, stop_between},
-    {idle_state, stop_flr, stop_floor}
+    {idle_state, stop_flr, stop_floor},
+    {idle_state, drive_up, driving_up},
+    {idle_state, drive_down, driving_down}
 };
 
 state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_code)
@@ -109,10 +111,13 @@ return_codes_t fsm_floor_stationary_state(void) {
     floor_codes_t current_floor = static_cast<floor_codes_t>(elev_get_floor_sensor_signal());
     exec_set_last_floor(current_floor);
     
-    elev_set_floor_indicator(current_floor);
 
     //Stop elevator
     elev_set_motor_direction(DIRN_STOP);
+
+    printf("Should update floor light now");
+    elev_set_floor_indicator(current_floor);
+    printf("Should be done with update floor light now");
 
     //Since this state is only reached when the elevator should stop we can remove all orders on this floor
     //MAKE THIS A FUNCTION

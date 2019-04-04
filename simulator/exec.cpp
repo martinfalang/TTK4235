@@ -214,6 +214,7 @@ return_codes_t exec_get_return_code()
 }
 
 return_codes_t exec_get_idle_return_code() {
+    printf("The destination floor is %d\n", destination_floor);
     switch (destination_floor)
     {
         case floor_1: {
@@ -242,10 +243,10 @@ return_codes_t exec_get_idle_return_code() {
             return drive_up;
             break;
         }
-    
-        default:
-        return fail;
+        default:{
+            return fail;
             break;
+        }
     }
 }
 
