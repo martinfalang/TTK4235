@@ -1,11 +1,13 @@
 #include "order.h"
 #include "elev.h"
+#include "fsm.h"
 
 #include <stdio.h>
 
 //Array of orders, 1 means order of type on, 0 means no order of given type.
 
-
+static inside_queue_t inside_queue;
+static outside_queue_t outside_queue;
 /*
 int order_init(void) {
     for (int i = 0; i < sizeof(order_array)/sizeof(int); i++) {
@@ -15,6 +17,21 @@ int order_init(void) {
 }
 */
 
+
+int order_add(floor_codes_t floor, direction_codes_t direction) {
+    if (direction == STOP_DIR) {
+        scheduler_insert_inside_order(&inside_queue, floor);
+        return 0;
+    }
+    else if (direction == UP || direction == DOWN) {
+        scheduler_insert_outside_order(&outside_queue, floor, direction);
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+/*
 int order_add(int type){
     int floor=0;
     int direction=0;
@@ -98,7 +115,17 @@ int order_add(int type){
 
     }
 }
+*/
 
+//Since all orders at a floor shall be deleted when the elevator arrives, this function only needs floor as argument
+int order_remove(floor_codes_t floor) {
+    scheduler_delete_outside_order(&outside_queue, floor, UP);
+    scheduler_delete_outside_order(&outside_queue, floor, DOWN);
+    scheduler_delete_inside_order(&inside_queue, floor);
+    return 0;
+}
+
+/*
 int order_remove(int type) {
     int floor=0;
     int direction=0;
@@ -182,7 +209,7 @@ int order_remove(int type) {
 
     }
 }
-
+*/
 inside_queue_t* order_get_inside_queue(void)
 {
     return &inside_queue;
@@ -193,12 +220,6 @@ outside_queue_t* order_get_outside_queue(void)
     return &outside_queue;
 }
 
-
-
-int order_clear_all(void) {
-    /*Insert clear_all function from scheduler when ready*/
-    return 0;
-}
 
 void order_print_orders(void) {
     scheduler_display_inside_queue(&inside_queue);
@@ -267,4 +288,13 @@ int order_update_floor_lights(int type, int value) {
 
 int order_find_inside(int floor) {
     return 0;
+}
+
+//removes all orders
+void order_remove_all() {
+    for (floor_codes_t floor = floor_1; floor <= floor_4; floor=static_cast<floor_codes_t>(floor+1)) {
+        scheduler_delete_inside_order(&inside_queue, floor);
+        scheduler_delete_outside_order(&outside_queue, floor, UP);
+        scheduler_delete_outside_order(&outside_queue, floor, DOWN);
+    }
 }

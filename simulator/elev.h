@@ -1,4 +1,6 @@
 #pragma once
+#ifndef ELEV_H
+#define ELEV_H
 
 // Wrapper for libComedi Elevator control.
 // These functions provides an interface to the elevators in the real time lab
@@ -120,3 +122,4 @@ BUTTON buttonConverter(elev_button_type_t button, int floor);
 //Door signal
 int elev_set_door_open_lamp(int value);
 
+#endif

@@ -25,8 +25,8 @@ typedef struct outside_order_queue {
     outside_order_t queue[MAX_OUTSIDE_ORDERS];
 } outside_queue_t;
 
-static inside_queue_t inside_queue;
-static outside_queue_t outside_queue;
+
+//All these function should be updated to use floor_codes_t and direction_codes_t
 
 void scheduler_insert_inside_order(inside_queue_t *queue, int floor);
 void scheduler_delete_inside_order(inside_queue_t *queue, int floor);

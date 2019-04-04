@@ -2,6 +2,7 @@
 #define ORDER_H
 
 #include "scheduler.h"
+#include "fsm.h"
 
 #define ORDER_ARRAY_LENGTH 10
 
@@ -19,16 +20,14 @@
 
 int order_init(void);
 
-int order_add(int type);
+int order_add(floor_codes_t floor, direction_codes_t direction);
 
-int order_remove(int type);
+int order_remove(floor_codes_t floor);
 
 int order_update_floor_lights(int type, int value);
 
 inside_queue_t* order_get_inside_queue(void);
 outside_queue_t* order_get_outside_queue(void);
-
-int order_clear_all(void);
 
 void order_print_orders(void);
 
@@ -37,7 +36,7 @@ int order_check_inside_orders();
 //Purpose: Returns 1 if any order in inside_queue for floor
 int order_find_inside(int floor);
 
-
+void order_remove_all();
 
 
 

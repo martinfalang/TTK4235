@@ -21,7 +21,7 @@ enum FLOOR {
 };
 
 enum DIRECTION {
-	UP, DOWN, NOT_MOVING
+	UP_ELEV, DOWN_ELEV, NOT_MOVING_ELEV
 };
 
 class Elevator: public sf::RectangleShape

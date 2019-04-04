@@ -7,7 +7,7 @@ Elevator::Elevator(): Elevator(THIRD)
 }
 
 Elevator::Elevator(FLOOR floor) : currentFloor(floor), 
-	targetFloor(floor), currentDirection(NOT_MOVING), doorIsOpen(false)
+	targetFloor(floor), currentDirection(NOT_MOVING_ELEV), doorIsOpen(false)
 {
 }
 
@@ -23,7 +23,7 @@ void Elevator::arriveAtFloor(FLOOR floor)
 	if (currentFloor != floor)
 	{
 		std::cout << "Arrived at " << floor << ". floor." << std::endl;
-		setDirection(NOT_MOVING);
+		setDirection(NOT_MOVING_ELEV);
 		currentFloor = floor;
 		notifyObserver();
 	}
@@ -56,7 +56,7 @@ void Elevator::closeDoor() {
 
 void Elevator::stopElevator()
 {
-	currentDirection = NOT_MOVING;
+	currentDirection = NOT_MOVING_ELEV;
 }
 
 void Elevator::setDirection(DIRECTION direction)
