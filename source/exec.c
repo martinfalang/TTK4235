@@ -243,9 +243,10 @@ return_codes_t exec_get_idle_return_code() {
             break;
         }
     
-        default:
-        return fail;
+        default:{
+            return fail;
             break;
+        }
     }
 }
 

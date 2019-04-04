@@ -56,7 +56,9 @@ transition_t state_transitions[] = {
 
     {idle_state, hold, idle_state},
     {idle_state, stop_btw, stop_between},
-    {idle_state, stop_flr, stop_floor}
+    {idle_state, stop_flr, stop_floor},
+    {idle_state, drive_up, driving_up},
+    {idle_state, drive_down, driving_down}
 };
 
 state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_code)
