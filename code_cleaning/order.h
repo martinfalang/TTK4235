@@ -22,6 +22,8 @@
             to order_remove_all_orders
         - Changed name of order_add function to
             order_add_order_to_queue
+        - Added #include "elev.h" to be able to use
+            elev_motor_direction_t
 */
 ///////////////////////////////////////////////
 
@@ -31,6 +33,7 @@
 
 #include "scheduler.h"
 #include "fsm.h"
+#include "elev.h"
 
 ///////////////////////////////////////////////
 // Function declarations
