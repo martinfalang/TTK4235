@@ -180,7 +180,7 @@ return_codes_t fsm_floor_stationary_state(void) {
     //Update current destination_floor
     exec_update_destination_floor();
 
-    return exec_get_return_code();
+    return exec_get_floor_return_code();
 }
 ///////////////////////////////////////////////
 /*
