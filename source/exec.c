@@ -92,7 +92,7 @@ void exec_set_last_direction(elev_motor_direction_t direction) {
     last_direction = direction;
 }
 
-int exec_check_order_buttons() {
+void exec_check_order_buttons() {
     for (int floor = 0; floor < 4; floor++) {
         for (int type = 0; type < 3; type++) {
             if ((type == 1 && floor == 0) || (type == 0 && floor == 3)) {
@@ -143,7 +143,6 @@ int exec_check_order_buttons() {
 
         }
     }
-    return 0;
 }
 
 //return 1 if elevator should stop on the way

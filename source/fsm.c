@@ -1,15 +1,5 @@
 
 ///////////////////////////////////////////////
-/*
-    TOP LEVEL UPDATES:
-        - Deleted int current_destination as it 
-            was commented out and not used
-        - Made stop_floor_state and stop_between state
-            one state
-*/
-///////////////////////////////////////////////
-
-///////////////////////////////////////////////
 // Includes
 ///////////////////////////////////////////////
 
@@ -36,25 +26,9 @@ return_codes_t (*state[])(void) = {
     fsm_end_state
 };
 
-///////////////////////////////////////////////
-/*
-    UPDATES
-        - Added fail state transistion to idle state
-        - Updated initialize to initialize transition
-            to trigger on hold return code. This because
-            all the other states hold their current state
-            when return code is hold
-        - Updated initialize to floor_stationary return
-            code to stay
-        - Updated transition between stop_between and idle_state
-            to stay instead of idle. Idle is no longer a 
-            return code
-        - Updated table to include new stop state
-*/
-///////////////////////////////////////////////
 transition_t state_transitions[] = {
     {initialize, hold, initialize},
-    {initialize, stay, floor_stationary},            //Added this one in testing, better return codes should be implemented
+    {initialize, stay, floor_stationary},
     {initialize, stop, stop_state},
     {initialize, fail, end},
 
@@ -90,7 +64,6 @@ transition_t state_transitions[] = {
 // Functions
 ///////////////////////////////////////////////
 
-// No updates made
 state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_code)
 {   
     int i;
@@ -104,22 +77,7 @@ state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_cod
     return end;
 }
 
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Updated return code when floor < 0 to 
-            hold
-        - Updated return code hold to stay for when
-            we leave initialize and go into 
-            floor_stationary
-        - Deleted exec_set_floor_light function call.
-            This function is not neccessary here and
-            is also removed from exec files
-        - Updated to return just stop if the stop
-            button is pressed
-*/
-///////////////////////////////////////////////
-return_codes_t fsm_initialize_state(void)
+return_codes_t fsm_initialize_state()
 {
     // Debug options
     printf("State: initilize\n");
@@ -127,10 +85,7 @@ return_codes_t fsm_initialize_state(void)
 
     floor_codes_t floor = elev_get_floor_sensor_signal();
 
-    if (elev_get_stop_signal()) {
-        return stop;
-    }
-    else if(floor < 0) {
+    if(floor == between_floors) {
         return hold;
     }
     else {
@@ -138,15 +93,8 @@ return_codes_t fsm_initialize_state(void)
         return stay;
     }
 }   
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Made opening door logic now just calling
-            execopen_door_3_sec function
-        - Now returns just stop instead of stop_flr
-*/
-///////////////////////////////////////////////
-return_codes_t fsm_floor_stationary_state(void) {
+
+return_codes_t fsm_floor_stationary_state() {
     
     // Debug options
     printf("State: floor_stationary_state\n");
@@ -184,14 +132,8 @@ return_codes_t fsm_floor_stationary_state(void) {
 
     return exec_get_floor_return_code(current_floor);
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Now returns just stop instead of stop_flr
-            and stop_btw
-*/
-///////////////////////////////////////////////
-return_codes_t fsm_driving_up_state(void) 
+
+return_codes_t fsm_driving_up_state() 
 {
     printf("State: Driving up\n");
 
@@ -231,17 +173,8 @@ return_codes_t fsm_driving_up_state(void)
     //Return hold to continue driving up
     return hold;
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Deleted printf statement printing destination
-            floor. exec_get_destination_floor is no 
-            longer a function
-        - Now returns just stop instead of stop_flr
-            and stop_btw
-*/
-///////////////////////////////////////////////
-return_codes_t fsm_driving_down_state(void) 
+
+return_codes_t fsm_driving_down_state() 
 {
     printf("State: Driving down\n");
     
@@ -281,16 +214,7 @@ return_codes_t fsm_driving_down_state(void)
     //Return hold to continue driving up
     return hold;
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - This function is a merge of the other
-            two stop_functions we had before. The
-            reason for merging was that there was
-            a lot of similar code and minimal additional
-            logic was needed to merge them
-*/
-///////////////////////////////////////////////
+
 return_codes_t fsm_stop_state(){
     // Debug purposes
     printf("State: stop_state\n");
@@ -326,17 +250,8 @@ return_codes_t fsm_stop_state(){
     return hold;
 
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Updated return exec_get_return_code
-            to instead call exec_get_idle_return_code
-            since this is now it's own function
-        - Now returns just stop instead of stop_flr
-            and stop_btw
-*/
-///////////////////////////////////////////////
-return_codes_t fsm_idle_state(void) {
+
+return_codes_t fsm_idle_state() {
     printf("State: idle\n");
     elev_set_motor_direction(DIRN_STOP);
 
@@ -353,7 +268,7 @@ return_codes_t fsm_idle_state(void) {
 }
 
 // No updates made
-return_codes_t fsm_end_state(void) {
+return_codes_t fsm_end_state() {
     printf("We reached the end state\n");
     exit(1);
 }

@@ -30,7 +30,7 @@ int main() {
 
     while (1) {
         current_state = lookup_transitions(current_state,rc);
-    	state_func=state[current_state];
+    	state_func = state[current_state];
     	rc = state_func();
     }
 
