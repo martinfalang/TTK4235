@@ -12,18 +12,6 @@
 // Functions
 ///////////////////////////////////////////////
 
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Updated floor to be floor_codes_t
-        - Deleted check if order full. This will
-            be covered by checking if floor is 0-3 
-            and by the unique floor check
-        - IMPORTANT: When initializing the queues
-            both rear and length must be set to 0
-        - Commented out print statements
-*/
-///////////////////////////////////////////////
 //Purpose: This function inserts arg floor at the end of queue of arg queue
 void scheduler_insert_inside_order(inside_queue_t *queue, floor_codes_t floor) {
     inside_order_t order;
@@ -46,15 +34,6 @@ void scheduler_insert_inside_order(inside_queue_t *queue, floor_codes_t floor) {
     queue->length++;
 }
 
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Commented out print statements
-        - Updated floor to be of type floor_codes_t
-        - Moved check if queue empty before check for
-            floor out of range check
-*/
-///////////////////////////////////////////////
 //Purpose: This function deletes arg floor from arg queue
 void scheduler_delete_inside_order(inside_queue_t *queue, floor_codes_t floor) {
     if (queue->length == 0) {
@@ -87,13 +66,7 @@ void scheduler_delete_inside_order(inside_queue_t *queue, floor_codes_t floor) {
         queue->rear--;
     }
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Commented out print if queue empty statement
-        - Added return statement if queue empty
-*/
-///////////////////////////////////////////////
+
 //Purpose: This function prints arg queue to screen
 void scheduler_display_inside_queue(inside_queue_t *queue) {
     int i;
@@ -113,20 +86,7 @@ void scheduler_display_inside_queue(inside_queue_t *queue) {
         printf("------------------------------\n");
     }
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Deleted check for if queue is full because
-            this is covered by unique check and floor/dir
-            range checks
-        - Commented out error print statements
-        - Updated floor to be of type floor_codes_t and
-            direction to be of type elev_motor_direction_t
-        - IMPORTANT: All functions calling this function 
-            must use elev_motor_direction_t as argument and
-            not direction_codes_t
-*/
-///////////////////////////////////////////////
+
 //Purpose: This function inserts an order with arg floor and arg direction to the en of arg queue
 void scheduler_insert_outside_order(outside_queue_t *queue, floor_codes_t floor, elev_motor_direction_t direction) {
     outside_order_t order;
@@ -162,16 +122,7 @@ void scheduler_insert_outside_order(outside_queue_t *queue, floor_codes_t floor,
     queue->length++;
     
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Updated floor to type floor_codes_t and 
-            direction to type elev_motor_direction_t
-        - Commented out error print messages
-        - Moved check if queue empty before check for
-            floor out of range check
-*/
-///////////////////////////////////////////////
+
 //Purpose: This function deletes order with arg floor and arg direction from arg queue
 void scheduler_delete_outside_order(outside_queue_t *queue, floor_codes_t floor, elev_motor_direction_t direction) {
     if (queue->length == 0) {
@@ -209,13 +160,7 @@ void scheduler_delete_outside_order(outside_queue_t *queue, floor_codes_t floor,
         queue->rear--;
     }
 }
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Commented out error if queue empty
-        - Added return statement if queue empty
-*/
-///////////////////////////////////////////////
+
 //Purpose: This function prints arg queue to screen
 void scheduler_display_outside_queue(outside_queue_t *queue) {
     int i;

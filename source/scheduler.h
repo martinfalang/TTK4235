@@ -18,18 +18,7 @@
 ///////////////////////////////////////////////
 // Structures
 ///////////////////////////////////////////////
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - updated all structs to include floor_codes_t 
-            and elev_motor_direction_t
-        - updated function declaretions to include new types
-        - added comment next to endif
-        - IMPORTANT: When initializing the queues their length
-            and rear must be set to 0. This is done like this:
-            inside_queue_t inside_queue = {.length = 0, .rear = 0};
-*/
-///////////////////////////////////////////////
+
 typedef struct inside_order {
     floor_codes_t floor;
 } inside_order_t;

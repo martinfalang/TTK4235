@@ -1,41 +1,3 @@
-///////////////////////////////////////////////
-/*
-    PROPOSITIONS:
-        - Move all types (such as floor_codes_t etc)
-            that are used by multiple .c and .h files
-            into one .h file included everywhere
-            for example a types.h
-*/
-///////////////////////////////////////////////
-
-
-///////////////////////////////////////////////
-/*
-    TOP LEVEL UPDATES:
-        - Deleted exec_update_state_log function
-            as it is no longer used
-        - Deleted exec_last_direction_to_int function
-            as it is no longer used
-        - Deleted exec_set_last_direction function
-            as it is no longer used
-        - Deleted exec_get_destination_floor
-            function as it was only used for
-            debug purposes in fsm.c
-        - Added exec_open_door_3_sec function
-        - Modified exec_scan_floor function to take 
-            floor_codes_t current_floor as argument.
-        - Deleted exec_get_last_direction function
-            as it is never used in fsm.c 
-        - Deleted get_last_floor function as it is
-            no longer used anywhere
-        - Deleted exec_set_floor_light function as
-            it was only used in initialize state 
-            and it wasn't neccessary there
-        - Deleted exec_get_idle_return_code declaration as it 
-            is now declared in exec.h
-        
-*/
-///////////////////////////////////////////////
 
 ///////////////////////////////////////////////
 // Includes
@@ -53,15 +15,6 @@
 // Private variables
 ///////////////////////////////////////////////
 
-///////////////////////////////////////////////
-/*
-    Updates:
-        - Changed last_direction to type
-            elev_motor_direction_t
-*/
-///////////////////////////////////////////////
-
-
 static floor_codes_t last_floor;
 static elev_motor_direction_t last_direction;
 
@@ -71,12 +24,6 @@ static floor_codes_t destination_floor;
 // Functions
 ///////////////////////////////////////////////
 
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        Made this its own function
-*/
-///////////////////////////////////////////////
 return_codes_t exec_open_door_3_sec(floor_codes_t current_floor) {
     exec_clear_all_order_lights_at_floor(current_floor);
 
@@ -95,7 +42,6 @@ return_codes_t exec_open_door_3_sec(floor_codes_t current_floor) {
     return hold;
 }
 
-//No updates made
 //Checks inside queue for orders first. If any orders, choose the first. If not check outside orders. 
 //If outside_orders exists, choose the first. If not any outside_orders, don't change destination floor
 void exec_update_destination_floor() {
@@ -106,13 +52,6 @@ void exec_update_destination_floor() {
     else destination_floor = between_floors;
 }
 
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Changed name to exec_delay to better
-            explain what the function does
-*/
-///////////////////////////////////////////////
 void exec_delay(int ms) {
     struct timespec req;
 
@@ -122,12 +61,10 @@ void exec_delay(int ms) {
 	nanosleep(&req, 0);
 }
 
-// No updates made
 void exec_set_last_floor(floor_codes_t floor) {
     last_floor = floor;
 }
 
-// No updates made
 void exec_clear_all_order_lights_at_floor(floor_codes_t floor) {
     
     switch (floor)
@@ -151,25 +88,10 @@ void exec_clear_all_order_lights_at_floor(floor_codes_t floor) {
         }
 }
 
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Updated argument direction to be of type
-            elev_motor_direction_t
-*/
-///////////////////////////////////////////////
 void exec_set_last_direction(elev_motor_direction_t direction) {
     last_direction = direction;
 }
 
-///////////////////////////////////////////////
-/*
-    Updates:
-        - Updated all order_add_order_to_queue function calls
-            to use elev_motor_direction_t instead
-            of direction_codes_t
-*/
-///////////////////////////////////////////////
 int exec_check_order_buttons() {
     for (int floor = 0; floor < 4; floor++) {
         for (int type = 0; type < 3; type++) {
@@ -224,26 +146,6 @@ int exec_check_order_buttons() {
     return 0;
 }
 
-///////////////////////////////////////////////
-/*
-    Updates:
-        - Changed name to exec_should_stop_at_floor to
-            better explain what function does
-        - Now takes floor_codes_t current_floor as argument.
-            This because all functions calling it
-            already call the elev_get_floor_sensor_signal
-            function themselves so this makes it so that it
-            so that the function is only called once per state 
-        - Deleted printf statement in else if check when checking
-            if last_dir == STOP_DIR as it was only used for
-            debugging
-        - Updated direction to be of type elev_motor_direction_t
-        - Updated checks for current_floor to be of type floor_codes_t
-        - Deleted dir variable and using last_direction directly
-            instead.
-        - Added else statement at the end because it looks nice :)
-*/
-///////////////////////////////////////////////
 //return 1 if elevator should stop on the way
 //is only run when at a floor. Checks if any orders are at this floor and returns 1 if elevator should stop
 int exec_should_stop_at_floor(floor_codes_t current_floor) {
@@ -286,15 +188,6 @@ int exec_should_stop_at_floor(floor_codes_t current_floor) {
     return 0;
 }
 
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - This function is now a public function
-            visible to fsm.c
-        - Added a statement in switch block where
-            the destination floor is between_floors
-*/
-///////////////////////////////////////////////
 return_codes_t exec_get_idle_return_code() {
     switch (destination_floor)
     {
@@ -336,23 +229,6 @@ return_codes_t exec_get_idle_return_code() {
     }
 }
 
-
-///////////////////////////////////////////////
-/*
-    UPDATES:
-        - Changed name to exec_get_floor_return_code.
-            This since the only functions in fsm.c calling
-            this functions are the floor_stationary state
-            and the idle state. It therefore makes sense to
-            just split the function since they are almost
-            doing that already.
-        - Also takes in floor_codes_t current_floor argument
-            so that elev_get_floor_sensor_signal doesn't have
-            to be called twice in the state
-        - No longer calls exec_get_idle_return_code as this function
-            will now be made public to the fsm.c
-*/
-///////////////////////////////////////////////
 return_codes_t exec_get_floor_return_code(floor_codes_t current_floor) {   
     if (destination_floor == between_floors) {
         return hold;
