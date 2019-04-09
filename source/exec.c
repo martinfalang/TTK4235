@@ -25,19 +25,22 @@ static floor_codes_t destination_floor;
 ///////////////////////////////////////////////
 
 return_codes_t exec_open_door_3_sec(floor_codes_t current_floor) {
-    exec_clear_all_order_lights_at_floor(current_floor);
-
-    order_remove_all_orders_at_floor(current_floor);
+    
     elev_set_door_open_lamp(1);
 
     for (int i = 0; i < 3000; i++) {
         exec_delay(1);
         exec_check_order_buttons();
 
+        exec_clear_all_order_lights_at_floor(current_floor);
+
         if (elev_get_stop_signal()) {
             return stop;
         }
     }
+
+    order_remove_all_orders_at_floor(current_floor);
+
     elev_set_door_open_lamp(0);
     return hold;
 }
@@ -199,7 +202,7 @@ return_codes_t exec_get_idle_return_code() {
             break;
         }
         case floor_2: {
-            if (last_floor < floor_2 || (last_floor == floor_2 && last_direction == DOWN)) {
+            if (last_floor < floor_2 || (last_floor == floor_2 && last_direction == DIRN_DOWN)) {
                 return drive_up;
             }
             else {
@@ -208,7 +211,7 @@ return_codes_t exec_get_idle_return_code() {
             break;
         }
         case floor_3: {
-            if (last_floor > floor_3 || (last_floor == floor_3 && last_direction == UP)) {
+            if (last_floor > floor_3 || (last_floor == floor_3 && last_direction == DIRN_UP)) {
                 return drive_down;
             }
             else {

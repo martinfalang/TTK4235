@@ -107,6 +107,9 @@ return_codes_t fsm_floor_stationary_state() {
     
     elev_set_floor_indicator(current_floor);
 
+    //Update queue
+    exec_check_order_buttons();
+
     //Stop elevator
     elev_set_motor_direction(DIRN_STOP);
 
@@ -120,9 +123,6 @@ return_codes_t fsm_floor_stationary_state() {
     if (elev_get_stop_signal()) {
         return stop;
     }
-
-    //Update queue
-    exec_check_order_buttons();
     
     //Debug purposes
     order_print_orders();
@@ -236,9 +236,19 @@ return_codes_t fsm_stop_state(){
 
     if (!elev_get_stop_signal() && current_floor != between_floors) {
         elev_set_stop_lamp(0);
+
+        for (int i = 0; i < 3000; i++) {
+            exec_delay(1);
+
+            if (elev_get_stop_signal()) {
+                return hold;
+            }
+        }
+
         elev_set_door_open_lamp(0);
         
         exec_update_destination_floor();
+
         return stay;
     }
     else if (!elev_get_stop_signal()) {
