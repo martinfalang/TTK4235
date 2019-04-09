@@ -1,300 +1,109 @@
+
+///////////////////////////////////////////////
+/*
+    TOP LEVEL UPDATES:
+        - Deleted old order_add function
+        - Deleted old order_remove function
+        - Deleted old order_init function
+        - Deleted old order_update_floor_lights
+            function as this is now done in exec.c
+        - Deleted order_find_inside as this function
+            is not used and was not implemented
+        - Not including <stdio.h> anymore as we
+            don't print anything in this file
+        - Deleted include "fsm.h" statement as
+            this file is already included in order.h
+*/
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+// Includes
+///////////////////////////////////////////////
+
 #include "order.h"
 #include "elev.h"
-#include "fsm.h"
 
-#include <stdio.h>
+///////////////////////////////////////////////
+// Functions
+///////////////////////////////////////////////
 
-//Array of orders, 1 means order of type on, 0 means no order of given type.
-
-static inside_queue_t inside_queue;
-static outside_queue_t outside_queue;
+///////////////////////////////////////////////
 /*
-int order_init(void) {
-    for (int i = 0; i < sizeof(order_array)/sizeof(int); i++) {
-        order_array[i] = 0;
-    }
-    return 0;
-}
+    UPDATES:
+        - Added initialization to both queues,
+            this is tested and works
 */
+///////////////////////////////////////////////
+static inside_queue_t inside_queue = {.length = 0, .rear = 0};
+static outside_queue_t outside_queue = {.length = 0, .rear = 0};
 
+// No updates made
+inside_queue_t* order_get_inside_queue() {
+    return &inside_queue;
+}
 
-int order_add(floor_codes_t floor, direction_codes_t direction) {
-    if (direction == STOP_DIR) {
+// No updates made
+outside_queue_t* order_get_outside_queue() {
+    return &outside_queue;
+}
+
+///////////////////////////////////////////////
+/*
+    UPDATES:
+        - Updated name to better explain what function does
+        - Updated direction to be of type elev_motor_direction_t
+        - Updated inside of function with DIRN_STOP, DIRN_UP and DIRN_DOWN
+            to match argument type of direction
+        - Changed failure return code to -1
+*/
+///////////////////////////////////////////////
+int order_add_order_to_queue(floor_codes_t floor, elev_motor_direction_t direction) {
+    if (direction == DIRN_STOP) {
         scheduler_insert_inside_order(&inside_queue, floor);
         return 0;
     }
-    else if (direction == UP || direction == DOWN) {
+    else if (direction == DIRN_UP || direction == DIRN_DOWN) {
         scheduler_insert_outside_order(&outside_queue, floor, direction);
         return 0;
     }
     else {
-        return 1;
+        return -1;
     }
 }
+
+///////////////////////////////////////////////
 /*
-int order_add(int type){
-    int floor=0;
-    int direction=0;
-    order_update_floor_lights(type, 1);
-    switch(type)
-    {
-        case inside_1:
-        {
-            floor=0;
-            direction=0;
-            scheduler_insert_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case inside_2:
-        {
-            floor=1;
-            direction=0;
-            scheduler_insert_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case inside_3:
-        {
-            floor=2;
-            direction=0;
-            scheduler_insert_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case inside_4:
-        {
-            floor=3;
-            direction=0;
-            scheduler_insert_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case outside_1_up:
-        {
-            floor=0;
-            direction=1;
-            scheduler_insert_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_2_up:
-        {
-            floor=1;
-            direction=1;
-            scheduler_insert_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_3_up:
-        {
-            floor=2;
-            direction=1;
-            scheduler_insert_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_2_down:
-        {
-            floor=1;
-            direction=-1;
-            scheduler_insert_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_3_down:
-        {
-            floor=2;
-            direction=-1;
-            scheduler_insert_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_4_down:
-        {
-            floor=3;
-            direction=-1;
-            scheduler_insert_outside_order(&outside_queue, floor, direction);
-            return 0;
-        }
-        default:
-        {
-            return -1;
-        }
-
-    }
-}
+    UPDATES:
+        - Updated function name to better explain
+            what it does
+        - Changed this function to a void function
+            as is only return 0 anyways
+        - Updated direction argument in scheduler_delete_outside_order
+            function to be of type elev_motor_direction_t
 */
-
-//Since all orders at a floor shall be deleted when the elevator arrives, this function only needs floor as argument
-int order_remove(floor_codes_t floor) {
-    scheduler_delete_outside_order(&outside_queue, floor, UP);
-    scheduler_delete_outside_order(&outside_queue, floor, DOWN);
+///////////////////////////////////////////////
+// Since all orders at a floor shall be deleted when the elevator arrives, this function only needs floor as argument
+void order_remove_all_orders_at_floor(floor_codes_t floor) {
+    scheduler_delete_outside_order(&outside_queue, floor, DIRN_UP);
+    scheduler_delete_outside_order(&outside_queue, floor, DIRN_DOWN);
     scheduler_delete_inside_order(&inside_queue, floor);
-    return 0;
 }
 
+///////////////////////////////////////////////
 /*
-int order_remove(int type) {
-    int floor=0;
-    int direction=0;
-    order_update_floor_lights(type, 0);
-    switch(type)
-    {
-        case inside_1:
-        {
-            floor=0;
-            direction=0;
-            scheduler_delete_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case inside_2:
-        {
-            floor=1;
-            direction=0;
-            scheduler_delete_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case inside_3:
-        {
-            floor=2;
-            direction=0;
-            scheduler_delete_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case inside_4:
-        {
-            floor=3;
-            direction=0;
-            scheduler_delete_inside_order(&inside_queue,floor);
-            return 0;
-        }
-        case outside_1_up:
-        {
-            floor=0;
-            direction=1;
-            scheduler_delete_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_2_up:
-        {
-            floor=1;
-            direction=1;
-            scheduler_delete_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_3_up:
-        {
-            floor=2;
-            direction=1;
-            scheduler_delete_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_2_down:
-        {
-            floor=1;
-            direction=-1;
-            scheduler_delete_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_3_down:
-        {
-            floor=2;
-            direction=-1;
-            scheduler_delete_outside_order(&outside_queue,floor,direction);
-            return 0;
-        }
-        case outside_4_down:
-        {
-            floor=3;
-            direction=-1;
-            scheduler_delete_outside_order(&outside_queue, floor, direction);
-            return 0;
-        }
-        default:
-        {
-            return -1;
-        }
-
+    UPDATES:
+        - Updated direction argument in scheduler_delete_outside_order
+            function to be of type elev_motor_direction_t
+*/
+///////////////////////////////////////////////
+void order_remove_all_orders() {
+    for (floor_codes_t floor = floor_1; floor <= floor_4; floor++) {
+        order_remove_all_orders_at_floor(floor);
     }
 }
-*/
-inside_queue_t* order_get_inside_queue(void)
-{
-    return &inside_queue;
-}
 
-outside_queue_t* order_get_outside_queue(void)
-{
-    return &outside_queue;
-}
-
-
-void order_print_orders(void) {
+// No updates made
+void order_print_orders() {
     scheduler_display_inside_queue(&inside_queue);
     scheduler_display_outside_queue(&outside_queue);
-}
-
-int order_update_floor_lights(int type, int value) {
-    switch (type)
-    {
-        case inside_1: 
-        {
-            elev_set_button_lamp(BUTTON_COMMAND,0,value);
-            break;
-        }
-        case inside_2:
-        {
-            elev_set_button_lamp(BUTTON_COMMAND,1,value);
-            break;
-        }
-        case inside_3:
-        {
-            elev_set_button_lamp(BUTTON_COMMAND,2,value);
-            break;
-        }
-        case inside_4:
-        {
-            elev_set_button_lamp(BUTTON_COMMAND,3,value);
-            break;
-        }
-        case outside_1_up:
-        {
-            elev_set_button_lamp(BUTTON_CALL_UP,0,value);
-            break;
-        }
-        case outside_2_down:
-        {
-            elev_set_button_lamp(BUTTON_CALL_DOWN,1,value);
-            break;
-        }
-        case outside_2_up:
-        {
-            elev_set_button_lamp(BUTTON_CALL_UP,1,value);
-            break;
-        }
-        case outside_3_down:
-        {
-            elev_set_button_lamp(BUTTON_CALL_DOWN,2,value);
-            break;
-        }
-        case outside_3_up:
-        {
-            elev_set_button_lamp(BUTTON_CALL_UP,2,value);
-            break;
-        }
-        case outside_4_down:
-        {
-            elev_set_button_lamp(BUTTON_CALL_DOWN,3,value);
-            break;
-        }
-    
-        default:
-            return -1;
-    }
-    return 0;
-}
-
-int order_find_inside(int floor) {
-    return 0;
-}
-
-//removes all orders
-void order_remove_all() {
-    for (floor_codes_t floor = floor_1; floor <= floor_4; floor++) {
-        scheduler_delete_inside_order(&inside_queue, floor);
-        scheduler_delete_outside_order(&outside_queue, floor, UP);
-        scheduler_delete_outside_order(&outside_queue, floor, DOWN);
-    }
 }
