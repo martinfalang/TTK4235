@@ -292,11 +292,17 @@ int exec_should_stop_at_floor(floor_codes_t current_floor) {
     UPDATES:
         - This function is now a public function
             visible to fsm.c
+        - Added a statement in switch block where
+            the destination floor is between_floors
 */
 ///////////////////////////////////////////////
 return_codes_t exec_get_idle_return_code() {
     switch (destination_floor)
     {
+        case between_floors: {
+            return hold;
+            break;
+        }
         case floor_1: {
             return drive_down;
             break;
