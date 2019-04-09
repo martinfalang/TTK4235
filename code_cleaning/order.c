@@ -98,9 +98,7 @@ void order_remove_all_orders_at_floor(floor_codes_t floor) {
 ///////////////////////////////////////////////
 void order_remove_all_orders() {
     for (floor_codes_t floor = floor_1; floor <= floor_4; floor++) {
-        scheduler_delete_inside_order(&inside_queue, floor);
-        scheduler_delete_outside_order(&outside_queue, floor, DIRN_UP);
-        scheduler_delete_outside_order(&outside_queue, floor, DIRN_DOWN);
+        order_remove_all_orders_at_floor(floor);
     }
 }
 

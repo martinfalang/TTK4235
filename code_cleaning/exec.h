@@ -38,7 +38,7 @@
 // Function declarations
 ///////////////////////////////////////////////
 
-void exec_open_door_3_sec();
+void exec_open_door_3_sec(floor_codes_t current_floor);
 void exec_update_destination_floor();
 void exec_delay(int ms);
 void exec_set_last_floor(floor_codes_t floor);

@@ -77,7 +77,7 @@ static floor_codes_t destination_floor;
         Made this its own function
 */
 ///////////////////////////////////////////////
-void exec_open_door_3_sec() {
+void exec_open_door_3_sec(floor_codes_t current_floor) {
     exec_clear_all_order_lights_at_floor(current_floor);
 
     order_remove(current_floor);
@@ -88,7 +88,7 @@ void exec_open_door_3_sec() {
         exec_check_order_buttons();
 
         if (elev_get_stop_signal()) {
-            return stop_flr;
+            return stop;
         }
     }
     elev_set_door_open_lamp(0);
@@ -358,7 +358,7 @@ return_codes_t exec_get_floor_return_code(floor_codes_t current_floor) {
     if (destination_floor == between_floors) {
         return hold;
     }
-    else if(current_floor != destination_floor)
+    else if (current_floor != destination_floor)
     {
         if(current_floor < destination_floor) {
             return drive_up;
@@ -367,7 +367,7 @@ return_codes_t exec_get_floor_return_code(floor_codes_t current_floor) {
             return drive_down;
         }
     }
-    else{
+    else {
         return hold;
     }
 }
