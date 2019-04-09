@@ -29,7 +29,6 @@ return_codes_t (*state[])(void) = {
 transition_t state_transitions[] = {
     {initialize, hold, initialize},
     {initialize, stay, floor_stationary},
-    {initialize, stop, stop_state},
     {initialize, fail, end},
 
     {floor_stationary, hold, floor_stationary},
@@ -246,12 +245,15 @@ return_codes_t fsm_stop_state(){
     if (!elev_get_stop_signal() && current_floor != between_floors) {
         elev_set_stop_lamp(0);
 
-        for (int i = 0; i < 3000; i++) {
-            exec_delay(1);
+        for (int i = 0; i < 300; i++) {
+            exec_delay(10);
 
             if (elev_get_stop_signal()) {
                 return hold;
             }
+
+            // Since stop button is not pressed, check for orders
+            exec_check_order_buttons();
         }
 
         elev_set_door_open_lamp(0);

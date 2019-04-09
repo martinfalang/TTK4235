@@ -33,13 +33,18 @@ return_codes_t exec_open_door_3_sec(floor_codes_t current_floor) {
         exec_check_order_buttons();
 
         exec_clear_all_order_lights_at_floor(current_floor);
+        
+        // Resets timer if there is a new order to handle on this floor
+        if (exec_should_stop_at_floor(current_floor)) {
+            i = 0;
+        }
+        
+        order_remove_all_orders_at_floor(current_floor);
 
         if (elev_get_stop_signal()) {
             return stop;
         }
     }
-
-    order_remove_all_orders_at_floor(current_floor);
 
     elev_set_door_open_lamp(0);
     return hold;
@@ -154,12 +159,9 @@ int exec_should_stop_at_floor(floor_codes_t current_floor) {
     
     inside_queue_t  *inside_queue_ptr = order_get_inside_queue();
     outside_queue_t *outside_queue_ptr = order_get_outside_queue();
-
-    if (current_floor == destination_floor) {
-        return 1;
-    }
+    
     // Check inside orders
-    else if (inside_queue_ptr->length) {
+    if (inside_queue_ptr->length) {
         for(int i = 0; i < inside_queue_ptr->length; i++) {
             if(inside_queue_ptr->queue[i].floor == current_floor)
             {
