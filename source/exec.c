@@ -28,8 +28,8 @@ return_codes_t exec_open_door_3_sec(floor_codes_t current_floor) {
     
     elev_set_door_open_lamp(1);
 
-    for (int i = 0; i < 3000; i++) {
-        exec_delay(1);
+    for (int i = 0; i < 300; i++) {
+        exec_delay(10);
         exec_check_order_buttons();
 
         exec_clear_all_order_lights_at_floor(current_floor);
@@ -168,7 +168,7 @@ int exec_should_stop_at_floor(floor_codes_t current_floor) {
         }
     }
     // Check outside orders
-    else if (outside_queue_ptr->length) {
+    if (outside_queue_ptr->length) {
         for(int i = 0; i < outside_queue_ptr->length; i++)
         {
             if (current_floor == floor_1 || current_floor == floor_4) {

@@ -129,8 +129,15 @@ return_codes_t fsm_floor_stationary_state() {
 
     //Update current destination_floor
     exec_update_destination_floor();
+    return_codes_t ret_code = exec_get_floor_return_code(current_floor);
 
-    return exec_get_floor_return_code(current_floor);
+    if (ret_code == drive_down) {
+        exec_set_last_direction(DIRN_DOWN);
+    }
+    else if (ret_code == drive_up) {
+        exec_set_last_direction(DIRN_UP);
+    }
+    return ret_code;
 }
 
 return_codes_t fsm_driving_up_state() 
@@ -138,7 +145,7 @@ return_codes_t fsm_driving_up_state()
     printf("State: Driving up\n");
 
     //Set last_direction to UP
-    exec_set_last_direction(DIRN_UP);
+    //exec_set_last_direction(DIRN_UP);
 
 
     //Check if elevator is at a floor
@@ -147,6 +154,7 @@ return_codes_t fsm_driving_up_state()
     //Update last floor if elevator is at a floor
     if (current_floor != between_floors) {
         exec_set_last_floor(current_floor);
+        elev_set_floor_indicator((int)(current_floor));
     }
 
     //Check if stop button is pressed
@@ -179,7 +187,7 @@ return_codes_t fsm_driving_down_state()
     printf("State: Driving down\n");
     
     //Set last_direction to DOWN
-    exec_set_last_direction(DIRN_DOWN);
+    //exec_set_last_direction(DIRN_DOWN);
 
     //Check if elevator is at a floor
     floor_codes_t current_floor = elev_get_floor_sensor_signal();
@@ -187,6 +195,7 @@ return_codes_t fsm_driving_down_state()
     //Update last floor if elevator is at a floor
     if (current_floor != between_floors) {
         exec_set_last_floor(current_floor);
+        elev_set_floor_indicator((int)(current_floor));
     }
 
     //Check if stop button is pressed
