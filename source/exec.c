@@ -186,6 +186,9 @@ int exec_should_stop_at_floor(floor_codes_t current_floor) {
             {
                 return 1;
             }
+            else if (outside_queue_ptr->queue[i].floor == current_floor && current_floor == destination_floor) {
+                return 1;
+            }
         }
     }
     //If nothing found, return 0

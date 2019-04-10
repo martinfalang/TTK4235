@@ -79,7 +79,7 @@ state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_cod
 return_codes_t fsm_initialize_state()
 {
     // Debug options
-    printf("State: initilize\n");
+    //printf("State: initilize\n");
     elev_set_motor_direction(DIRN_DOWN);
 
     floor_codes_t floor = elev_get_floor_sensor_signal();
@@ -96,7 +96,7 @@ return_codes_t fsm_initialize_state()
 return_codes_t fsm_floor_stationary_state() {
     
     // Debug options
-    printf("State: floor_stationary_state\n");
+    //printf("State: floor_stationary_state\n");
 
     exec_set_last_direction(DIRN_STOP);
 
@@ -124,7 +124,7 @@ return_codes_t fsm_floor_stationary_state() {
     }
     
     //Debug purposes
-    order_print_orders();
+    //order_print_orders();
 
     //Update current destination_floor
     exec_update_destination_floor();
@@ -141,11 +141,8 @@ return_codes_t fsm_floor_stationary_state() {
 
 return_codes_t fsm_driving_up_state() 
 {
-    printf("State: Driving up\n");
-
-    //Set last_direction to UP
-    //exec_set_last_direction(DIRN_UP);
-
+    // Debug options
+    //printf("State: Driving up\n");
 
     //Check if elevator is at a floor
     floor_codes_t current_floor = elev_get_floor_sensor_signal();
@@ -165,7 +162,7 @@ return_codes_t fsm_driving_up_state()
     exec_check_order_buttons();
 
     //Debug purposes
-    order_print_orders();
+    //order_print_orders();
 
     //Check if elevator is near a floor. If yes, check if it should stop
     if (current_floor != between_floors) {
@@ -183,10 +180,8 @@ return_codes_t fsm_driving_up_state()
 
 return_codes_t fsm_driving_down_state() 
 {
-    printf("State: Driving down\n");
-    
-    //Set last_direction to DOWN
-    //exec_set_last_direction(DIRN_DOWN);
+    // Debug opetions
+    //printf("State: Driving down\n");
 
     //Check if elevator is at a floor
     floor_codes_t current_floor = elev_get_floor_sensor_signal();
@@ -207,7 +202,7 @@ return_codes_t fsm_driving_down_state()
     exec_check_order_buttons();
 
     //Debug purposes
-    order_print_orders();
+    //order_print_orders();
 
     //Check if elevator is near a floor. If yes, check if it should stop
     if (current_floor != between_floors) {
@@ -225,7 +220,7 @@ return_codes_t fsm_driving_down_state()
 
 return_codes_t fsm_stop_state(){
     // Debug purposes
-    printf("State: stop_state\n");
+    //printf("State: stop_state\n");
 
     elev_set_motor_direction(DIRN_STOP);
     elev_set_stop_lamp(1);
@@ -245,18 +240,9 @@ return_codes_t fsm_stop_state(){
     if (!elev_get_stop_signal() && current_floor != between_floors) {
         elev_set_stop_lamp(0);
 
-        for (int i = 0; i < 300; i++) {
-            exec_delay(10);
-
-            if (elev_get_stop_signal()) {
-                return hold;
-            }
-
-            // Since stop button is not pressed, check for orders
-            exec_check_order_buttons();
-        }
-
-        elev_set_door_open_lamp(0);
+       if (exec_open_door_3_sec(current_floor) == stop) {
+           return hold;
+       }
         
         exec_update_destination_floor();
 
@@ -273,7 +259,9 @@ return_codes_t fsm_stop_state(){
 }
 
 return_codes_t fsm_idle_state() {
-    printf("State: idle\n");
+    // Debug options
+    //printf("State: idle\n");
+
     elev_set_motor_direction(DIRN_STOP);
 
     //Check if stop button is pressed
