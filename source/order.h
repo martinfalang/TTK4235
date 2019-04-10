@@ -49,6 +49,6 @@ void order_remove_all_orders();
  * @brief Print both queues in a nice and readable format
  * 
  */
-void order_print_orders(void);
+void order_print_orders();
 
 #endif /* ORDER_H */
