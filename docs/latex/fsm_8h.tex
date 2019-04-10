@@ -15,52 +15,54 @@ struct \hyperlink{structtransition}{transition}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{fsm_8h_a82d838a5a84d8a69efd629eccf20eb9c}\label{fsm_8h_a82d838a5a84d8a69efd629eccf20eb9c}} 
-typedef enum floor\+\_\+codes {\bfseries floor\+\_\+codes\+\_\+t}
+typedef enum floor\+\_\+codes {\bfseries floor\+\_\+codes\+\_\+t}\hypertarget{fsm_8h_a82d838a5a84d8a69efd629eccf20eb9c}{}\label{fsm_8h_a82d838a5a84d8a69efd629eccf20eb9c}
+
 \item 
-typedef enum \hyperlink{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}{state\+\_\+codes} \hyperlink{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{state\+\_\+codes\+\_\+t}
+typedef enum state\+\_\+codes {\bfseries state\+\_\+codes\+\_\+t}\hypertarget{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{}\label{fsm_8h_a24468ac18da8c9095490b17865df4fdd}
+
 \item 
-\mbox{\Hypertarget{fsm_8h_a7e5229089fb5f6f8e34ff43399954f01}\label{fsm_8h_a7e5229089fb5f6f8e34ff43399954f01}} 
-typedef enum return\+\_\+codes {\bfseries return\+\_\+codes\+\_\+t}
+typedef enum return\+\_\+codes {\bfseries return\+\_\+codes\+\_\+t}\hypertarget{fsm_8h_a7e5229089fb5f6f8e34ff43399954f01}{}\label{fsm_8h_a7e5229089fb5f6f8e34ff43399954f01}
+
 \item 
-\mbox{\Hypertarget{fsm_8h_a71f0b08ca21f15895e4dff5ea4d2a69e}\label{fsm_8h_a71f0b08ca21f15895e4dff5ea4d2a69e}} 
-typedef struct \hyperlink{structtransition}{transition} {\bfseries transition\+\_\+t}
+typedef struct \hyperlink{structtransition}{transition} {\bfseries transition\+\_\+t}\hypertarget{fsm_8h_a71f0b08ca21f15895e4dff5ea4d2a69e}{}\label{fsm_8h_a71f0b08ca21f15895e4dff5ea4d2a69e}
+
 \end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{fsm_8h_a73e34722c2cb96c0a6a4451f7496d398}\label{fsm_8h_a73e34722c2cb96c0a6a4451f7496d398}} 
-enum {\bfseries floor\+\_\+codes} \{ \newline
+enum {\bfseries floor\+\_\+codes} \{ \\*
 {\bfseries floor\+\_\+1}, 
 {\bfseries floor\+\_\+2}, 
 {\bfseries floor\+\_\+3}, 
 {\bfseries floor\+\_\+4}, 
-\newline
+\\*
 {\bfseries between\+\_\+floors} = -\/1
- \}
+ \}\hypertarget{fsm_8h_a73e34722c2cb96c0a6a4451f7496d398}{}\label{fsm_8h_a73e34722c2cb96c0a6a4451f7496d398}
+
 \item 
-enum \hyperlink{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}{state\+\_\+codes} \{ \newline
+enum {\bfseries state\+\_\+codes} \{ \\*
 {\bfseries floor\+\_\+stationary}, 
 {\bfseries initialize}, 
 {\bfseries driving\+\_\+up}, 
 {\bfseries driving\+\_\+down}, 
-\newline
+\\*
 {\bfseries stop\+\_\+state}, 
 {\bfseries idle\+\_\+state}, 
 {\bfseries end}
- \}
+ \}\hypertarget{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}{}\label{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}
+
 \item 
-\mbox{\Hypertarget{fsm_8h_aaca7161d951febc512af343029761de1}\label{fsm_8h_aaca7161d951febc512af343029761de1}} 
-enum {\bfseries return\+\_\+codes} \{ \newline
+enum {\bfseries return\+\_\+codes} \{ \\*
 {\bfseries drive\+\_\+up}, 
 {\bfseries drive\+\_\+down}, 
 {\bfseries hold}, 
 {\bfseries stay}, 
-\newline
+\\*
 {\bfseries idle}, 
 {\bfseries stop}, 
 {\bfseries fail}
- \}
+ \}\hypertarget{fsm_8h_aaca7161d951febc512af343029761de1}{}\label{fsm_8h_aaca7161d951febc512af343029761de1}
+
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -79,15 +81,15 @@ return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}{fs
 \begin{DoxyCompactList}\small\item\em Behaviour for the idle\+\_\+state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. Return a suitable return code to use in the lookup\+\_\+transitions function. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}{fsm\+\_\+end\+\_\+state} (void)
 \begin{DoxyCompactList}\small\item\em A fail state, used for debugging and to make the state machine finite. \end{DoxyCompactList}\item 
-\hyperlink{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{state\+\_\+codes\+\_\+t} \hyperlink{fsm_8h_a384346766d6529bb78eac9dcae296ce6}{lookup\+\_\+transitions} (\hyperlink{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{state\+\_\+codes\+\_\+t} cur\+\_\+state, return\+\_\+codes\+\_\+t ret\+\_\+code)
+state\+\_\+codes\+\_\+t \hyperlink{fsm_8h_a384346766d6529bb78eac9dcae296ce6}{lookup\+\_\+transitions} (state\+\_\+codes\+\_\+t cur\+\_\+state, return\+\_\+codes\+\_\+t ret\+\_\+code)
 \begin{DoxyCompactList}\small\item\em Takes in the current state and a return code generated from the fsm function of that state. Searches through a {\ttfamily state\+\_\+transitions} array which contains all transition combinations and looks for the appropriate one to return a new state code. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 return\+\_\+codes\+\_\+t($\ast$ \hyperlink{fsm_8h_a6964675fd0305f58a977292430d9589b}{state} \mbox{[}$\,$\mbox{]})(void)
 \item 
-\mbox{\Hypertarget{fsm_8h_ab95c359f41693d31cdbb3c7d46cc08cb}\label{fsm_8h_ab95c359f41693d31cdbb3c7d46cc08cb}} 
-\hyperlink{structtransition}{transition\+\_\+t} {\bfseries state\+\_\+transitions} \mbox{[}$\,$\mbox{]}
+\hyperlink{structtransition}{transition\+\_\+t} {\bfseries state\+\_\+transitions} \mbox{[}$\,$\mbox{]}\hypertarget{fsm_8h_ab95c359f41693d31cdbb3c7d46cc08cb}{}\label{fsm_8h_ab95c359f41693d31cdbb3c7d46cc08cb}
+
 \end{DoxyCompactItemize}
 
 
@@ -96,41 +98,14 @@ A state machine library.
 
 
 
-\subsection{Typedef Documentation}
-\mbox{\Hypertarget{fsm_8h_a24468ac18da8c9095490b17865df4fdd}\label{fsm_8h_a24468ac18da8c9095490b17865df4fdd}} 
-\index{fsm.\+h@{fsm.\+h}!state\+\_\+codes\+\_\+t@{state\+\_\+codes\+\_\+t}}
-\index{state\+\_\+codes\+\_\+t@{state\+\_\+codes\+\_\+t}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{state\+\_\+codes\+\_\+t}{state\_codes\_t}}
-{\footnotesize\ttfamily typedef enum \hyperlink{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}{state\+\_\+codes}  \hyperlink{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{state\+\_\+codes\+\_\+t}}
-
-\begin{DoxyWarning}{Warning}
-Must be in sync with {\ttfamily states}\mbox{[}\mbox{]} function array. 
-\end{DoxyWarning}
-
-
-\subsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}\label{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}} 
-\index{fsm.\+h@{fsm.\+h}!state\+\_\+codes@{state\+\_\+codes}}
-\index{state\+\_\+codes@{state\+\_\+codes}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{state\+\_\+codes}{state\_codes}}
-{\footnotesize\ttfamily enum \hyperlink{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}{state\+\_\+codes}}
-
-\begin{DoxyWarning}{Warning}
-Must be in sync with {\ttfamily states}\mbox{[}\mbox{]} function array. 
-\end{DoxyWarning}
-
-
-Definition at line 26 of file fsm.\+h.
-
-
-
 \subsection{Function Documentation}
-\mbox{\Hypertarget{fsm_8h_a88e991035ea2a1060d380cc2e4eb6f99}\label{fsm_8h_a88e991035ea2a1060d380cc2e4eb6f99}} 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+driving\+\_\+down\+\_\+state@{fsm\+\_\+driving\+\_\+down\+\_\+state}}
 \index{fsm\+\_\+driving\+\_\+down\+\_\+state@{fsm\+\_\+driving\+\_\+down\+\_\+state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{fsm\+\_\+driving\+\_\+down\+\_\+state()}{fsm\_driving\_down\_state()}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t fsm\+\_\+driving\+\_\+down\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{fsm\+\_\+driving\+\_\+down\+\_\+state(void)}{fsm_driving_down_state(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t fsm\+\_\+driving\+\_\+down\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_a88e991035ea2a1060d380cc2e4eb6f99}{}\label{fsm_8h_a88e991035ea2a1060d380cc2e4eb6f99}
 
 
 Behaviour for the driving\+\_\+down state. Listen for orders and stop button and return a return code to use in the lookup\+\_\+transitions function. 
@@ -140,14 +115,15 @@ Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move the state machi
 \end{DoxyReturn}
 
 
-Definition at line 177 of file fsm.\+c.
+Definition at line 184 of file fsm.\+c.
 
-\mbox{\Hypertarget{fsm_8h_a6add83788caf3078462c94ce0d46fa92}\label{fsm_8h_a6add83788caf3078462c94ce0d46fa92}} 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+driving\+\_\+up\+\_\+state@{fsm\+\_\+driving\+\_\+up\+\_\+state}}
 \index{fsm\+\_\+driving\+\_\+up\+\_\+state@{fsm\+\_\+driving\+\_\+up\+\_\+state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{fsm\+\_\+driving\+\_\+up\+\_\+state()}{fsm\_driving\_up\_state()}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t fsm\+\_\+driving\+\_\+up\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{fsm\+\_\+driving\+\_\+up\+\_\+state(void)}{fsm_driving_up_state(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t fsm\+\_\+driving\+\_\+up\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_a6add83788caf3078462c94ce0d46fa92}{}\label{fsm_8h_a6add83788caf3078462c94ce0d46fa92}
 
 
 Behaviour for the driving\+\_\+up state. Listen for orders and stop button and return a return code to use in the lookup\+\_\+transitions function. 
@@ -157,14 +133,15 @@ Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move the state machi
 \end{DoxyReturn}
 
 
-Definition at line 136 of file fsm.\+c.
+Definition at line 142 of file fsm.\+c.
 
-\mbox{\Hypertarget{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}\label{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}} 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+end\+\_\+state@{fsm\+\_\+end\+\_\+state}}
 \index{fsm\+\_\+end\+\_\+state@{fsm\+\_\+end\+\_\+state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{fsm\+\_\+end\+\_\+state()}{fsm\_end\_state()}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t fsm\+\_\+end\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{fsm\+\_\+end\+\_\+state(void)}{fsm_end_state(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t fsm\+\_\+end\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}{}\label{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}
 
 
 A fail state, used for debugging and to make the state machine finite. 
@@ -177,14 +154,15 @@ Elevator should not reach this state, and can not leave it. If it is reached, th
 \end{DoxyWarning}
 
 
-Definition at line 271 of file fsm.\+c.
+Definition at line 292 of file fsm.\+c.
 
-\mbox{\Hypertarget{fsm_8h_acab6b1a742dfe51fcc78f99f24f6c4be}\label{fsm_8h_acab6b1a742dfe51fcc78f99f24f6c4be}} 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+floor\+\_\+stationary\+\_\+state@{fsm\+\_\+floor\+\_\+stationary\+\_\+state}}
 \index{fsm\+\_\+floor\+\_\+stationary\+\_\+state@{fsm\+\_\+floor\+\_\+stationary\+\_\+state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{fsm\+\_\+floor\+\_\+stationary\+\_\+state()}{fsm\_floor\_stationary\_state()}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t fsm\+\_\+floor\+\_\+stationary\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{fsm\+\_\+floor\+\_\+stationary\+\_\+state(void)}{fsm_floor_stationary_state(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t fsm\+\_\+floor\+\_\+stationary\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_acab6b1a742dfe51fcc78f99f24f6c4be}{}\label{fsm_8h_acab6b1a742dfe51fcc78f99f24f6c4be}
 
 
 Behaviour for the stationary state. Listen for orders and return a return code to use in the lookup\+\_\+transitions function. 
@@ -194,14 +172,15 @@ Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move the state machi
 \end{DoxyReturn}
 
 
-Definition at line 97 of file fsm.\+c.
+Definition at line 96 of file fsm.\+c.
 
-\mbox{\Hypertarget{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}\label{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}} 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+idle\+\_\+state@{fsm\+\_\+idle\+\_\+state}}
 \index{fsm\+\_\+idle\+\_\+state@{fsm\+\_\+idle\+\_\+state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{fsm\+\_\+idle\+\_\+state()}{fsm\_idle\_state()}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t fsm\+\_\+idle\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{fsm\+\_\+idle\+\_\+state(void)}{fsm_idle_state(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t fsm\+\_\+idle\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}{}\label{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}
 
 
 Behaviour for the idle\+\_\+state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. Return a suitable return code to use in the lookup\+\_\+transitions function. 
@@ -211,14 +190,15 @@ Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to stay in idle if no o
 \end{DoxyReturn}
 
 
-Definition at line 254 of file fsm.\+c.
+Definition at line 275 of file fsm.\+c.
 
-\mbox{\Hypertarget{fsm_8h_ae67daff4b8088c370b9925d948a8f641}\label{fsm_8h_ae67daff4b8088c370b9925d948a8f641}} 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+initialize\+\_\+state@{fsm\+\_\+initialize\+\_\+state}}
 \index{fsm\+\_\+initialize\+\_\+state@{fsm\+\_\+initialize\+\_\+state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{fsm\+\_\+initialize\+\_\+state()}{fsm\_initialize\_state()}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t fsm\+\_\+initialize\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{fsm\+\_\+initialize\+\_\+state(void)}{fsm_initialize_state(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t fsm\+\_\+initialize\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_ae67daff4b8088c370b9925d948a8f641}{}\label{fsm_8h_ae67daff4b8088c370b9925d948a8f641}
 
 
 Behaviour for the initialization state. Ignore all orders and move down until detects a floor, then stops and returns a return code to use in the lookup\+\_\+transitions function. 
@@ -228,14 +208,15 @@ Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to the floor stationary
 \end{DoxyReturn}
 
 
-Definition at line 80 of file fsm.\+c.
+Definition at line 79 of file fsm.\+c.
 
-\mbox{\Hypertarget{fsm_8h_a2ec996fa49f353c5a23a0e5c8cf43a1e}\label{fsm_8h_a2ec996fa49f353c5a23a0e5c8cf43a1e}} 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+stop\+\_\+state@{fsm\+\_\+stop\+\_\+state}}
 \index{fsm\+\_\+stop\+\_\+state@{fsm\+\_\+stop\+\_\+state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{fsm\+\_\+stop\+\_\+state()}{fsm\_stop\_state()}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t fsm\+\_\+stop\+\_\+state (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{fsm\+\_\+stop\+\_\+state(void)}{fsm_stop_state(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t fsm\+\_\+stop\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_a2ec996fa49f353c5a23a0e5c8cf43a1e}{}\label{fsm_8h_a2ec996fa49f353c5a23a0e5c8cf43a1e}
 
 
 Behaviour fot the stop\+\_\+state. Delete all orders, ignore new orders and stay in stop state while order\+\_\+button is pressed. If stops on floor, keep door open while in this state. When stop button released, return a return code to use in the lookup\+\_\+transitions function. 
@@ -245,14 +226,16 @@ Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move state machine i
 \end{DoxyReturn}
 
 
-Definition at line 218 of file fsm.\+c.
+Definition at line 226 of file fsm.\+c.
 
-\mbox{\Hypertarget{fsm_8h_a384346766d6529bb78eac9dcae296ce6}\label{fsm_8h_a384346766d6529bb78eac9dcae296ce6}} 
 \index{fsm.\+h@{fsm.\+h}!lookup\+\_\+transitions@{lookup\+\_\+transitions}}
 \index{lookup\+\_\+transitions@{lookup\+\_\+transitions}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{lookup\+\_\+transitions()}{lookup\_transitions()}}
-{\footnotesize\ttfamily \hyperlink{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{state\+\_\+codes\+\_\+t} lookup\+\_\+transitions (\begin{DoxyParamCaption}\item[{\hyperlink{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{state\+\_\+codes\+\_\+t}}]{cur\+\_\+state,  }\item[{return\+\_\+codes\+\_\+t}]{ret\+\_\+code }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{lookup\+\_\+transitions(state\+\_\+codes\+\_\+t cur\+\_\+state, return\+\_\+codes\+\_\+t ret\+\_\+code)}{lookup_transitions(state_codes_t cur_state, return_codes_t ret_code)}}]{\setlength{\rightskip}{0pt plus 5cm}state\+\_\+codes\+\_\+t lookup\+\_\+transitions (
+\begin{DoxyParamCaption}
+\item[{state\+\_\+codes\+\_\+t}]{cur\+\_\+state, }
+\item[{return\+\_\+codes\+\_\+t}]{ret\+\_\+code}
+\end{DoxyParamCaption}
+)}\hypertarget{fsm_8h_a384346766d6529bb78eac9dcae296ce6}{}\label{fsm_8h_a384346766d6529bb78eac9dcae296ce6}
 
 
 Takes in the current state and a return code generated from the fsm function of that state. Searches through a {\ttfamily state\+\_\+transitions} array which contains all transition combinations and looks for the appropriate one to return a new state code. 
@@ -269,17 +252,14 @@ Program exitis before any return occurs.
 \end{DoxyReturn}
 
 
-Definition at line 67 of file fsm.\+c.
+Definition at line 66 of file fsm.\+c.
 
 
 
 \subsection{Variable Documentation}
-\mbox{\Hypertarget{fsm_8h_a6964675fd0305f58a977292430d9589b}\label{fsm_8h_a6964675fd0305f58a977292430d9589b}} 
 \index{fsm.\+h@{fsm.\+h}!state@{state}}
 \index{state@{state}!fsm.\+h@{fsm.\+h}}
-\subsubsection{\texorpdfstring{state}{state}}
-{\footnotesize\ttfamily return\+\_\+codes\+\_\+t($\ast$  state\mbox{[}$\,$\mbox{]})(void)}
-
+\subsubsection[{\texorpdfstring{state}{state}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t($\ast$  state\mbox{[}$\,$\mbox{]})(void)}\hypertarget{fsm_8h_a6964675fd0305f58a977292430d9589b}{}\label{fsm_8h_a6964675fd0305f58a977292430d9589b}
 \begin{DoxyWarning}{Warning}
 Must be in sync with {\ttfamily state\+\_\+codes\+\_\+t} 
 \end{DoxyWarning}

@@ -1,4 +1,16 @@
 
+/*! @mainpage Elevator project
+  * @section intro_sec Introduction
+  * This contains the documentation for our 
+  * elevator prosjekt for TTK4235. The functions 
+  * of each file is briefly documented in the files 
+  * folder.
+  * 
+  * @section heis_irl Heis irl
+  * @image html meme.jpg
+*/
+
+
 ///////////////////////////////////////////////
 // Includes
 ///////////////////////////////////////////////
