@@ -245,10 +245,19 @@ return_codes_t fsm_stop_state(){
     if (!elev_get_stop_signal() && current_floor != between_floors) {
         elev_set_stop_lamp(0);
 
-        if (exec_open_door_3_sec(current_floor) == stop) {
-            return hold;
+        for (int i = 0; i < 300; i++) {
+            exec_delay(10);
+
+            if (elev_get_stop_signal()) {
+                return hold;
+            }
+
+            // Since stop button is not pressed, check for orders
+            exec_check_order_buttons();
         }
 
+        elev_set_door_open_lamp(0);
+        
         exec_update_destination_floor();
 
         return stay;
