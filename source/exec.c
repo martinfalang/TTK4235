@@ -250,6 +250,6 @@ return_codes_t exec_get_floor_return_code(floor_codes_t current_floor) {
         }
     }
     else {
-        return hold;
+        return fail;
     }
 }
