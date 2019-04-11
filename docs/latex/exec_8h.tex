@@ -5,7 +5,215 @@
 A library for executing tasks for the elevator.  
 
 
-{\ttfamily \#include \char`\"{}fsm.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}scheduler.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\newline
-Include dependency graph for exec.\+h\+:
+{\ttfamily \#include \char`\"{}fsm.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}scheduler.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\\*
+Include dependency graph for exec.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{exec_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{exec_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{exec_8h_a26b32e8c9174585991c50dcab220eff2}{exec\+\_\+delay} (int ms)
+\begin{DoxyCompactList}\small\item\em Delay operations. \end{DoxyCompactList}\item 
+void \hyperlink{exec_8h_a3e0e9841ede66c8f5b737432197f47a5}{exec\+\_\+update\+\_\+destination\+\_\+floor} ()\hypertarget{exec_8h_a3e0e9841ede66c8f5b737432197f47a5}{}\label{exec_8h_a3e0e9841ede66c8f5b737432197f47a5}
+
+\begin{DoxyCompactList}\small\item\em Update the current destination floor. \end{DoxyCompactList}\item 
+void \hyperlink{exec_8h_ac541593f1c96970ca74a9fbf07e5af72}{exec\+\_\+set\+\_\+last\+\_\+floor} (floor\+\_\+codes\+\_\+t floor)
+\begin{DoxyCompactList}\small\item\em Set the last floor the elevator was at. \end{DoxyCompactList}\item 
+void \hyperlink{exec_8h_a187983c2e979e6c1a270225d55b796e3}{exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor} (floor\+\_\+codes\+\_\+t floor)
+\begin{DoxyCompactList}\small\item\em Clears all order lights for a given floor. Both outside and inside. \end{DoxyCompactList}\item 
+void \hyperlink{exec_8h_a04c0ea9caccae0e340032952ead22bd7}{exec\+\_\+set\+\_\+last\+\_\+direction} (elev\+\_\+motor\+\_\+direction\+\_\+t direction)
+\begin{DoxyCompactList}\small\item\em Set the last direction the elevator was moving. \end{DoxyCompactList}\item 
+void \hyperlink{exec_8h_acd09c352c406ba12287c564f205202ce}{exec\+\_\+check\+\_\+order\+\_\+buttons} ()\hypertarget{exec_8h_acd09c352c406ba12287c564f205202ce}{}\label{exec_8h_acd09c352c406ba12287c564f205202ce}
+
+\begin{DoxyCompactList}\small\item\em Checks all order buttons and updates inside and outside. queue accordingly. \end{DoxyCompactList}\item 
+int \hyperlink{exec_8h_af110d3781ffe6a902da82f19001e458c}{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor} (floor\+\_\+codes\+\_\+t current\+\_\+floor)
+\begin{DoxyCompactList}\small\item\em Checks if the elevator should stop at a floor. \end{DoxyCompactList}\item 
+return\+\_\+codes\+\_\+t \hyperlink{exec_8h_a61385c5d05c6e92061844fbe42d75069}{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code} ()
+\begin{DoxyCompactList}\small\item\em Gets the return code for the idle state. \end{DoxyCompactList}\item 
+return\+\_\+codes\+\_\+t \hyperlink{exec_8h_ac063bc987fc327157be6ca9810167b9c}{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code} (floor\+\_\+codes\+\_\+t current\+\_\+floor)
+\begin{DoxyCompactList}\small\item\em Gets the return code for the floor\+\_\+stationary state . \end{DoxyCompactList}\item 
+return\+\_\+codes\+\_\+t \hyperlink{exec_8h_afc1c4e77dbaa1a140691d21bde08d47b}{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec} (floor\+\_\+codes\+\_\+t current\+\_\+floor)
+\begin{DoxyCompactList}\small\item\em Opens the door for 3 seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A library for executing tasks for the elevator. 
+
+
+
+\subsection{Function Documentation}
+\index{exec.\+h@{exec.\+h}!exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor@{exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor}}
+\index{exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor@{exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor(floor\+\_\+codes\+\_\+t floor)}{exec_clear_all_order_lights_at_floor(floor_codes_t floor)}}]{\setlength{\rightskip}{0pt plus 5cm}void exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor (
+\begin{DoxyParamCaption}
+\item[{floor\+\_\+codes\+\_\+t}]{floor}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_a187983c2e979e6c1a270225d55b796e3}{}\label{exec_8h_a187983c2e979e6c1a270225d55b796e3}
+
+
+Clears all order lights for a given floor. Both outside and inside. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em floor} & Floor to clear lights at \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 76 of file exec.\+c.
+
+\index{exec.\+h@{exec.\+h}!exec\+\_\+delay@{exec\+\_\+delay}}
+\index{exec\+\_\+delay@{exec\+\_\+delay}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+delay(int ms)}{exec_delay(int ms)}}]{\setlength{\rightskip}{0pt plus 5cm}void exec\+\_\+delay (
+\begin{DoxyParamCaption}
+\item[{int}]{ms}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_a26b32e8c9174585991c50dcab220eff2}{}\label{exec_8h_a26b32e8c9174585991c50dcab220eff2}
+
+
+Delay operations. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ms} & Number of milliseconds the processor waits \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 63 of file exec.\+c.
+
+\index{exec.\+h@{exec.\+h}!exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code}}
+\index{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code(floor\+\_\+codes\+\_\+t current\+\_\+floor)}{exec_get_floor_return_code(floor_codes_t current_floor)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code (
+\begin{DoxyParamCaption}
+\item[{floor\+\_\+codes\+\_\+t}]{current\+\_\+floor}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_ac063bc987fc327157be6ca9810167b9c}{}\label{exec_8h_ac063bc987fc327157be6ca9810167b9c}
+
+
+Gets the return code for the floor\+\_\+stationary state . 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em current\+\_\+floor} & Floor the elevator is currently at \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a return code of type {\ttfamily return\+\_\+codes\+\_\+t} 
+\end{DoxyReturn}
+
+
+Definition at line 239 of file exec.\+c.
+
+\index{exec.\+h@{exec.\+h}!exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code}}
+\index{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code()}{exec_get_idle_return_code()}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_a61385c5d05c6e92061844fbe42d75069}{}\label{exec_8h_a61385c5d05c6e92061844fbe42d75069}
+
+
+Gets the return code for the idle state. 
+
+\begin{DoxyReturn}{Returns}
+Returns a return code of type {\ttfamily return\+\_\+codes\+\_\+t} 
+\end{DoxyReturn}
+
+
+Definition at line 198 of file exec.\+c.
+
+\index{exec.\+h@{exec.\+h}!exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec@{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec}}
+\index{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec@{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec(floor\+\_\+codes\+\_\+t current\+\_\+floor)}{exec_open_door_3_sec(floor_codes_t current_floor)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec (
+\begin{DoxyParamCaption}
+\item[{floor\+\_\+codes\+\_\+t}]{current\+\_\+floor}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_afc1c4e77dbaa1a140691d21bde08d47b}{}\label{exec_8h_afc1c4e77dbaa1a140691d21bde08d47b}
+
+
+Opens the door for 3 seconds. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em current\+\_\+floor} & Floor the elevator is currently at \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns {\ttfamily stop} if the stop button is pressed while the door is open {\ttfamily hold} if not 
+\end{DoxyReturn}
+
+
+Definition at line 27 of file exec.\+c.
+
+\index{exec.\+h@{exec.\+h}!exec\+\_\+set\+\_\+last\+\_\+direction@{exec\+\_\+set\+\_\+last\+\_\+direction}}
+\index{exec\+\_\+set\+\_\+last\+\_\+direction@{exec\+\_\+set\+\_\+last\+\_\+direction}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+set\+\_\+last\+\_\+direction(elev\+\_\+motor\+\_\+direction\+\_\+t direction)}{exec_set_last_direction(elev_motor_direction_t direction)}}]{\setlength{\rightskip}{0pt plus 5cm}void exec\+\_\+set\+\_\+last\+\_\+direction (
+\begin{DoxyParamCaption}
+\item[{elev\+\_\+motor\+\_\+direction\+\_\+t}]{direction}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_a04c0ea9caccae0e340032952ead22bd7}{}\label{exec_8h_a04c0ea9caccae0e340032952ead22bd7}
+
+
+Set the last direction the elevator was moving. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em direction} & Last direction \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 99 of file exec.\+c.
+
+\index{exec.\+h@{exec.\+h}!exec\+\_\+set\+\_\+last\+\_\+floor@{exec\+\_\+set\+\_\+last\+\_\+floor}}
+\index{exec\+\_\+set\+\_\+last\+\_\+floor@{exec\+\_\+set\+\_\+last\+\_\+floor}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+set\+\_\+last\+\_\+floor(floor\+\_\+codes\+\_\+t floor)}{exec_set_last_floor(floor_codes_t floor)}}]{\setlength{\rightskip}{0pt plus 5cm}void exec\+\_\+set\+\_\+last\+\_\+floor (
+\begin{DoxyParamCaption}
+\item[{floor\+\_\+codes\+\_\+t}]{floor}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_ac541593f1c96970ca74a9fbf07e5af72}{}\label{exec_8h_ac541593f1c96970ca74a9fbf07e5af72}
+
+
+Set the last floor the elevator was at. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em floor} & Last floor \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 72 of file exec.\+c.
+
+\index{exec.\+h@{exec.\+h}!exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor@{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor}}
+\index{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor@{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor}!exec.\+h@{exec.\+h}}
+\subsubsection[{\texorpdfstring{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor(floor\+\_\+codes\+\_\+t current\+\_\+floor)}{exec_should_stop_at_floor(floor_codes_t current_floor)}}]{\setlength{\rightskip}{0pt plus 5cm}int exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor (
+\begin{DoxyParamCaption}
+\item[{floor\+\_\+codes\+\_\+t}]{current\+\_\+floor}
+\end{DoxyParamCaption}
+)}\hypertarget{exec_8h_af110d3781ffe6a902da82f19001e458c}{}\label{exec_8h_af110d3781ffe6a902da82f19001e458c}
+
+
+Checks if the elevator should stop at a floor. 
+
+\begin{DoxyReturn}{Returns}
+1 if elevator should stop, 0 if not 
+\end{DoxyReturn}
+
+
+Definition at line 158 of file exec.\+c.
+
