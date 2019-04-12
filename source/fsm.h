@@ -6,16 +6,14 @@
 #define FSM_H
 
 ///////////////////////////////////////////////
-// Enums
+// Includes
 ///////////////////////////////////////////////
 
-typedef enum floor_codes {
-    floor_1,
-    floor_2,
-    floor_3,
-    floor_4,
-    between_floors = -1
-} floor_codes_t;
+#include "exec.h"
+
+///////////////////////////////////////////////
+// Enums
+///////////////////////////////////////////////
 
 typedef enum state_codes {
     floor_stationary,
@@ -26,16 +24,6 @@ typedef enum state_codes {
     idle_state,
     end
 } state_codes_t;
-
-typedef enum return_codes {
-    drive_up,
-    drive_down,
-    hold,
-    stay,
-    idle,
-    stop,
-    fail
-} return_codes_t;
 
 ///////////////////////////////////////////////
 // Structures
@@ -63,54 +51,54 @@ extern transition_t state_transitions[];
 ///////////////////////////////////////////////
 
 /**
- * @brief Behaviour for the stationary state. Listen for orders and return a return code to use in the lookup_transitions function.
+ * @brief Algorithm for the stationary state. Listen for orders and return a return code to use in the @c lookup_transitions function.
  * 
- * @return Return code of type @c return_codes_t to move the state machine into the best fitting state.
+ * @return Return code of type @c return_codes_t to find next state.
  */
 return_codes_t fsm_floor_stationary_state(void);
 
 /**
- * @brief Behaviour for the initialization state. Ignore all orders and move down until detects a floor,
- * then stops and returns a return code to use in the lookup_transitions function
+ * @brief Algorithm for the initialization state. Ignore all orders and move down until detects a floor,
+ * then stops and returns a return code to use in the @c lookup_transitions function
  * 
- * @return Return code of type @c return_codes_t to the floor stationary state. 
+ * @return Return code of type @c return_codes_t to find next state. 
  */
 return_codes_t fsm_initialize_state(void);
 
 /**
- * @brief Behaviour for the driving_up state. Listen for orders and stop button and return a return code to use in the lookup_transitions function.
+ * @brief Algorithm for the driving up state. Listen for orders and stop button and return a return code to use in the @c lookup_transitions function.
  * 
- * @return Return code of type @c return_codes_t to move the state machine into the best fitting state
+ * @return Return code of type @c return_codes_t to find next state.
  */
 return_codes_t fsm_driving_up_state(void);
 
 /**
- * @brief Behaviour for the driving_down state. Listen for orders and stop button and return a return code to use in the lookup_transitions function.
+ * @brief Algorithm for the driving down state. Listen for orders and stop button and return a return code to use in the @c lookup_transitions function.
  * 
- * @return Return code of type @c return_codes_t to move the state machine into the best fitting state.
+ * @return Return code of type @c return_codes_t to find next state.
  */
 return_codes_t fsm_driving_down_state(void);
 
 /**
- * @brief Behaviour fot the stop_state. Delete all orders, ignore new orders and stay in stop state while order_button is pressed. 
- * If stops on floor, keep door open while in this state. When stop button released, return a return code to use in the lookup_transitions function.
+ * @brief Algorithm fot the stop state. Delete all orders, ignore new orders and stay in stop state while order_button is pressed. 
+ * If stops on floor, keep door open while in this state. When stop button released, return a return code to use in the @c lookup_transitions function.
  * 
- * @return Return code of type @c return_codes_t to move state machine into either the floor_stationary state or the idle state.
+ * @return Return code of type @c return_codes_t to find next state.
  */
 return_codes_t fsm_stop_state(void);
 
 /**
- * @brief Behaviour for the idle_state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. 
- * Return a suitable return code to use in the lookup_transitions function. 
+ * @brief Algorithm for the idle state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. 
+ * Return a return code to use in the @c lookup_transitions function. 
  * 
- * @return Return code of type @c return_codes_t to stay in idle if no orders, return code stop if stop button pressed and to either driving up or driving down if any orders in any queue.
+ * @return Return code of type @c return_codes_t to find next state.
  */
 return_codes_t fsm_idle_state(void);
 
 /**
- * @brief A fail state, used for debugging and to make the state machine finite.
+ * @brief A fail state, used for debugging.
  * 
- * @return Return code of type @c return_codes_t to stay in end_state.
+ * @return Program exitis before any return occurs.
  * 
  * @warning Elevator should not reach this state, and can not leave it. If it is reached, the program exits with error code @c 1.
  */
@@ -123,7 +111,7 @@ return_codes_t fsm_end_state(void);
  * @param[in] cur_state The current state the fsm is in.
  * @param[in] ret_code The Return code from the respective fsm state function.
  * 
- * @return Program exitis before any return occurs.
+ * @return Return state code for the next state.
  */
 state_codes_t lookup_transitions(state_codes_t cur_state, return_codes_t ret_code);
 

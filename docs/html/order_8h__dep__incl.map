@@ -1,6 +1,8 @@
 <map id="source/order.h" name="source/order.h">
-<area shape="rect" id="node2" href="$exec_8c_source.html" title="source/exec.c" alt="" coords="5,80,109,107"/>
-<area shape="rect" id="node3" href="$fsm_8c_source.html" title="source/fsm.c" alt="" coords="133,80,232,107"/>
-<area shape="rect" id="node4" href="$main_8c_source.html" title="source/main.c" alt="" coords="256,80,360,107"/>
-<area shape="rect" id="node5" href="$order_8c_source.html" title="source/order.c" alt="" coords="385,80,490,107"/>
+<area shape="rect" id="node2" href="$exec_8h.html" title="A library for executing tasks for the elevator. " alt="" coords="68,80,172,107"/>
+<area shape="rect" id="node7" href="$order_8c_source.html" title="source/order.c" alt="" coords="197,80,302,107"/>
+<area shape="rect" id="node3" href="$exec_8c_source.html" title="source/exec.c" alt="" coords="5,155,109,181"/>
+<area shape="rect" id="node4" href="$fsm_8h.html" title="A state machine library. " alt="" coords="133,155,232,181"/>
+<area shape="rect" id="node5" href="$fsm_8c_source.html" title="source/fsm.c" alt="" coords="71,229,169,256"/>
+<area shape="rect" id="node6" href="$main_8c_source.html" title="source/main.c" alt="" coords="193,229,297,256"/>
 </map>

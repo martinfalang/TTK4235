@@ -17,8 +17,19 @@
 // Includes
 ///////////////////////////////////////////////
 
-#include "exec.h"
 #include "elev.h"
+
+///////////////////////////////////////////////
+// Enums
+///////////////////////////////////////////////
+
+typedef enum floor_codes {
+    floor_1,
+    floor_2,
+    floor_3,
+    floor_4,
+    between_floors = -1
+} floor_codes_t;
 
 ///////////////////////////////////////////////
 // Structures
@@ -50,8 +61,8 @@ typedef struct outside_order_queue {
 ///////////////////////////////////////////////
 
 /**
- * @brief Insert an order into an inside queue for orders made inside the 
- * elevator.
+ * @brief Add an order for a floor to the back of an inside queue. Ignores  
+ * orders already present and orders outside the floor range.
  * 
  * @param[out] queue Buffer queue
  * @param[in] floor Order floor
@@ -59,8 +70,9 @@ typedef struct outside_order_queue {
 void scheduler_insert_inside_order(inside_queue_t *queue, floor_codes_t floor);
 
 /**
- * @brief Delete an order from an inside queue for orders made inside the
- * elevator.
+ * @brief Delete an order for a floor from an inside queue. The queue is unchanged 
+ * if the order is not found in the queue. Ignores orders already present 
+ * and orders outside the floor range.
  * 
  * @param[out] queue Buffer queue
  * @param[in] floor Order floor
@@ -68,15 +80,15 @@ void scheduler_insert_inside_order(inside_queue_t *queue, floor_codes_t floor);
 void scheduler_delete_inside_order(inside_queue_t *queue, floor_codes_t floor);
 
 /**
- * @brief Prints an inside queue for orders made inside the elevator.
+ * @brief Prints an inside queue to the sqreen.
  * 
  * @param[in] queue Queue to print 
  */
 void scheduler_display_inside_queue(inside_queue_t *queue);
 
 /**
- * @brief Insert an order into an outside queue for orders made outside of the 
- * elevator.
+ * @brief Add an order for a floor and a direction to the back of an outside queue. Ignores 
+ * orders already present and orders outside the floor or direction range.
  * 
  * @param[out] queue Buffer queue
  * @param[in] floor Order floor 
@@ -85,8 +97,9 @@ void scheduler_display_inside_queue(inside_queue_t *queue);
 void scheduler_insert_outside_order(outside_queue_t *queue, floor_codes_t floor, elev_motor_direction_t direction);
 
 /**
- * @brief Delete an order in an outside queue for orders made outside of the 
- * elevator.
+ * @brief Delete an order for a floor and a direction from an outside queue. The queue is unchanged 
+ * if the order is not found in the queue. Ignores orders already present and orders 
+ * outside the floor range.
  * 
  * @param[out] queue Buffer queue
  * @param[in] floor Order Floor

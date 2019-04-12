@@ -88,6 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">scheduler.h File Reference</div>  </div>
@@ -96,16 +97,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>A library for doing operations on queues.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="exec_8h_source.html">exec.h</a>&quot;</code><br />
-<code>#include &quot;elev.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;elev.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for scheduler.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="scheduler_8h__incl.png" border="0" usemap="#source_2scheduler_8h" alt=""/></div>
 <map name="source_2scheduler_8h" id="source_2scheduler_8h">
-<area shape="rect" id="node2" href="exec_8h.html" title="A library for executing tasks for the elevator. " alt="" coords="41,80,102,107"/>
-<area shape="rect" id="node4" href="elev_8h_source.html" title="elev.h" alt="" coords="111,155,168,181"/>
-<area shape="rect" id="node3" href="fsm_8h.html" title="A state machine library. " alt="" coords="32,155,87,181"/>
+<area shape="rect" id="node2" href="elev_8h_source.html" title="elev.h" alt="" coords="43,80,100,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -113,13 +111,14 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="scheduler_8h__dep__incl.png" border="0" usemap="#source_2scheduler_8hdep" alt=""/></div>
 <map name="source_2scheduler_8hdep" id="source_2scheduler_8hdep">
-<area shape="rect" id="node2" href="exec_8h.html" title="A library for executing tasks for the elevator. " alt="" coords="119,80,223,107"/>
-<area shape="rect" id="node3" href="exec_8c_source.html" title="source/exec.c" alt="" coords="5,155,109,181"/>
-<area shape="rect" id="node6" href="order_8h.html" title="A library for adding and deleting orders in the queues and to fetch the queues themselves. " alt="" coords="247,80,353,107"/>
-<area shape="rect" id="node8" href="scheduler_8c_source.html" title="source/scheduler.c" alt="" coords="377,80,509,107"/>
-<area shape="rect" id="node4" href="fsm_8c_source.html" title="source/fsm.c" alt="" coords="133,155,232,181"/>
-<area shape="rect" id="node5" href="main_8c_source.html" title="source/main.c" alt="" coords="256,155,360,181"/>
-<area shape="rect" id="node7" href="order_8c_source.html" title="source/order.c" alt="" coords="385,155,490,181"/>
+<area shape="rect" id="node2" href="order_8h.html" title="A library for order and queue tasks specific to this elevator. " alt="" coords="131,80,237,107"/>
+<area shape="rect" id="node9" href="scheduler_8c_source.html" title="source/scheduler.c" alt="" coords="261,80,393,107"/>
+<area shape="rect" id="node3" href="exec_8h.html" title="A library for executing tasks for the elevator. " alt="" coords="68,155,172,181"/>
+<area shape="rect" id="node8" href="order_8c_source.html" title="source/order.c" alt="" coords="197,155,302,181"/>
+<area shape="rect" id="node4" href="exec_8c_source.html" title="source/exec.c" alt="" coords="5,229,109,256"/>
+<area shape="rect" id="node5" href="fsm_8h.html" title="A state machine library. " alt="" coords="133,229,232,256"/>
+<area shape="rect" id="node6" href="fsm_8c_source.html" title="source/fsm.c" alt="" coords="71,304,169,331"/>
+<area shape="rect" id="node7" href="main_8c_source.html" title="source/main.c" alt="" coords="193,304,297,331"/>
 </map>
 </div>
 </div>
@@ -147,6 +146,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a82d838a5a84d8a69efd629eccf20eb9c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82d838a5a84d8a69efd629eccf20eb9c"></a>
+typedef enum floor_codes&#160;</td><td class="memItemRight" valign="bottom"><b>floor_codes_t</b></td></tr>
+<tr class="separator:a82d838a5a84d8a69efd629eccf20eb9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e78bc07a4b5862db04324b34a40edac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e78bc07a4b5862db04324b34a40edac"></a>
 typedef struct <a class="el" href="structinside__order.html">inside_order</a>&#160;</td><td class="memItemRight" valign="bottom"><b>inside_order_t</b></td></tr>
 <tr class="separator:a2e78bc07a4b5862db04324b34a40edac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,22 +162,35 @@ typedef struct <a class="el" href="structinside__order__queue.html">inside_order
 typedef struct <a class="el" href="structoutside__order__queue.html">outside_order_queue</a>&#160;</td><td class="memItemRight" valign="bottom"><b>outside_queue_t</b></td></tr>
 <tr class="separator:a514ed46871c432efe1b157d3cc64114a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a73e34722c2cb96c0a6a4451f7496d398"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73e34722c2cb96c0a6a4451f7496d398"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>floor_codes</b> { <br />
+&#160;&#160;<b>floor_1</b>, 
+<b>floor_2</b>, 
+<b>floor_3</b>, 
+<b>floor_4</b>, 
+<br />
+&#160;&#160;<b>between_floors</b> = -1
+<br />
+ }</td></tr>
+<tr class="separator:a73e34722c2cb96c0a6a4451f7496d398"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab5dfe0c4039ae459a9caca4e8274567c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8h.html#ab5dfe0c4039ae459a9caca4e8274567c">scheduler_insert_inside_order</a> (<a class="el" href="structinside__order__queue.html">inside_queue_t</a> *queue, floor_codes_t floor)</td></tr>
-<tr class="memdesc:ab5dfe0c4039ae459a9caca4e8274567c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert an order into an inside queue for orders made inside the elevator.  <a href="#ab5dfe0c4039ae459a9caca4e8274567c">More...</a><br /></td></tr>
+<tr class="memdesc:ab5dfe0c4039ae459a9caca4e8274567c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an order for a floor to the back of an inside queue. Ignores orders already present and orders outside the floor range.  <a href="#ab5dfe0c4039ae459a9caca4e8274567c">More...</a><br /></td></tr>
 <tr class="separator:ab5dfe0c4039ae459a9caca4e8274567c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fc902a584b4324118bd9a6a1039c971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8h.html#a7fc902a584b4324118bd9a6a1039c971">scheduler_delete_inside_order</a> (<a class="el" href="structinside__order__queue.html">inside_queue_t</a> *queue, floor_codes_t floor)</td></tr>
-<tr class="memdesc:a7fc902a584b4324118bd9a6a1039c971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete an order from an inside queue for orders made inside the elevator.  <a href="#a7fc902a584b4324118bd9a6a1039c971">More...</a><br /></td></tr>
+<tr class="memdesc:a7fc902a584b4324118bd9a6a1039c971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete an order for a floor from an inside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range.  <a href="#a7fc902a584b4324118bd9a6a1039c971">More...</a><br /></td></tr>
 <tr class="separator:a7fc902a584b4324118bd9a6a1039c971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fc45e58536832d318435377fa3bd3e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8h.html#a5fc45e58536832d318435377fa3bd3e2">scheduler_display_inside_queue</a> (<a class="el" href="structinside__order__queue.html">inside_queue_t</a> *queue)</td></tr>
-<tr class="memdesc:a5fc45e58536832d318435377fa3bd3e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints an inside queue for orders made inside the elevator.  <a href="#a5fc45e58536832d318435377fa3bd3e2">More...</a><br /></td></tr>
+<tr class="memdesc:a5fc45e58536832d318435377fa3bd3e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints an inside queue to the sqreen.  <a href="#a5fc45e58536832d318435377fa3bd3e2">More...</a><br /></td></tr>
 <tr class="separator:a5fc45e58536832d318435377fa3bd3e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a5628c59ff448a29f3c44e329591bf9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8h.html#a0a5628c59ff448a29f3c44e329591bf9">scheduler_insert_outside_order</a> (<a class="el" href="structoutside__order__queue.html">outside_queue_t</a> *queue, floor_codes_t floor, elev_motor_direction_t direction)</td></tr>
-<tr class="memdesc:a0a5628c59ff448a29f3c44e329591bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert an order into an outside queue for orders made outside of the elevator.  <a href="#a0a5628c59ff448a29f3c44e329591bf9">More...</a><br /></td></tr>
+<tr class="memdesc:a0a5628c59ff448a29f3c44e329591bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an order for a floor and a direction to the back of an outside queue. Ignores orders already present and orders outside the floor or direction range.  <a href="#a0a5628c59ff448a29f3c44e329591bf9">More...</a><br /></td></tr>
 <tr class="separator:a0a5628c59ff448a29f3c44e329591bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a893ecb3f677e664b942585482edee04c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8h.html#a893ecb3f677e664b942585482edee04c">scheduler_delete_outside_order</a> (<a class="el" href="structoutside__order__queue.html">outside_queue_t</a> *queue, floor_codes_t floor, elev_motor_direction_t direction)</td></tr>
-<tr class="memdesc:a893ecb3f677e664b942585482edee04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete an order in an outside queue for orders made outside of the elevator.  <a href="#a893ecb3f677e664b942585482edee04c">More...</a><br /></td></tr>
+<tr class="memdesc:a893ecb3f677e664b942585482edee04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete an order for a floor and a direction from an outside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range.  <a href="#a893ecb3f677e664b942585482edee04c">More...</a><br /></td></tr>
 <tr class="separator:a893ecb3f677e664b942585482edee04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc0eaafc54d6666879332ed0f99096c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8h.html#abc0eaafc54d6666879332ed0f99096c6">scheduler_display_outside_queue</a> (<a class="el" href="structoutside__order__queue.html">outside_queue_t</a> *queue)</td></tr>
 <tr class="memdesc:abc0eaafc54d6666879332ed0f99096c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints an outside queue for orders made outside the elevator.  <a href="#abc0eaafc54d6666879332ed0f99096c6">More...</a><br /></td></tr>
@@ -210,7 +225,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Delete an order from an inside queue for orders made inside the elevator. </p>
+<p>Delete an order for a floor from an inside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">queue</td><td>Buffer queue </td></tr>
@@ -219,7 +234,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00038">38</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
+<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00043">43</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
 
 </div>
 </div>
@@ -253,7 +268,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Delete an order in an outside queue for orders made outside of the elevator. </p>
+<p>Delete an order for a floor and a direction from an outside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">queue</td><td>Buffer queue </td></tr>
@@ -263,7 +278,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00127">127</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
+<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00152">152</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
 
 </div>
 </div>
@@ -281,7 +296,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Prints an inside queue for orders made inside the elevator. </p>
+<p>Prints an inside queue to the sqreen. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">queue</td><td>Queue to print </td></tr>
@@ -289,7 +304,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00071">71</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
+<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00087">87</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
 
 </div>
 </div>
@@ -315,7 +330,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00165">165</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
+<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00203">203</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
 
 </div>
 </div>
@@ -343,7 +358,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Insert an order into an inside queue for orders made inside the elevator. </p>
+<p>Add an order for a floor to the back of an inside queue. Ignores orders already present and orders outside the floor range. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">queue</td><td>Buffer queue </td></tr>
@@ -352,7 +367,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00016">16</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
+<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00015">15</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
 
 </div>
 </div>
@@ -386,7 +401,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Insert an order into an outside queue for orders made outside of the elevator. </p>
+<p>Add an order for a floor and a direction to the back of an outside queue. Ignores orders already present and orders outside the floor or direction range. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">queue</td><td>Buffer queue </td></tr>
@@ -396,7 +411,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00091">91</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
+<p>Definition at line <a class="el" href="scheduler_8c_source.html#l00109">109</a> of file <a class="el" href="scheduler_8c_source.html">scheduler.c</a>.</p>
 
 </div>
 </div>

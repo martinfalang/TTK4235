@@ -5,48 +5,67 @@
 A library for executing tasks for the elevator.  
 
 
-{\ttfamily \#include \char`\"{}fsm.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}scheduler.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}order.\+h\char`\"{}}\\*
 Include dependency graph for exec.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=225pt]{exec_8h__incl}
+\includegraphics[width=158pt]{exec_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{exec_8h__dep__incl}
+\includegraphics[width=299pt]{exec_8h__dep__incl}
 \end{center}
 \end{figure}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum return\+\_\+codes {\bfseries return\+\_\+codes\+\_\+t}\hypertarget{exec_8h_a7e5229089fb5f6f8e34ff43399954f01}{}\label{exec_8h_a7e5229089fb5f6f8e34ff43399954f01}
+
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries return\+\_\+codes} \{ \\*
+{\bfseries drive\+\_\+up}, 
+{\bfseries drive\+\_\+down}, 
+{\bfseries hold}, 
+{\bfseries stay}, 
+\\*
+{\bfseries idle}, 
+{\bfseries stop}, 
+{\bfseries fail}
+ \}\hypertarget{exec_8h_aaca7161d951febc512af343029761de1}{}\label{exec_8h_aaca7161d951febc512af343029761de1}
+
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{exec_8h_a26b32e8c9174585991c50dcab220eff2}{exec\+\_\+delay} (int ms)
-\begin{DoxyCompactList}\small\item\em Delay operations. \end{DoxyCompactList}\item 
-void \hyperlink{exec_8h_a3e0e9841ede66c8f5b737432197f47a5}{exec\+\_\+update\+\_\+destination\+\_\+floor} ()\hypertarget{exec_8h_a3e0e9841ede66c8f5b737432197f47a5}{}\label{exec_8h_a3e0e9841ede66c8f5b737432197f47a5}
+\begin{DoxyCompactList}\small\item\em Delay operations for {\ttfamily ms} milliseconds. \end{DoxyCompactList}\item 
+void \hyperlink{exec_8h_a0247722e69d060b83c0cc693d7f1bbed}{exec\+\_\+update\+\_\+destination\+\_\+floor} (void)\hypertarget{exec_8h_a0247722e69d060b83c0cc693d7f1bbed}{}\label{exec_8h_a0247722e69d060b83c0cc693d7f1bbed}
 
-\begin{DoxyCompactList}\small\item\em Update the current destination floor. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Update the current destination floor found in the private variable {\ttfamily destination\+\_\+floor}. Choose the first element of the inside queue. If the inside queue is empty, choose the first element of the outside queue. If both queues are empty {\ttfamily destination\+\_\+floor} is set to {\ttfamily between\+\_\+floors} to symbolize that the elevator has no orders to handle. \end{DoxyCompactList}\item 
 void \hyperlink{exec_8h_ac541593f1c96970ca74a9fbf07e5af72}{exec\+\_\+set\+\_\+last\+\_\+floor} (floor\+\_\+codes\+\_\+t floor)
-\begin{DoxyCompactList}\small\item\em Set the last floor the elevator was at. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Update the private variable {\ttfamily last\+\_\+floor} with the last floor the elevator was at. \end{DoxyCompactList}\item 
 void \hyperlink{exec_8h_a187983c2e979e6c1a270225d55b796e3}{exec\+\_\+clear\+\_\+all\+\_\+order\+\_\+lights\+\_\+at\+\_\+floor} (floor\+\_\+codes\+\_\+t floor)
-\begin{DoxyCompactList}\small\item\em Clears all order lights for a given floor. Both outside and inside. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Turn off all order lamps for a given floor. Both outside and inside order lamps. \end{DoxyCompactList}\item 
 void \hyperlink{exec_8h_a04c0ea9caccae0e340032952ead22bd7}{exec\+\_\+set\+\_\+last\+\_\+direction} (elev\+\_\+motor\+\_\+direction\+\_\+t direction)
-\begin{DoxyCompactList}\small\item\em Set the last direction the elevator was moving. \end{DoxyCompactList}\item 
-void \hyperlink{exec_8h_acd09c352c406ba12287c564f205202ce}{exec\+\_\+check\+\_\+order\+\_\+buttons} ()\hypertarget{exec_8h_acd09c352c406ba12287c564f205202ce}{}\label{exec_8h_acd09c352c406ba12287c564f205202ce}
+\begin{DoxyCompactList}\small\item\em Update the private variable {\ttfamily last\+\_\+direction} to the last direction the elevator was moving in. \end{DoxyCompactList}\item 
+void \hyperlink{exec_8h_aba63d82da051bcf86283bf21746f72ca}{exec\+\_\+check\+\_\+order\+\_\+buttons} (void)\hypertarget{exec_8h_aba63d82da051bcf86283bf21746f72ca}{}\label{exec_8h_aba63d82da051bcf86283bf21746f72ca}
 
-\begin{DoxyCompactList}\small\item\em Checks all order buttons and updates inside and outside. queue accordingly. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Check all order buttons and update inside and outside queues accordingly. Turn on correct order lamp if an order was made. \end{DoxyCompactList}\item 
 int \hyperlink{exec_8h_af110d3781ffe6a902da82f19001e458c}{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor} (floor\+\_\+codes\+\_\+t current\+\_\+floor)
-\begin{DoxyCompactList}\small\item\em Checks if the elevator should stop at a floor. \end{DoxyCompactList}\item 
-return\+\_\+codes\+\_\+t \hyperlink{exec_8h_a61385c5d05c6e92061844fbe42d75069}{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code} ()
-\begin{DoxyCompactList}\small\item\em Gets the return code for the idle state. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Check if the elevator should stop at a floor. Search both queues for orders. If orders found check if the floor (and direction) of the order matches {\ttfamily current\+\_\+floor} (and {\ttfamily last\+\_\+direction}). \end{DoxyCompactList}\item 
+return\+\_\+codes\+\_\+t \hyperlink{exec_8h_a133a405baba27d508f375109e8ced16f}{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code} (void)
+\begin{DoxyCompactList}\small\item\em Fetch the return code for the idle state. Algorithm for finding the return code is based on the private variables {\ttfamily destination\+\_\+floor}, {\ttfamily last\+\_\+floor} and {\ttfamily last\+\_\+direction}. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{exec_8h_ac063bc987fc327157be6ca9810167b9c}{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code} (floor\+\_\+codes\+\_\+t current\+\_\+floor)
-\begin{DoxyCompactList}\small\item\em Gets the return code for the floor\+\_\+stationary state . \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Fetch the return code for the floor\+\_\+stationary state. The algorithm for finding the return code is based on the private variable {\ttfamily destination\+\_\+floor} and the parameter {\ttfamily current\+\_\+floor}. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{exec_8h_afc1c4e77dbaa1a140691d21bde08d47b}{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec} (floor\+\_\+codes\+\_\+t current\+\_\+floor)
-\begin{DoxyCompactList}\small\item\em Opens the door for 3 seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Open the door for 3 seconds. Check for new orders while door is open and remove orders made for the current floor. Reset timer if a new order is made for the current floor while the door is open. Check if stop button is pressed while the door is open. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -64,16 +83,16 @@ A library for executing tasks for the elevator.
 )}\hypertarget{exec_8h_a187983c2e979e6c1a270225d55b796e3}{}\label{exec_8h_a187983c2e979e6c1a270225d55b796e3}
 
 
-Clears all order lights for a given floor. Both outside and inside. 
+Turn off all order lamps for a given floor. Both outside and inside order lamps. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em floor} & Floor to clear lights at \\
+\mbox{\tt in}  & {\em floor} & Floor to turn off lamps at \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 76 of file exec.\+c.
+Definition at line 86 of file exec.\+c.
 
 \index{exec.\+h@{exec.\+h}!exec\+\_\+delay@{exec\+\_\+delay}}
 \index{exec\+\_\+delay@{exec\+\_\+delay}!exec.\+h@{exec.\+h}}
@@ -84,7 +103,7 @@ Definition at line 76 of file exec.\+c.
 )}\hypertarget{exec_8h_a26b32e8c9174585991c50dcab220eff2}{}\label{exec_8h_a26b32e8c9174585991c50dcab220eff2}
 
 
-Delay operations. 
+Delay operations for {\ttfamily ms} milliseconds. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -93,7 +112,7 @@ Delay operations.
 \end{DoxyParams}
 
 
-Definition at line 63 of file exec.\+c.
+Definition at line 71 of file exec.\+c.
 
 \index{exec.\+h@{exec.\+h}!exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code}}
 \index{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+floor\+\_\+return\+\_\+code}!exec.\+h@{exec.\+h}}
@@ -104,7 +123,7 @@ Definition at line 63 of file exec.\+c.
 )}\hypertarget{exec_8h_ac063bc987fc327157be6ca9810167b9c}{}\label{exec_8h_ac063bc987fc327157be6ca9810167b9c}
 
 
-Gets the return code for the floor\+\_\+stationary state . 
+Fetch the return code for the floor\+\_\+stationary state. The algorithm for finding the return code is based on the private variable {\ttfamily destination\+\_\+floor} and the parameter {\ttfamily current\+\_\+floor}. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -116,25 +135,25 @@ Returns a return code of type {\ttfamily return\+\_\+codes\+\_\+t}
 \end{DoxyReturn}
 
 
-Definition at line 239 of file exec.\+c.
+Definition at line 297 of file exec.\+c.
 
 \index{exec.\+h@{exec.\+h}!exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code}}
 \index{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code@{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code}!exec.\+h@{exec.\+h}}
-\subsubsection[{\texorpdfstring{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code()}{exec_get_idle_return_code()}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code (
+\subsubsection[{\texorpdfstring{exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code(void)}{exec_get_idle_return_code(void)}}]{\setlength{\rightskip}{0pt plus 5cm}return\+\_\+codes\+\_\+t exec\+\_\+get\+\_\+idle\+\_\+return\+\_\+code (
 \begin{DoxyParamCaption}
-{}
+\item[{void}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{exec_8h_a61385c5d05c6e92061844fbe42d75069}{}\label{exec_8h_a61385c5d05c6e92061844fbe42d75069}
+)}\hypertarget{exec_8h_a133a405baba27d508f375109e8ced16f}{}\label{exec_8h_a133a405baba27d508f375109e8ced16f}
 
 
-Gets the return code for the idle state. 
+Fetch the return code for the idle state. Algorithm for finding the return code is based on the private variables {\ttfamily destination\+\_\+floor}, {\ttfamily last\+\_\+floor} and {\ttfamily last\+\_\+direction}. 
 
 \begin{DoxyReturn}{Returns}
-Returns a return code of type {\ttfamily return\+\_\+codes\+\_\+t} 
+Returns the return code for idle state 
 \end{DoxyReturn}
 
 
-Definition at line 198 of file exec.\+c.
+Definition at line 240 of file exec.\+c.
 
 \index{exec.\+h@{exec.\+h}!exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec@{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec}}
 \index{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec@{exec\+\_\+open\+\_\+door\+\_\+3\+\_\+sec}!exec.\+h@{exec.\+h}}
@@ -145,7 +164,7 @@ Definition at line 198 of file exec.\+c.
 )}\hypertarget{exec_8h_afc1c4e77dbaa1a140691d21bde08d47b}{}\label{exec_8h_afc1c4e77dbaa1a140691d21bde08d47b}
 
 
-Opens the door for 3 seconds. 
+Open the door for 3 seconds. Check for new orders while door is open and remove orders made for the current floor. Reset timer if a new order is made for the current floor while the door is open. Check if stop button is pressed while the door is open. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -157,7 +176,7 @@ Returns {\ttfamily stop} if the stop button is pressed while the door is open {\
 \end{DoxyReturn}
 
 
-Definition at line 27 of file exec.\+c.
+Definition at line 24 of file exec.\+c.
 
 \index{exec.\+h@{exec.\+h}!exec\+\_\+set\+\_\+last\+\_\+direction@{exec\+\_\+set\+\_\+last\+\_\+direction}}
 \index{exec\+\_\+set\+\_\+last\+\_\+direction@{exec\+\_\+set\+\_\+last\+\_\+direction}!exec.\+h@{exec.\+h}}
@@ -168,7 +187,7 @@ Definition at line 27 of file exec.\+c.
 )}\hypertarget{exec_8h_a04c0ea9caccae0e340032952ead22bd7}{}\label{exec_8h_a04c0ea9caccae0e340032952ead22bd7}
 
 
-Set the last direction the elevator was moving. 
+Update the private variable {\ttfamily last\+\_\+direction} to the last direction the elevator was moving in. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -177,7 +196,7 @@ Set the last direction the elevator was moving.
 \end{DoxyParams}
 
 
-Definition at line 99 of file exec.\+c.
+Definition at line 112 of file exec.\+c.
 
 \index{exec.\+h@{exec.\+h}!exec\+\_\+set\+\_\+last\+\_\+floor@{exec\+\_\+set\+\_\+last\+\_\+floor}}
 \index{exec\+\_\+set\+\_\+last\+\_\+floor@{exec\+\_\+set\+\_\+last\+\_\+floor}!exec.\+h@{exec.\+h}}
@@ -188,7 +207,7 @@ Definition at line 99 of file exec.\+c.
 )}\hypertarget{exec_8h_ac541593f1c96970ca74a9fbf07e5af72}{}\label{exec_8h_ac541593f1c96970ca74a9fbf07e5af72}
 
 
-Set the last floor the elevator was at. 
+Update the private variable {\ttfamily last\+\_\+floor} with the last floor the elevator was at. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -197,7 +216,7 @@ Set the last floor the elevator was at.
 \end{DoxyParams}
 
 
-Definition at line 72 of file exec.\+c.
+Definition at line 81 of file exec.\+c.
 
 \index{exec.\+h@{exec.\+h}!exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor@{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor}}
 \index{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor@{exec\+\_\+should\+\_\+stop\+\_\+at\+\_\+floor}!exec.\+h@{exec.\+h}}
@@ -208,12 +227,17 @@ Definition at line 72 of file exec.\+c.
 )}\hypertarget{exec_8h_af110d3781ffe6a902da82f19001e458c}{}\label{exec_8h_af110d3781ffe6a902da82f19001e458c}
 
 
-Checks if the elevator should stop at a floor. 
+Check if the elevator should stop at a floor. Search both queues for orders. If orders found check if the floor (and direction) of the order matches {\ttfamily current\+\_\+floor} (and {\ttfamily last\+\_\+direction}). 
 
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em current\+\_\+floor} & The current floor of the elevator \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 1 if elevator should stop, 0 if not 
 \end{DoxyReturn}
 
 
-Definition at line 158 of file exec.\+c.
+Definition at line 187 of file exec.\+c.
 

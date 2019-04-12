@@ -5,13 +5,12 @@
 A library for doing operations on queues.  
 
 
-{\ttfamily \#include \char`\"{}exec.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\\*
 Include dependency graph for scheduler.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=202pt]{scheduler_8h__incl}
+\includegraphics[width=179pt]{scheduler_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:\nopagebreak
@@ -44,6 +43,9 @@ struct \hyperlink{structoutside__order__queue}{outside\+\_\+order\+\_\+queue}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
+typedef enum floor\+\_\+codes {\bfseries floor\+\_\+codes\+\_\+t}\hypertarget{scheduler_8h_a82d838a5a84d8a69efd629eccf20eb9c}{}\label{scheduler_8h_a82d838a5a84d8a69efd629eccf20eb9c}
+
+\item 
 typedef struct \hyperlink{structinside__order}{inside\+\_\+order} {\bfseries inside\+\_\+order\+\_\+t}\hypertarget{scheduler_8h_a2e78bc07a4b5862db04324b34a40edac}{}\label{scheduler_8h_a2e78bc07a4b5862db04324b34a40edac}
 
 \item 
@@ -56,19 +58,32 @@ typedef struct \hyperlink{structinside__order__queue}{inside\+\_\+order\+\_\+que
 typedef struct \hyperlink{structoutside__order__queue}{outside\+\_\+order\+\_\+queue} {\bfseries outside\+\_\+queue\+\_\+t}\hypertarget{scheduler_8h_a514ed46871c432efe1b157d3cc64114a}{}\label{scheduler_8h_a514ed46871c432efe1b157d3cc64114a}
 
 \end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries floor\+\_\+codes} \{ \\*
+{\bfseries floor\+\_\+1}, 
+{\bfseries floor\+\_\+2}, 
+{\bfseries floor\+\_\+3}, 
+{\bfseries floor\+\_\+4}, 
+\\*
+{\bfseries between\+\_\+floors} = -\/1
+ \}\hypertarget{scheduler_8h_a73e34722c2cb96c0a6a4451f7496d398}{}\label{scheduler_8h_a73e34722c2cb96c0a6a4451f7496d398}
+
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{scheduler_8h_ab5dfe0c4039ae459a9caca4e8274567c}{scheduler\+\_\+insert\+\_\+inside\+\_\+order} (\hyperlink{structinside__order__queue}{inside\+\_\+queue\+\_\+t} $\ast$queue, floor\+\_\+codes\+\_\+t floor)
-\begin{DoxyCompactList}\small\item\em Insert an order into an inside queue for orders made inside the elevator. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Add an order for a floor to the back of an inside queue. Ignores orders already present and orders outside the floor range. \end{DoxyCompactList}\item 
 void \hyperlink{scheduler_8h_a7fc902a584b4324118bd9a6a1039c971}{scheduler\+\_\+delete\+\_\+inside\+\_\+order} (\hyperlink{structinside__order__queue}{inside\+\_\+queue\+\_\+t} $\ast$queue, floor\+\_\+codes\+\_\+t floor)
-\begin{DoxyCompactList}\small\item\em Delete an order from an inside queue for orders made inside the elevator. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Delete an order for a floor from an inside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range. \end{DoxyCompactList}\item 
 void \hyperlink{scheduler_8h_a5fc45e58536832d318435377fa3bd3e2}{scheduler\+\_\+display\+\_\+inside\+\_\+queue} (\hyperlink{structinside__order__queue}{inside\+\_\+queue\+\_\+t} $\ast$queue)
-\begin{DoxyCompactList}\small\item\em Prints an inside queue for orders made inside the elevator. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Prints an inside queue to the sqreen. \end{DoxyCompactList}\item 
 void \hyperlink{scheduler_8h_a0a5628c59ff448a29f3c44e329591bf9}{scheduler\+\_\+insert\+\_\+outside\+\_\+order} (\hyperlink{structoutside__order__queue}{outside\+\_\+queue\+\_\+t} $\ast$queue, floor\+\_\+codes\+\_\+t floor, elev\+\_\+motor\+\_\+direction\+\_\+t direction)
-\begin{DoxyCompactList}\small\item\em Insert an order into an outside queue for orders made outside of the elevator. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Add an order for a floor and a direction to the back of an outside queue. Ignores orders already present and orders outside the floor or direction range. \end{DoxyCompactList}\item 
 void \hyperlink{scheduler_8h_a893ecb3f677e664b942585482edee04c}{scheduler\+\_\+delete\+\_\+outside\+\_\+order} (\hyperlink{structoutside__order__queue}{outside\+\_\+queue\+\_\+t} $\ast$queue, floor\+\_\+codes\+\_\+t floor, elev\+\_\+motor\+\_\+direction\+\_\+t direction)
-\begin{DoxyCompactList}\small\item\em Delete an order in an outside queue for orders made outside of the elevator. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Delete an order for a floor and a direction from an outside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range. \end{DoxyCompactList}\item 
 void \hyperlink{scheduler_8h_abc0eaafc54d6666879332ed0f99096c6}{scheduler\+\_\+display\+\_\+outside\+\_\+queue} (\hyperlink{structoutside__order__queue}{outside\+\_\+queue\+\_\+t} $\ast$queue)
 \begin{DoxyCompactList}\small\item\em Prints an outside queue for orders made outside the elevator. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -89,7 +104,7 @@ A library for doing operations on queues.
 )}\hypertarget{scheduler_8h_a7fc902a584b4324118bd9a6a1039c971}{}\label{scheduler_8h_a7fc902a584b4324118bd9a6a1039c971}
 
 
-Delete an order from an inside queue for orders made inside the elevator. 
+Delete an order for a floor from an inside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -100,7 +115,7 @@ Delete an order from an inside queue for orders made inside the elevator.
 \end{DoxyParams}
 
 
-Definition at line 38 of file scheduler.\+c.
+Definition at line 43 of file scheduler.\+c.
 
 \index{scheduler.\+h@{scheduler.\+h}!scheduler\+\_\+delete\+\_\+outside\+\_\+order@{scheduler\+\_\+delete\+\_\+outside\+\_\+order}}
 \index{scheduler\+\_\+delete\+\_\+outside\+\_\+order@{scheduler\+\_\+delete\+\_\+outside\+\_\+order}!scheduler.\+h@{scheduler.\+h}}
@@ -113,7 +128,7 @@ Definition at line 38 of file scheduler.\+c.
 )}\hypertarget{scheduler_8h_a893ecb3f677e664b942585482edee04c}{}\label{scheduler_8h_a893ecb3f677e664b942585482edee04c}
 
 
-Delete an order in an outside queue for orders made outside of the elevator. 
+Delete an order for a floor and a direction from an outside queue. The queue is unchanged if the order is not found in the queue. Ignores orders already present and orders outside the floor range. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -126,7 +141,7 @@ Delete an order in an outside queue for orders made outside of the elevator.
 \end{DoxyParams}
 
 
-Definition at line 127 of file scheduler.\+c.
+Definition at line 152 of file scheduler.\+c.
 
 \index{scheduler.\+h@{scheduler.\+h}!scheduler\+\_\+display\+\_\+inside\+\_\+queue@{scheduler\+\_\+display\+\_\+inside\+\_\+queue}}
 \index{scheduler\+\_\+display\+\_\+inside\+\_\+queue@{scheduler\+\_\+display\+\_\+inside\+\_\+queue}!scheduler.\+h@{scheduler.\+h}}
@@ -137,7 +152,7 @@ Definition at line 127 of file scheduler.\+c.
 )}\hypertarget{scheduler_8h_a5fc45e58536832d318435377fa3bd3e2}{}\label{scheduler_8h_a5fc45e58536832d318435377fa3bd3e2}
 
 
-Prints an inside queue for orders made inside the elevator. 
+Prints an inside queue to the sqreen. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -146,7 +161,7 @@ Prints an inside queue for orders made inside the elevator.
 \end{DoxyParams}
 
 
-Definition at line 71 of file scheduler.\+c.
+Definition at line 87 of file scheduler.\+c.
 
 \index{scheduler.\+h@{scheduler.\+h}!scheduler\+\_\+display\+\_\+outside\+\_\+queue@{scheduler\+\_\+display\+\_\+outside\+\_\+queue}}
 \index{scheduler\+\_\+display\+\_\+outside\+\_\+queue@{scheduler\+\_\+display\+\_\+outside\+\_\+queue}!scheduler.\+h@{scheduler.\+h}}
@@ -166,7 +181,7 @@ Prints an outside queue for orders made outside the elevator.
 \end{DoxyParams}
 
 
-Definition at line 165 of file scheduler.\+c.
+Definition at line 203 of file scheduler.\+c.
 
 \index{scheduler.\+h@{scheduler.\+h}!scheduler\+\_\+insert\+\_\+inside\+\_\+order@{scheduler\+\_\+insert\+\_\+inside\+\_\+order}}
 \index{scheduler\+\_\+insert\+\_\+inside\+\_\+order@{scheduler\+\_\+insert\+\_\+inside\+\_\+order}!scheduler.\+h@{scheduler.\+h}}
@@ -178,7 +193,7 @@ Definition at line 165 of file scheduler.\+c.
 )}\hypertarget{scheduler_8h_ab5dfe0c4039ae459a9caca4e8274567c}{}\label{scheduler_8h_ab5dfe0c4039ae459a9caca4e8274567c}
 
 
-Insert an order into an inside queue for orders made inside the elevator. 
+Add an order for a floor to the back of an inside queue. Ignores orders already present and orders outside the floor range. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -189,7 +204,7 @@ Insert an order into an inside queue for orders made inside the elevator.
 \end{DoxyParams}
 
 
-Definition at line 16 of file scheduler.\+c.
+Definition at line 15 of file scheduler.\+c.
 
 \index{scheduler.\+h@{scheduler.\+h}!scheduler\+\_\+insert\+\_\+outside\+\_\+order@{scheduler\+\_\+insert\+\_\+outside\+\_\+order}}
 \index{scheduler\+\_\+insert\+\_\+outside\+\_\+order@{scheduler\+\_\+insert\+\_\+outside\+\_\+order}!scheduler.\+h@{scheduler.\+h}}
@@ -202,7 +217,7 @@ Definition at line 16 of file scheduler.\+c.
 )}\hypertarget{scheduler_8h_a0a5628c59ff448a29f3c44e329591bf9}{}\label{scheduler_8h_a0a5628c59ff448a29f3c44e329591bf9}
 
 
-Insert an order into an outside queue for orders made outside of the elevator. 
+Add an order for a floor and a direction to the back of an outside queue. Ignores orders already present and orders outside the floor or direction range. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -215,5 +230,5 @@ Insert an order into an outside queue for orders made outside of the elevator.
 \end{DoxyParams}
 
 
-Definition at line 91 of file scheduler.\+c.
+Definition at line 109 of file scheduler.\+c.
 

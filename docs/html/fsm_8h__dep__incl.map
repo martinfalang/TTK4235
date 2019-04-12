@@ -1,10 +1,4 @@
 <map id="source/fsm.h" name="source/fsm.h">
-<area shape="rect" id="node2" href="$exec_8h.html" title="A library for executing tasks for the elevator. " alt="" coords="247,80,351,107"/>
-<area shape="rect" id="node5" href="$order_8h.html" title="A library for adding and deleting orders in the queues and to fetch the queues themselves. " alt="" coords="251,229,357,256"/>
-<area shape="rect" id="node6" href="$fsm_8c_source.html" title="source/fsm.c" alt="" coords="471,304,569,331"/>
-<area shape="rect" id="node7" href="$main_8c_source.html" title="source/main.c" alt="" coords="343,304,447,331"/>
-<area shape="rect" id="node3" href="$exec_8c_source.html" title="source/exec.c" alt="" coords="5,304,109,331"/>
-<area shape="rect" id="node4" href="$scheduler_8h.html" title="A library for doing operations on queues. " alt="" coords="199,155,331,181"/>
-<area shape="rect" id="node9" href="$scheduler_8c_source.html" title="source/scheduler.c" alt="" coords="95,229,227,256"/>
-<area shape="rect" id="node8" href="$order_8c_source.html" title="source/order.c" alt="" coords="213,304,318,331"/>
+<area shape="rect" id="node2" href="$fsm_8c_source.html" title="source/fsm.c" alt="" coords="5,80,104,107"/>
+<area shape="rect" id="node3" href="$main_8c_source.html" title="source/main.c" alt="" coords="128,80,232,107"/>
 </map>

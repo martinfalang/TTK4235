@@ -5,11 +5,19 @@
 A state machine library.  
 
 
+{\ttfamily \#include \char`\"{}exec.\+h\char`\"{}}\\*
+Include dependency graph for fsm.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{fsm_8h__incl}
+\end{center}
+\end{figure}
 This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{fsm_8h__dep__incl}
+\includegraphics[width=250pt]{fsm_8h__dep__incl}
 \end{center}
 \end{figure}
 \subsection*{Data Structures}
@@ -20,13 +28,7 @@ struct \hyperlink{structtransition}{transition}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef enum floor\+\_\+codes {\bfseries floor\+\_\+codes\+\_\+t}\hypertarget{fsm_8h_a82d838a5a84d8a69efd629eccf20eb9c}{}\label{fsm_8h_a82d838a5a84d8a69efd629eccf20eb9c}
-
-\item 
 typedef enum state\+\_\+codes {\bfseries state\+\_\+codes\+\_\+t}\hypertarget{fsm_8h_a24468ac18da8c9095490b17865df4fdd}{}\label{fsm_8h_a24468ac18da8c9095490b17865df4fdd}
-
-\item 
-typedef enum return\+\_\+codes {\bfseries return\+\_\+codes\+\_\+t}\hypertarget{fsm_8h_a7e5229089fb5f6f8e34ff43399954f01}{}\label{fsm_8h_a7e5229089fb5f6f8e34ff43399954f01}
 
 \item 
 typedef struct \hyperlink{structtransition}{transition} {\bfseries transition\+\_\+t}\hypertarget{fsm_8h_a71f0b08ca21f15895e4dff5ea4d2a69e}{}\label{fsm_8h_a71f0b08ca21f15895e4dff5ea4d2a69e}
@@ -34,16 +36,6 @@ typedef struct \hyperlink{structtransition}{transition} {\bfseries transition\+\
 \end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
-\item 
-enum {\bfseries floor\+\_\+codes} \{ \\*
-{\bfseries floor\+\_\+1}, 
-{\bfseries floor\+\_\+2}, 
-{\bfseries floor\+\_\+3}, 
-{\bfseries floor\+\_\+4}, 
-\\*
-{\bfseries between\+\_\+floors} = -\/1
- \}\hypertarget{fsm_8h_a73e34722c2cb96c0a6a4451f7496d398}{}\label{fsm_8h_a73e34722c2cb96c0a6a4451f7496d398}
-
 \item 
 enum {\bfseries state\+\_\+codes} \{ \\*
 {\bfseries floor\+\_\+stationary}, 
@@ -56,36 +48,24 @@ enum {\bfseries state\+\_\+codes} \{ \\*
 {\bfseries end}
  \}\hypertarget{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}{}\label{fsm_8h_ab44f81e9f0b8e5687ca7a45c0301d751}
 
-\item 
-enum {\bfseries return\+\_\+codes} \{ \\*
-{\bfseries drive\+\_\+up}, 
-{\bfseries drive\+\_\+down}, 
-{\bfseries hold}, 
-{\bfseries stay}, 
-\\*
-{\bfseries idle}, 
-{\bfseries stop}, 
-{\bfseries fail}
- \}\hypertarget{fsm_8h_aaca7161d951febc512af343029761de1}{}\label{fsm_8h_aaca7161d951febc512af343029761de1}
-
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_acab6b1a742dfe51fcc78f99f24f6c4be}{fsm\+\_\+floor\+\_\+stationary\+\_\+state} (void)
-\begin{DoxyCompactList}\small\item\em Behaviour for the stationary state. Listen for orders and return a return code to use in the lookup\+\_\+transitions function. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Algorithm for the stationary state. Listen for orders and return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_ae67daff4b8088c370b9925d948a8f641}{fsm\+\_\+initialize\+\_\+state} (void)
-\begin{DoxyCompactList}\small\item\em Behaviour for the initialization state. Ignore all orders and move down until detects a floor, then stops and returns a return code to use in the lookup\+\_\+transitions function. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Algorithm for the initialization state. Ignore all orders and move down until detects a floor, then stops and returns a return code to use in the {\ttfamily lookup\+\_\+transitions} function. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_a6add83788caf3078462c94ce0d46fa92}{fsm\+\_\+driving\+\_\+up\+\_\+state} (void)
-\begin{DoxyCompactList}\small\item\em Behaviour for the driving\+\_\+up state. Listen for orders and stop button and return a return code to use in the lookup\+\_\+transitions function. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Algorithm for the driving up state. Listen for orders and stop button and return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_a88e991035ea2a1060d380cc2e4eb6f99}{fsm\+\_\+driving\+\_\+down\+\_\+state} (void)
-\begin{DoxyCompactList}\small\item\em Behaviour for the driving\+\_\+down state. Listen for orders and stop button and return a return code to use in the lookup\+\_\+transitions function. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Algorithm for the driving down state. Listen for orders and stop button and return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_a2ec996fa49f353c5a23a0e5c8cf43a1e}{fsm\+\_\+stop\+\_\+state} (void)
-\begin{DoxyCompactList}\small\item\em Behaviour fot the stop\+\_\+state. Delete all orders, ignore new orders and stay in stop state while order\+\_\+button is pressed. If stops on floor, keep door open while in this state. When stop button released, return a return code to use in the lookup\+\_\+transitions function. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Algorithm fot the stop state. Delete all orders, ignore new orders and stay in stop state while order\+\_\+button is pressed. If stops on floor, keep door open while in this state. When stop button released, return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}{fsm\+\_\+idle\+\_\+state} (void)
-\begin{DoxyCompactList}\small\item\em Behaviour for the idle\+\_\+state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. Return a suitable return code to use in the lookup\+\_\+transitions function. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Algorithm for the idle state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. Return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. \end{DoxyCompactList}\item 
 return\+\_\+codes\+\_\+t \hyperlink{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}{fsm\+\_\+end\+\_\+state} (void)
-\begin{DoxyCompactList}\small\item\em A fail state, used for debugging and to make the state machine finite. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em A fail state, used for debugging. \end{DoxyCompactList}\item 
 state\+\_\+codes\+\_\+t \hyperlink{fsm_8h_a384346766d6529bb78eac9dcae296ce6}{lookup\+\_\+transitions} (state\+\_\+codes\+\_\+t cur\+\_\+state, return\+\_\+codes\+\_\+t ret\+\_\+code)
 \begin{DoxyCompactList}\small\item\em Takes in the current state and a return code generated from the fsm function of that state. Searches through a {\ttfamily state\+\_\+transitions} array which contains all transition combinations and looks for the appropriate one to return a new state code. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
@@ -113,14 +93,14 @@ A state machine library.
 )}\hypertarget{fsm_8h_a88e991035ea2a1060d380cc2e4eb6f99}{}\label{fsm_8h_a88e991035ea2a1060d380cc2e4eb6f99}
 
 
-Behaviour for the driving\+\_\+down state. Listen for orders and stop button and return a return code to use in the lookup\+\_\+transitions function. 
+Algorithm for the driving down state. Listen for orders and stop button and return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. 
 
 \begin{DoxyReturn}{Returns}
-Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move the state machine into the best fitting state. 
+Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to find next state. 
 \end{DoxyReturn}
 
 
-Definition at line 181 of file fsm.\+c.
+Definition at line 189 of file fsm.\+c.
 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+driving\+\_\+up\+\_\+state@{fsm\+\_\+driving\+\_\+up\+\_\+state}}
 \index{fsm\+\_\+driving\+\_\+up\+\_\+state@{fsm\+\_\+driving\+\_\+up\+\_\+state}!fsm.\+h@{fsm.\+h}}
@@ -131,14 +111,14 @@ Definition at line 181 of file fsm.\+c.
 )}\hypertarget{fsm_8h_a6add83788caf3078462c94ce0d46fa92}{}\label{fsm_8h_a6add83788caf3078462c94ce0d46fa92}
 
 
-Behaviour for the driving\+\_\+up state. Listen for orders and stop button and return a return code to use in the lookup\+\_\+transitions function. 
+Algorithm for the driving up state. Listen for orders and stop button and return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. 
 
 \begin{DoxyReturn}{Returns}
-Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move the state machine into the best fitting state 
+Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to find next state. 
 \end{DoxyReturn}
 
 
-Definition at line 142 of file fsm.\+c.
+Definition at line 150 of file fsm.\+c.
 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+end\+\_\+state@{fsm\+\_\+end\+\_\+state}}
 \index{fsm\+\_\+end\+\_\+state@{fsm\+\_\+end\+\_\+state}!fsm.\+h@{fsm.\+h}}
@@ -149,17 +129,17 @@ Definition at line 142 of file fsm.\+c.
 )}\hypertarget{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}{}\label{fsm_8h_a4c5d9f64350a9372bdbc476cf735b716}
 
 
-A fail state, used for debugging and to make the state machine finite. 
+A fail state, used for debugging. 
 
 \begin{DoxyReturn}{Returns}
-Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to stay in end\+\_\+state.
+Program exitis before any return occurs.
 \end{DoxyReturn}
 \begin{DoxyWarning}{Warning}
 Elevator should not reach this state, and can not leave it. If it is reached, the program exits with error code {\ttfamily 1}. 
 \end{DoxyWarning}
 
 
-Definition at line 279 of file fsm.\+c.
+Definition at line 303 of file fsm.\+c.
 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+floor\+\_\+stationary\+\_\+state@{fsm\+\_\+floor\+\_\+stationary\+\_\+state}}
 \index{fsm\+\_\+floor\+\_\+stationary\+\_\+state@{fsm\+\_\+floor\+\_\+stationary\+\_\+state}!fsm.\+h@{fsm.\+h}}
@@ -170,14 +150,14 @@ Definition at line 279 of file fsm.\+c.
 )}\hypertarget{fsm_8h_acab6b1a742dfe51fcc78f99f24f6c4be}{}\label{fsm_8h_acab6b1a742dfe51fcc78f99f24f6c4be}
 
 
-Behaviour for the stationary state. Listen for orders and return a return code to use in the lookup\+\_\+transitions function. 
+Algorithm for the stationary state. Listen for orders and return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. 
 
 \begin{DoxyReturn}{Returns}
-Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move the state machine into the best fitting state. 
+Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to find next state. 
 \end{DoxyReturn}
 
 
-Definition at line 96 of file fsm.\+c.
+Definition at line 95 of file fsm.\+c.
 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+idle\+\_\+state@{fsm\+\_\+idle\+\_\+state}}
 \index{fsm\+\_\+idle\+\_\+state@{fsm\+\_\+idle\+\_\+state}!fsm.\+h@{fsm.\+h}}
@@ -188,14 +168,14 @@ Definition at line 96 of file fsm.\+c.
 )}\hypertarget{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}{}\label{fsm_8h_aa88c9061cdcde2d7eb26b564bd8576f7}
 
 
-Behaviour for the idle\+\_\+state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. Return a suitable return code to use in the lookup\+\_\+transitions function. 
+Algorithm for the idle state. Listen for orders and stop button and update queues if necessary. Stay idle until at least one order is recieved. Return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. 
 
 \begin{DoxyReturn}{Returns}
-Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to stay in idle if no orders, return code stop if stop button pressed and to either driving up or driving down if any orders in any queue. 
+Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to find next state. 
 \end{DoxyReturn}
 
 
-Definition at line 260 of file fsm.\+c.
+Definition at line 279 of file fsm.\+c.
 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+initialize\+\_\+state@{fsm\+\_\+initialize\+\_\+state}}
 \index{fsm\+\_\+initialize\+\_\+state@{fsm\+\_\+initialize\+\_\+state}!fsm.\+h@{fsm.\+h}}
@@ -206,14 +186,14 @@ Definition at line 260 of file fsm.\+c.
 )}\hypertarget{fsm_8h_ae67daff4b8088c370b9925d948a8f641}{}\label{fsm_8h_ae67daff4b8088c370b9925d948a8f641}
 
 
-Behaviour for the initialization state. Ignore all orders and move down until detects a floor, then stops and returns a return code to use in the lookup\+\_\+transitions function. 
+Algorithm for the initialization state. Ignore all orders and move down until detects a floor, then stops and returns a return code to use in the {\ttfamily lookup\+\_\+transitions} function. 
 
 \begin{DoxyReturn}{Returns}
-Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to the floor stationary state. 
+Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to find next state. 
 \end{DoxyReturn}
 
 
-Definition at line 79 of file fsm.\+c.
+Definition at line 75 of file fsm.\+c.
 
 \index{fsm.\+h@{fsm.\+h}!fsm\+\_\+stop\+\_\+state@{fsm\+\_\+stop\+\_\+state}}
 \index{fsm\+\_\+stop\+\_\+state@{fsm\+\_\+stop\+\_\+state}!fsm.\+h@{fsm.\+h}}
@@ -224,14 +204,14 @@ Definition at line 79 of file fsm.\+c.
 )}\hypertarget{fsm_8h_a2ec996fa49f353c5a23a0e5c8cf43a1e}{}\label{fsm_8h_a2ec996fa49f353c5a23a0e5c8cf43a1e}
 
 
-Behaviour fot the stop\+\_\+state. Delete all orders, ignore new orders and stay in stop state while order\+\_\+button is pressed. If stops on floor, keep door open while in this state. When stop button released, return a return code to use in the lookup\+\_\+transitions function. 
+Algorithm fot the stop state. Delete all orders, ignore new orders and stay in stop state while order\+\_\+button is pressed. If stops on floor, keep door open while in this state. When stop button released, return a return code to use in the {\ttfamily lookup\+\_\+transitions} function. 
 
 \begin{DoxyReturn}{Returns}
-Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to move state machine into either the floor\+\_\+stationary state or the idle state. 
+Return code of type {\ttfamily return\+\_\+codes\+\_\+t} to find next state. 
 \end{DoxyReturn}
 
 
-Definition at line 220 of file fsm.\+c.
+Definition at line 228 of file fsm.\+c.
 
 \index{fsm.\+h@{fsm.\+h}!lookup\+\_\+transitions@{lookup\+\_\+transitions}}
 \index{lookup\+\_\+transitions@{lookup\+\_\+transitions}!fsm.\+h@{fsm.\+h}}
@@ -253,11 +233,11 @@ Takes in the current state and a return code generated from the fsm function of 
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Program exitis before any return occurs. 
+Return state code for the next state. 
 \end{DoxyReturn}
 
 
-Definition at line 66 of file fsm.\+c.
+Definition at line 61 of file fsm.\+c.
 
 
 
@@ -270,5 +250,5 @@ Must be in sync with {\ttfamily state\+\_\+codes\+\_\+t}
 \end{DoxyWarning}
 
 
-Definition at line 19 of file fsm.\+c.
+Definition at line 16 of file fsm.\+c.
 

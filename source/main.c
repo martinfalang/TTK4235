@@ -54,7 +54,7 @@
  * The order handler serves as a link between the execution 
  * handler and the scheduler and does most of the ordering tasks, 
  * specific to this elevator such as removing all orders at 
- * all floor, etc. The reasoning for this is to get another 
+ * all floor. The reasoning for this is to get another 
  * level of abstraction in the queue system. The implementation 
  * of the order handler can be found in the order.c file.
 */
@@ -63,36 +63,49 @@
 // Includes
 ///////////////////////////////////////////////
 
-#include "elev.h"
 #include <stdio.h>
 #include "fsm.h"
-#include "order.h"
-#include "exec.h"
 
 ///////////////////////////////////////////////
 // Main function
 ///////////////////////////////////////////////
 
-int main() {
+int main()
+{
     // Initialize hardware
-    if (!elev_init()) {
+    if (!elev_init())
+    {
         printf("Unable to initialize elevator hardware!\n");
         return 1;
     }
     elev_set_motor_direction(DIRN_STOP);
 
+    // Set the starting state to initialize
     state_codes_t current_state = initialize;
     return_codes_t rc;
-    return_codes_t (* state_func)(void);
+
+    // Make a function pointer
+    return_codes_t (*state_func)(void);
+
+    // Set the pointer to the function at place current_state in the state
+    // function table.
     state_func = state[current_state];
+
+    // Run the function an get a return code
     rc = state_func();
 
     printf("Elevator now running\n");
 
-    while (1) {
-        current_state = lookup_transitions(current_state,rc);
-    	state_func = state[current_state];
-    	rc = state_func();
+    while (1)
+    {
+        // Update current_state based on its return code
+        current_state = lookup_transitions(current_state, rc);
+
+        // Point to new state function
+        state_func = state[current_state];
+
+        //Run state function to generate new return code
+        rc = state_func();
     }
 
     return 0;

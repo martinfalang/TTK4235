@@ -91,20 +91,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>A library for adding and deleting orders in the queues and to fetch the queues themselves.  
+<p>A library for order and queue tasks specific to this elevator.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="scheduler_8h_source.html">scheduler.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="fsm_8h_source.html">fsm.h</a>&quot;</code><br />
-<code>#include &quot;elev.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for order.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="order_8h__incl.png" border="0" usemap="#source_2order_8h" alt=""/></div>
 <map name="source_2order_8h" id="source_2order_8h">
-<area shape="rect" id="node2" href="scheduler_8h.html" title="A library for doing operations on queues. " alt="" coords="43,80,132,107"/>
-<area shape="rect" id="node4" href="fsm_8h.html" title="A state machine library. " alt="" coords="5,229,60,256"/>
-<area shape="rect" id="node5" href="elev_8h_source.html" title="elev.h" alt="" coords="112,229,169,256"/>
-<area shape="rect" id="node3" href="exec_8h.html" title="A library for executing tasks for the elevator. " alt="" coords="42,155,103,181"/>
+<area shape="rect" id="node2" href="scheduler_8h.html" title="A library for doing operations on queues. " alt="" coords="13,80,103,107"/>
+<area shape="rect" id="node3" href="elev_8h_source.html" title="elev.h" alt="" coords="29,155,87,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -112,10 +108,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="order_8h__dep__incl.png" border="0" usemap="#source_2order_8hdep" alt=""/></div>
 <map name="source_2order_8hdep" id="source_2order_8hdep">
-<area shape="rect" id="node2" href="exec_8c_source.html" title="source/exec.c" alt="" coords="5,80,109,107"/>
-<area shape="rect" id="node3" href="fsm_8c_source.html" title="source/fsm.c" alt="" coords="133,80,232,107"/>
-<area shape="rect" id="node4" href="main_8c_source.html" title="source/main.c" alt="" coords="256,80,360,107"/>
-<area shape="rect" id="node5" href="order_8c_source.html" title="source/order.c" alt="" coords="385,80,490,107"/>
+<area shape="rect" id="node2" href="exec_8h.html" title="A library for executing tasks for the elevator. " alt="" coords="68,80,172,107"/>
+<area shape="rect" id="node7" href="order_8c_source.html" title="source/order.c" alt="" coords="197,80,302,107"/>
+<area shape="rect" id="node3" href="exec_8c_source.html" title="source/exec.c" alt="" coords="5,155,109,181"/>
+<area shape="rect" id="node4" href="fsm_8h.html" title="A state machine library. " alt="" coords="133,155,232,181"/>
+<area shape="rect" id="node5" href="fsm_8c_source.html" title="source/fsm.c" alt="" coords="71,229,169,256"/>
+<area shape="rect" id="node6" href="main_8c_source.html" title="source/main.c" alt="" coords="193,229,297,256"/>
 </map>
 </div>
 </div>
@@ -123,29 +121,29 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a211c9e4b31501cbeb31532f649a33b60"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a211c9e4b31501cbeb31532f649a33b60"></a>
-<a class="el" href="structinside__order__queue.html">inside_queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>order_get_inside_queue</b> (void)</td></tr>
+<tr class="memitem:a211c9e4b31501cbeb31532f649a33b60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structinside__order__queue.html">inside_queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#a211c9e4b31501cbeb31532f649a33b60">order_get_inside_queue</a> (void)</td></tr>
+<tr class="memdesc:a211c9e4b31501cbeb31532f649a33b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch the inside queue.  <a href="#a211c9e4b31501cbeb31532f649a33b60">More...</a><br /></td></tr>
 <tr class="separator:a211c9e4b31501cbeb31532f649a33b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac44243f8b378f08f2a9512bba4f75807"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac44243f8b378f08f2a9512bba4f75807"></a>
-<a class="el" href="structoutside__order__queue.html">outside_queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>order_get_outside_queue</b> (void)</td></tr>
+<tr class="memitem:ac44243f8b378f08f2a9512bba4f75807"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structoutside__order__queue.html">outside_queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#ac44243f8b378f08f2a9512bba4f75807">order_get_outside_queue</a> (void)</td></tr>
+<tr class="memdesc:ac44243f8b378f08f2a9512bba4f75807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch the outside queue.  <a href="#ac44243f8b378f08f2a9512bba4f75807">More...</a><br /></td></tr>
 <tr class="separator:ac44243f8b378f08f2a9512bba4f75807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fa2ab20cc3a0f2083a49ca7aada6677"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#a6fa2ab20cc3a0f2083a49ca7aada6677">order_add_order_to_queue</a> (floor_codes_t floor, elev_motor_direction_t direction)</td></tr>
-<tr class="memdesc:a6fa2ab20cc3a0f2083a49ca7aada6677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add order to a queue.  <a href="#a6fa2ab20cc3a0f2083a49ca7aada6677">More...</a><br /></td></tr>
+<tr class="memdesc:a6fa2ab20cc3a0f2083a49ca7aada6677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an order to a queue. Parameter <code>direction</code> specifies if the order is for the inside or outside queue. <code>DIRN_STOP</code> specifies an inside order.  <a href="#a6fa2ab20cc3a0f2083a49ca7aada6677">More...</a><br /></td></tr>
 <tr class="separator:a6fa2ab20cc3a0f2083a49ca7aada6677"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07b76875e3c2e8f1a8d7884db2a8f91f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#a07b76875e3c2e8f1a8d7884db2a8f91f">order_remove_all_orders_at_floor</a> (floor_codes_t floor)</td></tr>
-<tr class="memdesc:a07b76875e3c2e8f1a8d7884db2a8f91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all orders on a given floor from the queues.  <a href="#a07b76875e3c2e8f1a8d7884db2a8f91f">More...</a><br /></td></tr>
+<tr class="memdesc:a07b76875e3c2e8f1a8d7884db2a8f91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all orders on a given floor from both inside and outside queue.  <a href="#a07b76875e3c2e8f1a8d7884db2a8f91f">More...</a><br /></td></tr>
 <tr class="separator:a07b76875e3c2e8f1a8d7884db2a8f91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a924d88629bd3a222aed6c74b5f370169"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a924d88629bd3a222aed6c74b5f370169"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#a924d88629bd3a222aed6c74b5f370169">order_remove_all_orders</a> ()</td></tr>
-<tr class="memdesc:a924d88629bd3a222aed6c74b5f370169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all orders on all floors from the queues. <br /></td></tr>
-<tr class="separator:a924d88629bd3a222aed6c74b5f370169"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bcc1525f84c72fff33601b0a367f39a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bcc1525f84c72fff33601b0a367f39a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#a4bcc1525f84c72fff33601b0a367f39a">order_print_orders</a> ()</td></tr>
-<tr class="memdesc:a4bcc1525f84c72fff33601b0a367f39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print both queues in a nice and readable format. <br /></td></tr>
-<tr class="separator:a4bcc1525f84c72fff33601b0a367f39a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ddbf2fa4991132cfdb9715297f2dc8d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ddbf2fa4991132cfdb9715297f2dc8d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#a7ddbf2fa4991132cfdb9715297f2dc8d">order_remove_all_orders</a> (void)</td></tr>
+<tr class="memdesc:a7ddbf2fa4991132cfdb9715297f2dc8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all orders on all floors from both inside and outside queue. <br /></td></tr>
+<tr class="separator:a7ddbf2fa4991132cfdb9715297f2dc8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4afc697ee951db46a6a12e8c900f631"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae4afc697ee951db46a6a12e8c900f631"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="order_8h.html#ae4afc697ee951db46a6a12e8c900f631">order_print_orders</a> (void)</td></tr>
+<tr class="memdesc:ae4afc697ee951db46a6a12e8c900f631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print both inside and outside queue in a nice and readable format. <br /></td></tr>
+<tr class="separator:ae4afc697ee951db46a6a12e8c900f631"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A library for adding and deleting orders in the queues and to fetch the queues themselves. </p>
+<div class="textblock"><p>A library for order and queue tasks specific to this elevator. </p>
 
 <p>Definition in file <a class="el" href="order_8h_source.html">order.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -173,7 +171,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orde
       </table>
 </div><div class="memdoc">
 
-<p>Add order to a queue. </p>
+<p>Add an order to a queue. Parameter <code>direction</code> specifies if the order is for the inside or outside queue. <code>DIRN_STOP</code> specifies an inside order. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">floor</td><td>Floor Code </td></tr>
@@ -183,7 +181,49 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orde
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if order was successfully added to one of the queues, -1 if not. </dd></dl>
 
-<p>Definition at line <a class="el" href="order_8c_source.html#l00026">26</a> of file <a class="el" href="order_8c_source.html">order.c</a>.</p>
+<p>Definition at line <a class="el" href="order_8c_source.html#l00029">29</a> of file <a class="el" href="order_8c_source.html">order.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a211c9e4b31501cbeb31532f649a33b60"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structinside__order__queue.html">inside_queue_t</a>* order_get_inside_queue </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch the inside queue. </p>
+<dl class="section return"><dt>Returns</dt><dd>Return pointer to inside queue. </dd></dl>
+
+<p>Definition at line <a class="el" href="order_8c_source.html#l00019">19</a> of file <a class="el" href="order_8c_source.html">order.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac44243f8b378f08f2a9512bba4f75807"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structoutside__order__queue.html">outside_queue_t</a>* order_get_outside_queue </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch the outside queue. </p>
+<dl class="section return"><dt>Returns</dt><dd>Return pointer to outside queue. </dd></dl>
+
+<p>Definition at line <a class="el" href="order_8c_source.html#l00024">24</a> of file <a class="el" href="order_8c_source.html">order.c</a>.</p>
 
 </div>
 </div>
@@ -201,7 +241,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orde
       </table>
 </div><div class="memdoc">
 
-<p>Remove all orders on a given floor from the queues. </p>
+<p>Remove all orders on a given floor from both inside and outside queue. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">floor</td><td>The floor to delete all orders from </td></tr>
@@ -209,7 +249,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="orde
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="order_8c_source.html#l00041">41</a> of file <a class="el" href="order_8c_source.html">order.c</a>.</p>
+<p>Definition at line <a class="el" href="order_8c_source.html#l00048">48</a> of file <a class="el" href="order_8c_source.html">order.c</a>.</p>
 
 </div>
 </div>

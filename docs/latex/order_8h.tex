@@ -2,49 +2,45 @@
 \label{order_8h}\index{source/order.\+h@{source/order.\+h}}
 
 
-A library for adding and deleting orders in the queues and to fetch the queues themselves.  
+A library for order and queue tasks specific to this elevator.  
 
 
 {\ttfamily \#include \char`\"{}scheduler.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}fsm.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}elev.\+h\char`\"{}}\\*
 Include dependency graph for order.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=203pt]{order_8h__incl}
+\includegraphics[width=159pt]{order_8h__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{order_8h__dep__incl}
+\includegraphics[width=303pt]{order_8h__dep__incl}
 \end{center}
 \end{figure}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{structinside__order__queue}{inside\+\_\+queue\+\_\+t} $\ast$ {\bfseries order\+\_\+get\+\_\+inside\+\_\+queue} (void)\hypertarget{order_8h_a211c9e4b31501cbeb31532f649a33b60}{}\label{order_8h_a211c9e4b31501cbeb31532f649a33b60}
-
-\item 
-\hyperlink{structoutside__order__queue}{outside\+\_\+queue\+\_\+t} $\ast$ {\bfseries order\+\_\+get\+\_\+outside\+\_\+queue} (void)\hypertarget{order_8h_ac44243f8b378f08f2a9512bba4f75807}{}\label{order_8h_ac44243f8b378f08f2a9512bba4f75807}
-
-\item 
+\hyperlink{structinside__order__queue}{inside\+\_\+queue\+\_\+t} $\ast$ \hyperlink{order_8h_a211c9e4b31501cbeb31532f649a33b60}{order\+\_\+get\+\_\+inside\+\_\+queue} (void)
+\begin{DoxyCompactList}\small\item\em Fetch the inside queue. \end{DoxyCompactList}\item 
+\hyperlink{structoutside__order__queue}{outside\+\_\+queue\+\_\+t} $\ast$ \hyperlink{order_8h_ac44243f8b378f08f2a9512bba4f75807}{order\+\_\+get\+\_\+outside\+\_\+queue} (void)
+\begin{DoxyCompactList}\small\item\em Fetch the outside queue. \end{DoxyCompactList}\item 
 int \hyperlink{order_8h_a6fa2ab20cc3a0f2083a49ca7aada6677}{order\+\_\+add\+\_\+order\+\_\+to\+\_\+queue} (floor\+\_\+codes\+\_\+t floor, elev\+\_\+motor\+\_\+direction\+\_\+t direction)
-\begin{DoxyCompactList}\small\item\em Add order to a queue. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Add an order to a queue. Parameter {\ttfamily direction} specifies if the order is for the inside or outside queue. {\ttfamily D\+I\+R\+N\+\_\+\+S\+T\+OP} specifies an inside order. \end{DoxyCompactList}\item 
 void \hyperlink{order_8h_a07b76875e3c2e8f1a8d7884db2a8f91f}{order\+\_\+remove\+\_\+all\+\_\+orders\+\_\+at\+\_\+floor} (floor\+\_\+codes\+\_\+t floor)
-\begin{DoxyCompactList}\small\item\em Remove all orders on a given floor from the queues. \end{DoxyCompactList}\item 
-void \hyperlink{order_8h_a924d88629bd3a222aed6c74b5f370169}{order\+\_\+remove\+\_\+all\+\_\+orders} ()\hypertarget{order_8h_a924d88629bd3a222aed6c74b5f370169}{}\label{order_8h_a924d88629bd3a222aed6c74b5f370169}
+\begin{DoxyCompactList}\small\item\em Remove all orders on a given floor from both inside and outside queue. \end{DoxyCompactList}\item 
+void \hyperlink{order_8h_a7ddbf2fa4991132cfdb9715297f2dc8d}{order\+\_\+remove\+\_\+all\+\_\+orders} (void)\hypertarget{order_8h_a7ddbf2fa4991132cfdb9715297f2dc8d}{}\label{order_8h_a7ddbf2fa4991132cfdb9715297f2dc8d}
 
-\begin{DoxyCompactList}\small\item\em Remove all orders on all floors from the queues. \end{DoxyCompactList}\item 
-void \hyperlink{order_8h_a4bcc1525f84c72fff33601b0a367f39a}{order\+\_\+print\+\_\+orders} ()\hypertarget{order_8h_a4bcc1525f84c72fff33601b0a367f39a}{}\label{order_8h_a4bcc1525f84c72fff33601b0a367f39a}
+\begin{DoxyCompactList}\small\item\em Remove all orders on all floors from both inside and outside queue. \end{DoxyCompactList}\item 
+void \hyperlink{order_8h_ae4afc697ee951db46a6a12e8c900f631}{order\+\_\+print\+\_\+orders} (void)\hypertarget{order_8h_ae4afc697ee951db46a6a12e8c900f631}{}\label{order_8h_ae4afc697ee951db46a6a12e8c900f631}
 
-\begin{DoxyCompactList}\small\item\em Print both queues in a nice and readable format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Print both inside and outside queue in a nice and readable format. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-A library for adding and deleting orders in the queues and to fetch the queues themselves. 
+A library for order and queue tasks specific to this elevator. 
 
 
 
@@ -59,7 +55,7 @@ A library for adding and deleting orders in the queues and to fetch the queues t
 )}\hypertarget{order_8h_a6fa2ab20cc3a0f2083a49ca7aada6677}{}\label{order_8h_a6fa2ab20cc3a0f2083a49ca7aada6677}
 
 
-Add order to a queue. 
+Add an order to a queue. Parameter {\ttfamily direction} specifies if the order is for the inside or outside queue. {\ttfamily D\+I\+R\+N\+\_\+\+S\+T\+OP} specifies an inside order. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -73,7 +69,43 @@ Add order to a queue.
 \end{DoxyReturn}
 
 
-Definition at line 26 of file order.\+c.
+Definition at line 29 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!order\+\_\+get\+\_\+inside\+\_\+queue@{order\+\_\+get\+\_\+inside\+\_\+queue}}
+\index{order\+\_\+get\+\_\+inside\+\_\+queue@{order\+\_\+get\+\_\+inside\+\_\+queue}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{order\+\_\+get\+\_\+inside\+\_\+queue(void)}{order_get_inside_queue(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf inside\+\_\+queue\+\_\+t}$\ast$ order\+\_\+get\+\_\+inside\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_a211c9e4b31501cbeb31532f649a33b60}{}\label{order_8h_a211c9e4b31501cbeb31532f649a33b60}
+
+
+Fetch the inside queue. 
+
+\begin{DoxyReturn}{Returns}
+Return pointer to inside queue. 
+\end{DoxyReturn}
+
+
+Definition at line 19 of file order.\+c.
+
+\index{order.\+h@{order.\+h}!order\+\_\+get\+\_\+outside\+\_\+queue@{order\+\_\+get\+\_\+outside\+\_\+queue}}
+\index{order\+\_\+get\+\_\+outside\+\_\+queue@{order\+\_\+get\+\_\+outside\+\_\+queue}!order.\+h@{order.\+h}}
+\subsubsection[{\texorpdfstring{order\+\_\+get\+\_\+outside\+\_\+queue(void)}{order_get_outside_queue(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf outside\+\_\+queue\+\_\+t}$\ast$ order\+\_\+get\+\_\+outside\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{order_8h_ac44243f8b378f08f2a9512bba4f75807}{}\label{order_8h_ac44243f8b378f08f2a9512bba4f75807}
+
+
+Fetch the outside queue. 
+
+\begin{DoxyReturn}{Returns}
+Return pointer to outside queue. 
+\end{DoxyReturn}
+
+
+Definition at line 24 of file order.\+c.
 
 \index{order.\+h@{order.\+h}!order\+\_\+remove\+\_\+all\+\_\+orders\+\_\+at\+\_\+floor@{order\+\_\+remove\+\_\+all\+\_\+orders\+\_\+at\+\_\+floor}}
 \index{order\+\_\+remove\+\_\+all\+\_\+orders\+\_\+at\+\_\+floor@{order\+\_\+remove\+\_\+all\+\_\+orders\+\_\+at\+\_\+floor}!order.\+h@{order.\+h}}
@@ -84,7 +116,7 @@ Definition at line 26 of file order.\+c.
 )}\hypertarget{order_8h_a07b76875e3c2e8f1a8d7884db2a8f91f}{}\label{order_8h_a07b76875e3c2e8f1a8d7884db2a8f91f}
 
 
-Remove all orders on a given floor from the queues. 
+Remove all orders on a given floor from both inside and outside queue. 
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -93,5 +125,5 @@ Remove all orders on a given floor from the queues.
 \end{DoxyParams}
 
 
-Definition at line 41 of file order.\+c.
+Definition at line 48 of file order.\+c.
 
